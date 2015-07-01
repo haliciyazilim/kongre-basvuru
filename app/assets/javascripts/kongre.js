@@ -1,5 +1,5 @@
 var kongreApp = angular.module('kongreApp',[]);
-kongreApp.controller('registerFormController', function (
+kongreApp.controller('registerFormController', ['$scope','$http',function (
   $scope,
   $http
 ) {
@@ -45,4 +45,4 @@ kongreApp.controller('registerFormController', function (
       })
 
   }
-})
+}]);
