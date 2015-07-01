@@ -1,0 +1,47 @@
+%a.btn.btn-link{href:'/admin'}
+  <- Ana sayfa
+%h2
+  = "#{@applicant.name} #{@applicant.surname}"
+.row
+  .col-lg-6
+    %table.table
+      %tr
+        %th Başvuran Tipi
+        %td
+          = applicant_type @applicant
+      %tr
+        %th E-mail
+        %td
+          = @applicant.email
+      %tr
+        %th Tckn
+        %td
+          = @applicant.tckn
+      %tr
+        %th Dogum Tarihi
+        %td
+          = @applicant.birthday
+      %tr
+        %th Telefon
+        %td
+          = @applicant.phone
+      %tr
+        %th Çalıştığı Kurum / Kuruluş
+        %td
+          = @applicant.organization
+      %tr
+        %th Meslek
+        %td
+          = @applicant.occupation
+      %tr
+        %th Adres
+        %td
+          = @applicant.address
+      %tr
+        %th Şehir
+        %td
+          = @applicant.city
+      %tr
+        %th Üstün zeka ile bağı
+        %td
+          = relation_to_high_intelligence @applicant

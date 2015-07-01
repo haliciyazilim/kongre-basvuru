@@ -1,0 +1,559 @@
+<section id="form" ng-controller="registerFormController">
+  <div class="container">
+    <!--STEP 1 Start -->
+    <div class="row">
+      <div class="col-xs-12">
+        <h1 ng-show="applicant == null">KONGRE 2015 BAŞVURU FORMU</h1>
+        <h1 ng-show="applicant == attendee">KONGRE 2015 KATILIMCI BAŞVURU FORMU</h1>
+        <h1 ng-show="applicant == presenter">KONGRE 2015 SUNUM BAŞVURU FORMU</h1>
+      </div>
+    </div>
+    <div ng-if="showApplicationTypeButtons" class="row margin-bottom">
+      <div class="col-xs-12 col-sm-6">
+        <button ng-click="applyAs(attendee)" class="btn btn-warning btn-lg btn-block">KATILIMCI Başvurusu</button>
+      </div>
+      <div class="col-xs-12 col-sm-6">
+        <button ng-click="applyAs(presenter)" class="btn btn-danger btn-lg btn-block">SUNUM Başvurusu</button>
+      </div>
+    </div>
+    <!-- ROW -->
+    <!--STEP 1 End -->
+    <!--STEP 2 Start -->
+    <div ng-if="showAttendeeWarning" class="row">
+      <div class="col-xs-12">
+        <p class="alert alert-info text-center">
+          KATILIMCI Kayıtları çıkmaz ayın son çarşambası olacaktır
+        </p>
+      </div>
+    </div>
+
+    <div ng-hide="true" class="row">
+      <div class="col-xs-12">
+        <p class="alert alert-info">Formu lütfen eksiksiz olarak doldurunuz. Tüm alanları doldurmak zorunludur.</p>
+      </div>
+    </div>
+    <!-- ROW -->
+    <div ng-if="showPersonalInfoForm" class="panel panel-warning"><!--sunum basvurusu için class="panel panel-danger" -->
+      <div class="panel-heading">
+        <h3 class="panel-title">Kişisel Bilgilerinizi Giriniz</h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-xs-12 col-sm-6">
+            <div class="form-group">
+              <label for="firstName">Adı</label>
+              <input ng-model="form.name" type="text" class="form-control" id="firstName" placeholder="Adı">
+            </div>
+          </div>
+          <!-- COL 6-->
+          <div class="col-xs-12 col-sm-6">
+            <div class="form-group">
+              <label for="lastName">Soyadı</label>
+              <input ng-model="form.surname" type="text" class="form-control" id="lastName" placeholder="Soyadı">
+            </div>
+          </div>
+          <!-- COL 6-->
+          <div class="col-xs-12 col-sm-6">
+            <div class="form-group">
+              <label for="email">e-Posta Adresi</label>
+              <input ng-model="form.email" type="email" class="form-control" id="email" placeholder="e-Posta Adresi">
+            </div>
+          </div>
+          <!-- COL 6-->
+          <div class="col-xs-12 col-sm-6">
+            <div class="form-group">
+              <label for="tckNo">T.C. Kimlik Numarası</label>
+              <input ng-model="form.tckn" type="text" class="form-control" id="tckNo" placeholder="T.C. Kimlik Numarası">
+            </div>
+          </div>
+          <!-- COL 6-->
+          <div class="col-xs-12 col-sm-6">
+            <div class="form-group">
+              <label for="dofBirth">Doğum Tarihi</label>
+              <div class="input-group date">
+                <input ng-model="form.birthday" type="text" class="form-control" id="dofBirth" placeholder="Doğum Tarihini Seçiniz"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+              </div>
+            </div>
+          </div>
+          <!-- COL 6-->
+          <div class="col-xs-12 col-sm-6">
+            <div class="form-group">
+              <label for="telephone">Telefon Numarası</label>
+              <input ng-model="form.phone" type="text" class="form-control" id="telephone" placeholder="Telefon Numarası">
+            </div>
+          </div>
+          <!-- COL 6-->
+          <div class="col-xs-12 col-sm-6">
+            <div class="form-group">
+              <label for="company">Çalıştığı Kurum / Kuruluş</label>
+              <input ng-model="form.organization" type="text" class="form-control" id="company" placeholder="Çalıştığı Kurum / Kuruluş">
+            </div>
+          </div>
+          <!-- COL 6-->
+          <div class="col-xs-12 col-sm-6">
+            <div class="form-group">
+              <label for="brans">Mesleğiniz / Branşınız</label>
+              <input ng-model="form.occupation" type="text" class="form-control" id="brans" placeholder="Mesleğiniz / Branşınız">
+            </div>
+          </div>
+          <!-- COL 6-->
+          <div class="col-xs-12 col-sm-6">
+            <div class="form-group">
+              <label for="postalAddress">Posta Adresi</label>
+              <textarea ng-model="form.address" class="form-control" id="postalAddress" placeholder="Posta Adresi"></textarea>
+            </div>
+          </div>
+          <!-- COL 6-->
+          <div class="col-xs-12 col-sm-6">
+            <div class="form-group">
+              <label for="postalAddress">Şehir Seçiniz</label>
+              <select ng-model="form.city" name="sehir" id="sehir" aria-label="Şehir" aria-required="true" class="form-control">
+                <option value="seciniz">Şehir Seçiniz</option>
+                <option value="Adana">Adana</option>
+                <option value="Adıyaman">Adıyaman</option>
+                <option value="Afyonkarahisar">Afyonkarahisar</option>
+                <option value="Ağrı">Ağrı</option>
+                <option value="Amasya">Amasya</option>
+                <option value="Ankara">Ankara</option>
+                <option value="Antalya">Antalya</option>
+                <option value="Artvin">Artvin</option>
+                <option value="Aydın">Aydın</option>
+                <option value="Balıkesir">Balıkesir</option>
+                <option value="Bilecik">Bilecik</option>
+                <option value="Bingöl">Bingöl</option>
+                <option value="Bitlis">Bitlis</option>
+                <option value="Bolu">Bolu</option>
+                <option value="Burdur">Burdur</option>
+                <option value="Bursa">Bursa</option>
+                <option value="Çanakkale">Çanakkale</option>
+                <option value="Çankırı">Çankırı</option>
+                <option value="Çorum">Çorum</option>
+                <option value="Denizli">Denizli</option>
+                <option value="Diyarbakır">Diyarbakır</option>
+                <option value="Edirne">Edirne</option>
+                <option value="Elazığ">Elazığ</option>
+                <option value="Erzincan">Erzincan</option>
+                <option value="Erzurum">Erzurum</option>
+                <option value="Eskişehir">Eskişehir</option>
+                <option value="Gaziantep">Gaziantep</option>
+                <option value="Giresun">Giresun</option>
+                <option value="Gümüşhane">Gümüşhane</option>
+                <option value="Hakkâri">Hakkâri</option>
+                <option value="Hatay">Hatay</option>
+                <option value="Isparta">Isparta</option>
+                <option value="Mersin">Mersin</option>
+                <option value="İstanbul">İstanbul</option>
+                <option value="İzmir">İzmir</option>
+                <option value="Kars">Kars</option>
+                <option value="Kastamonu">Kastamonu</option>
+                <option value="Kayseri">Kayseri</option>
+                <option value="Kırklareli">Kırklareli</option>
+                <option value="Kırşehir">Kırşehir</option>
+                <option value="Kocaeli">Kocaeli</option>
+                <option value="Konya">Konya</option>
+                <option value="Kütahya">Kütahya</option>
+                <option value="Malatya">Malatya</option>
+                <option value="Manisa">Manisa</option>
+                <option value="Kahramanmaraş">Kahramanmaraş</option>
+                <option value="Mardin">Mardin</option>
+                <option value="Muğla">Muğla</option>
+                <option value="Muş">Muş</option>
+                <option value="Nevşehir">Nevşehir</option>
+                <option value="Niğde">Niğde</option>
+                <option value="Ordu">Ordu</option>
+                <option value="Rize">Rize</option>
+                <option value="Sakarya">Sakarya</option>
+                <option value="Samsun">Samsun</option>
+                <option value="Siirt">Siirt</option>
+                <option value="Sinop">Sinop</option>
+                <option value="Sivas">Sivas</option>
+                <option value="Tekirdağ">Tekirdağ</option>
+                <option value="Tokat">Tokat</option>
+                <option value="Trabzon">Trabzon</option>
+                <option value="Tunceli">Tunceli</option>
+                <option value="Şanlıurfa">Şanlıurfa</option>
+                <option value="Uşak">Uşak</option>
+                <option value="Van">Van</option>
+                <option value="Yozgat">Yozgat</option>
+                <option value="Zonguldak">Zonguldak</option>
+                <option value="Aksaray">Aksaray</option>
+                <option value="Bayburt">Bayburt</option>
+                <option value="Karaman">Karaman</option>
+                <option value="Kırıkkale">Kırıkkale</option>
+                <option value="Batman">Batman</option>
+                <option value="Şırnak">Şırnak</option>
+                <option value="Bartın">Bartın</option>
+                <option value="Ardahan">Ardahan</option>
+                <option value="Iğdır">Iğdır</option>
+                <option value="Yalova">Yalova</option>
+                <option value="Karabük">Karabük</option>
+                <option value="Kilis">Kilis</option>
+                <option value="Osmaniye">Osmaniye</option>
+                <option value="Düzce">Düzce</option>
+                <option value="Diğer">Diğer</option>
+              </select>
+            </div>
+          </div>
+          <!-- COL 6-->
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-sm-6">
+            <div class="form-group">
+              <label class="btn-block">Üstün zekalı ya da üstün yeteneklilerle olan bağınız varsa belirtiniz.</label>
+
+              <div class="radio">
+                <label>
+                  <input ng-model="form.relation_to_high_intelligence" type="radio" name="relations" value="high_intelligent">
+                  Üstün zekâlıyım / yetenekliyim
+                </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input ng-model="form.relation_to_high_intelligence" type="radio" name="relations" value="high_intelligent_relative">
+                  Ailemde üstün zekâlı var
+                </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input ng-model="form.relation_to_high_intelligence" type="radio" name="relations" value="educator">
+                  Eğitimci / Araştırmacı
+                </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input ng-model="form.relation_to_high_intelligence" type="radio" name="relations" value="psychologist">
+                  Psikolog / Psikiyatrist
+                </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input ng-model="form.relation_to_high_intelligence" type="radio" name="relations" value="other">
+                  Diğer:
+                  <input class="form-inline" id="company" placeholder="Diğer" type="text"
+                         ng-model="form.relation_to_high_intelligence_other"
+                         ng-focus="form.relation_to_high_intelligence = 'other'">
+                </label>
+              </div>
+            </div>
+          </div>
+          <!-- COL 6-->
+          <div class="col-xs-12 col-sm-6">
+            <div class="form-group">
+              <label class="btn-block">Önceki Zeka ve Yetenek Kongrelerine katıldınız mı?</label>
+
+              <div class="checkbox">
+                <label><input type="checkbox" name="relations" value=""><strong>2013</strong> Kongresine
+                  katıldım</label></div>
+              <div class="checkbox">
+                <label><input type="checkbox" name="relations" value=""><strong>2014</strong> Kongresine
+                  katıldım</label></div>
+              <div class="checkbox">
+                <label><input type="checkbox" name="relations" value=""><strong>İLK</strong> katılım</label></div>
+            </div>
+          </div>
+          <!-- COL 6-->
+          <div class="col-xs-12 col-sm-6 margin-top">
+            <div class="form-group">
+              <label class="btn-block text-danger">Lütfen Katılımcı Kategorisi Seçiniz</label>
+
+              <div class="radio">
+                <label><input type="radio" name="usertype" value=""><strong>Öğretmen / Öğrenci </strong>
+                  <span ng-show="applicant_type == attendee" class="label-default label">100 TL</span></label></div>
+              <div class="radio"><label><input type="radio" name="usertype" value=""><strong>Sivil
+                Katılım </strong>
+                <span ng-show="applicant_type == attendee" class="label-default label">180 TL</span></label></div>
+            </div>
+          </div>
+          <!-- COL 6-->
+        </div>
+        <!-- ROW-->
+      </div>
+      <div class="panel-footer">
+        <div class="row">
+          <div class="col-xs-12">
+            <button ng-click="savePersonalInfo()" class="btn btn-warning pull-right">KAYDET ve DEVAM ET</button>
+            <!--sunum basvurusu için class="btn btn-danger pull-right" -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--panel-->
+    <!--STEP 2 end -->
+    <!--STEP 3 for KATILIMCI Start-->
+    <div ng-if="false" class="panel panel-warning">
+      <div class="panel-heading">
+        <h3 class="panel-title">Katılmak İstediğiniz Atölyeleri Seçebilirsiniz</h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-xs-12">
+            <p class="alert alert-warning">
+              Saatler arası çakışmayı önlemek amacıyla; seçtiğiniz atölyeye göre sistem
+              sizi otomatik olarak seçebileceğiniz diğer atölyeleri filtreleyecektir.
+            </p>
+          </div>
+        </div>
+        <!-- ROW -->
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="panel panel-info">
+              <div class="panel-heading">
+                <h3 class="panel-title">
+                  <div class="badge">&nbsp;1. gün&nbsp;</div>
+                  &nbsp;&nbsp;24 EKİM 2015, Cumartesi
+                </h3>
+              </div>
+              <div class="panel-body">
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead>
+                    <tr>
+                      <th>#</th>
+                      <th width="120">Saat Bilgisi</th>
+                      <th width="80">Salon</th>
+                      <th>Adı</th>
+                      <th width="150">Moderatör</th>
+                      <th width="60">Ücreti</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="info">
+                      <td><input type="checkbox" name="relations" value=""></td>
+                      <th scope="row">14:30 ~ 16:00</th>
+                      <td>SALON B</td>
+                      <td>Üstün Yetenekli Çocuklarda Sık Görülen Psikolojik Sorunlar ve Profesyonel Yardım Uygulamaları
+                        Atölyesi
+                      </td>
+                      <td>Yrd. Doç. Dr. Mehmet Palancı</td>
+                      <th scope="row">
+                        <div class="label label-default"> 100 TL</div>
+                      </th>
+                    </tr>
+                    <tr class="info">
+                      <td><input type="checkbox" name="relations" value=""></td>
+                      <th scope="row">16:00 ~ 17:30</th>
+                      <td>SALON B</td>
+                      <td>Üstün Yetenekli Çocuklar için İlkokul ve/veya Ortaokul düzeyinde Matematikte Iraksak ve
+                        Yakınsak Problem Uygulamaları
+                      </td>
+                      <td>Dr. Burak Karabey</td>
+                      <th scope="row">
+                        <div class="label label-default"> 100 TL</div>
+                      </th>
+                    </tr>
+                    <tr class="warning">
+                      <td><input type="checkbox" name="relations" value=""></td>
+                      <th scope="row">14:30 ~ 17:30</th>
+                      <td>SALON B</td>
+                      <td>Ahşap Atölyesi</td>
+                      <td>Gilika Çocuk Tasarım Atölyesi</td>
+                      <th scope="row">
+                        <div class="label label-default"> 180 TL</div>
+                      </th>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-info">
+              <div class="panel-heading">
+                <h3 class="panel-title">
+                  <div class="badge">&nbsp;2. gün&nbsp;</div>
+                  &nbsp;&nbsp;25 EKİM 2015, Pazar
+                </h3>
+              </div>
+              <div class="panel-body">
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead>
+                    <tr>
+                      <th>#</th>
+                      <th width="120">Saat Bilgisi</th>
+                      <th width="80">Salon</th>
+                      <th>Adı</th>
+                      <th width="150">Moderatör</th>
+                      <th width="60">Ücreti</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="success">
+                      <td><input type="checkbox" name="relations" value=""></td>
+                      <th scope="row">10:30 ~ 12:00</th>
+                      <td>SALON B</td>
+                      <td>Erken Yaştaki Üstün Potansiyelli Çocuklara Erken Müdahale Yöntemleri ve Uygulamaları</td>
+                      <td>Yrd. Doç. Dr. Adile Gülşah Saranlı</td>
+                      <th scope="row">
+                        <div class="label label-default"> 100 TL</div>
+                      </th>
+                    </tr>
+                    <tr class="info">
+                      <td><input type="checkbox" name="relations" value=""></td>
+                      <th scope="row">12:00 ~ 13:30</th>
+                      <td>SALON B</td>
+                      <td>Çocuklarda Yaratıcı Hareket Yoluyla Düşünme ve Problem Çözme Becerilerini Geliştirme
+                        Atölyesi
+                      </td>
+                      <td>Dr. Serap Sevimli Çelik</td>
+                      <th scope="row">
+                        <div class="label label-default"> 100 TL</div>
+                      </th>
+                    </tr>
+                    <tr class="warning">
+                      <td><input type="checkbox" name="relations" value=""></td>
+                      <th scope="row">10:30 ~ 13:30</th>
+                      <td>SALON B</td>
+                      <td>Kâğıt Atölyesi – Origami & Krigami</td>
+                      <td>Gilika Çocuk Tasarım Atölyeleri</td>
+                      <th scope="row">
+                        <div class="label label-default"> 180 TL</div>
+                      </th>
+                    </tr>
+                    <tr class="warning">
+                      <td><input type="checkbox" name="relations" value=""></td>
+                      <th scope="row">13:30 ~ 16:30</th>
+                      <td>SALON B</td>
+                      <td>Zekâ Oyunları ve Oyuncakları Tasarımı Atölyesi</td>
+                      <td>Hasan Yurtoğlu</td>
+                      <th scope="row">
+                        <div class="label label-default"> 100 TL</div>
+                      </th>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-footer">
+        <div class="row">
+          <div class="col-xs-12">
+            <button class="btn btn-warning pull-right">KAYDET ve DEVAM ET</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--panel-->
+    <!--STEP 3 for KATILIMCI End -->
+    <div ng-if="false" class="panel panel-success">
+      <div class="panel-heading">
+        <h3 class="panel-title">Ücretler Toplamı</h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                <tr>
+                  <th>Açıklama</th>
+                  <th class="text-right">Ücretler</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>Üst kısımdaki ilk butondan itibaren listelenmeye başlayacak</td>
+                  <td class="text-right">
+                    <div class="label label-default"> 80 TL</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Öğrenci
+                  </th>
+                  <td class="text-right">
+                    <div class="label label-default"> 100 TL</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Atölyelerden birinin adı</td>
+                  <td class="text-right">
+                    <div class="label label-default"> 160 TL</div>
+                  </td>
+                </tr>
+                <tr class="success">
+                  <th scope="row">Genel Toplam</th>
+                  <td class="text-right">
+                    <div class="label label-success"> 100 TL</div>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <button class="btn btn-success pull-right">ÖDEME SAYFASINA GEÇ</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--panel-->
+    <!--STEP 3 for KATILIMCI End -->
+    <div ng-if="showPresentationInfoForm" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title">Sunulacak Çalışmaya İlişkin Bilgilerinizi Giriniz</h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="form-group">
+              <label for="sunumAmac">Çalışmanızın Amacı : </label>
+              <textarea rows="4" type="text" class="form-control" id="sunumAmac" placeholder="350 Karakter uzunluğunda olmalı - Boşluklu" maxlength="350"></textarea>
+            </div>
+          </div>
+          <!-- COL 12-->
+          <div class="col-xs-12">
+            <div class="form-group">
+              <label for="sunumKapsam">Çalışmanızın Kapsamı : </label>
+              <textarea rows="15" type="text" class="form-control" id="sunumKapsam" placeholder="2500 Karakter uzunluğunda olmalı - Boşluklu" maxlength="2500"></textarea>
+            </div>
+          </div>
+          <!-- COL 12-->
+          <div class="col-xs-12">
+            <div class="form-group">
+              <label for="sunumHedef">Çalışmanızın Hedef Kitlesi : </label>
+              <textarea rows="4" type="text" class="form-control" id="sunumHedef" placeholder="350 Karakter uzunluğunda olmalı - Boşluklu" maxlength="350"></textarea>
+            </div>
+          </div>
+          <!-- COL 12-->
+        </div>
+      </div>
+      <div ng-if="applicant_type == presenter" class="panel-footer">
+        <div class="row">
+          <div class="col-xs-12 col-sm-10 text-right">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox"> Kabul Ediyorum
+              </label>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-2">
+            <button class="btn btn-danger pull-right">GÖNDER</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!--
+<div class="panel panel-danger">
+  <div class="panel-heading">
+    <h3 class="panel-title">Katılmak İstediğiniz Atölyeleri Seçebilirsiniz</h3>
+  </div>
+  <div class="panel-body">
+
+  </div>
+  <div class="panel-footer">
+    <div class="row">
+      <div class="col-xs-12">
+        <button class="btn btn-warning pull-right">KAYDET ve DEVAM ET</button>
+      </div>
+    </div>
+  </div>
+</div>-->

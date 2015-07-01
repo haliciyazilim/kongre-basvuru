@@ -1,0 +1,75 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:300,400,500);
+
+body {
+	font-family: 'Roboto', sans-serif !important;
+  color: #000;
+  overflow-y: scroll;
+}
+
+a {
+	color: #f0f0f0;
+	text-decoration: none ;
+}
+h1 {
+  border-bottom: 1px solid lightgray;
+  margin-bottom: 20px;
+  padding-bottom: 5px;
+  letter-spacing: -0.05em;
+  font-weight: 300;
+}
+.form-group {
+  margin-bottom: 14px;
+}
+.margin-bottom{
+  margin-bottom: 20px;
+}
+.margin-top{
+  margin-top: 20px;
+}
+
+label {margin-bottom: 0;}
+.label-default {
+  font-size: 13px;
+  font-weight: 500;
+}
+.label-success {
+  font-size: 18px;
+  font-weight: 500;
+}
+section {
+  padding: 20px 0 50px 0;
+}
+.panel-warning {
+  border-color: #eea236;
+}
+.panel-warning>.panel-heading {
+  background-color: #ec971f;
+  color: #FFF;
+  border-color: #eea236;
+}
+
+.panel-danger {
+  border-color: #d43f3a;
+}
+.panel-danger>.panel-heading {
+  background-color: #d9534f;
+  color: #FFF;
+  border-color: #d43f3a;
+}
+.panel-success {
+  border-color: #4cae4c;
+}
+.panel-success>.panel-heading {
+  background-color: #5cb85c;
+  color: #FFF;
+  border-color: #4cae4c;
+}
+
+
+/*
+
+@media (min-width: 1200px) {
+  .container {
+    width: 750px;
+  }
+}*/
