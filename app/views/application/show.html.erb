@@ -22,7 +22,17 @@
     <div ng-if="showAttendeeWarning" class="row">
       <div class="col-xs-12">
         <p class="alert alert-info text-center">
-          KATILIMCI Kayıtları çıkmaz ayın son çarşambası olacaktır
+          Kongre KATILIM başvuruları <strong>Temmuz ayının son haftası</strong> açılacaktır.<br/>
+          İlginiz için teşekkür ederiz.<br/>
+        </p>
+      </div>
+    </div>
+
+    <div ng-show="showPresenterSuccessMessage" class="row">
+      <div class="col-xs-12">
+        <p class="alert alert-success text-center">
+          <strong style="font-size: larger">Başvurunuz için teşekkür ederiz.</strong> <br><br>
+          Başvurunuz alınmış olup, danışma kurulumuz tarafından değerlendirilecektir. <br>Sonuçlar 22 Eylül 17:00'de ilan edilecektir.<br>
         </p>
       </div>
     </div>
@@ -42,28 +52,28 @@
           <div class="col-xs-12 col-sm-6">
             <div class="form-group">
               <label for="firstName">Adı</label>
-              <input ng-model="form.name" type="text" class="form-control" id="firstName" placeholder="Adı">
+              <input ng-model="form.applicant.name" type="text" class="form-control" id="firstName" placeholder="Adı">
             </div>
           </div>
           <!-- COL 6-->
           <div class="col-xs-12 col-sm-6">
             <div class="form-group">
               <label for="lastName">Soyadı</label>
-              <input ng-model="form.surname" type="text" class="form-control" id="lastName" placeholder="Soyadı">
+              <input ng-model="form.applicant.surname" type="text" class="form-control" id="lastName" placeholder="Soyadı">
             </div>
           </div>
           <!-- COL 6-->
           <div class="col-xs-12 col-sm-6">
             <div class="form-group">
               <label for="email">e-Posta Adresi</label>
-              <input ng-model="form.email" type="email" class="form-control" id="email" placeholder="e-Posta Adresi">
+              <input ng-model="form.applicant.email" type="email" class="form-control" id="email" placeholder="e-Posta Adresi">
             </div>
           </div>
           <!-- COL 6-->
           <div class="col-xs-12 col-sm-6">
             <div class="form-group">
               <label for="tckNo">T.C. Kimlik Numarası</label>
-              <input ng-model="form.tckn" type="text" class="form-control" id="tckNo" placeholder="T.C. Kimlik Numarası">
+              <input ng-model="form.applicant.tckn" type="text" class="form-control" id="tckNo" placeholder="T.C. Kimlik Numarası">
             </div>
           </div>
           <!-- COL 6-->
@@ -71,7 +81,7 @@
             <div class="form-group">
               <label for="dofBirth">Doğum Tarihi</label>
               <div class="input-group date">
-                <input ng-model="form.birthday" type="text" class="form-control" id="dofBirth" placeholder="Doğum Tarihini Seçiniz"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                <input ng-model="form.applicant.birthday" type="text" class="form-control" id="dofBirth" placeholder="Doğum Tarihini Seçiniz"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
               </div>
             </div>
           </div>
@@ -79,35 +89,35 @@
           <div class="col-xs-12 col-sm-6">
             <div class="form-group">
               <label for="telephone">Telefon Numarası</label>
-              <input ng-model="form.phone" type="text" class="form-control" id="telephone" placeholder="Telefon Numarası">
+              <input ng-model="form.applicant.phone" type="text" class="form-control" id="telephone" placeholder="Telefon Numarası">
             </div>
           </div>
           <!-- COL 6-->
           <div class="col-xs-12 col-sm-6">
             <div class="form-group">
               <label for="company">Çalıştığı Kurum / Kuruluş</label>
-              <input ng-model="form.organization" type="text" class="form-control" id="company" placeholder="Çalıştığı Kurum / Kuruluş">
+              <input ng-model="form.applicant.organization" type="text" class="form-control" id="company" placeholder="Çalıştığı Kurum / Kuruluş">
             </div>
           </div>
           <!-- COL 6-->
           <div class="col-xs-12 col-sm-6">
             <div class="form-group">
               <label for="brans">Mesleğiniz / Branşınız</label>
-              <input ng-model="form.occupation" type="text" class="form-control" id="brans" placeholder="Mesleğiniz / Branşınız">
+              <input ng-model="form.applicant.occupation" type="text" class="form-control" id="brans" placeholder="Mesleğiniz / Branşınız">
             </div>
           </div>
           <!-- COL 6-->
           <div class="col-xs-12 col-sm-6">
             <div class="form-group">
               <label for="postalAddress">Posta Adresi</label>
-              <textarea ng-model="form.address" class="form-control" id="postalAddress" placeholder="Posta Adresi"></textarea>
+              <textarea ng-model="form.applicant.address" class="form-control" id="postalAddress" placeholder="Posta Adresi"></textarea>
             </div>
           </div>
           <!-- COL 6-->
           <div class="col-xs-12 col-sm-6">
             <div class="form-group">
               <label for="postalAddress">Şehir Seçiniz</label>
-              <select ng-model="form.city" name="sehir" id="sehir" aria-label="Şehir" aria-required="true" class="form-control">
+              <select ng-model="form.applicant.city" name="sehir" id="sehir" aria-label="Şehir" aria-required="true" class="form-control">
                 <option value="seciniz">Şehir Seçiniz</option>
                 <option value="Adana">Adana</option>
                 <option value="Adıyaman">Adıyaman</option>
@@ -203,35 +213,35 @@
 
               <div class="radio">
                 <label>
-                  <input ng-model="form.relation_to_high_intelligence" type="radio" name="relations" value="high_intelligent">
+                  <input ng-model="form.applicant.relation_to_high_intelligence" type="radio" name="relations" value="high_intelligent">
                   Üstün zekâlıyım / yetenekliyim
                 </label>
               </div>
               <div class="radio">
                 <label>
-                  <input ng-model="form.relation_to_high_intelligence" type="radio" name="relations" value="high_intelligent_relative">
+                  <input ng-model="form.applicant.relation_to_high_intelligence" type="radio" name="relations" value="high_intelligent_relative">
                   Ailemde üstün zekâlı var
                 </label>
               </div>
               <div class="radio">
                 <label>
-                  <input ng-model="form.relation_to_high_intelligence" type="radio" name="relations" value="educator">
+                  <input ng-model="form.applicant.relation_to_high_intelligence" type="radio" name="relations" value="educator">
                   Eğitimci / Araştırmacı
                 </label>
               </div>
               <div class="radio">
                 <label>
-                  <input ng-model="form.relation_to_high_intelligence" type="radio" name="relations" value="psychologist">
+                  <input ng-model="form.applicant.relation_to_high_intelligence" type="radio" name="relations" value="psychologist">
                   Psikolog / Psikiyatrist
                 </label>
               </div>
               <div class="radio">
                 <label>
-                  <input ng-model="form.relation_to_high_intelligence" type="radio" name="relations" value="other">
+                  <input ng-model="form.applicant.relation_to_high_intelligence" type="radio" name="relations" value="other">
                   Diğer:
-                  <input class="form-inline" id="company" placeholder="Diğer" type="text"
-                         ng-model="form.relation_to_high_intelligence_other"
-                         ng-focus="form.relation_to_high_intelligence = 'other'">
+                  <input ng-model="form.relation_to_high_intelligence_other"
+                         class="form-inline" placeholder="Diğer" type="text"
+                         ng-focus="form.applicant.relation_to_high_intelligence = 'other'">
                 </label>
               </div>
             </div>
@@ -239,16 +249,38 @@
           <!-- COL 6-->
           <div class="col-xs-12 col-sm-6">
             <div class="form-group">
-              <label class="btn-block">Önceki Zeka ve Yetenek Kongrelerine katıldınız mı?</label>
+
+              <label class="btn-block">
+                Önceki Zeka ve Yetenek Kongrelerine katıldınız mı?
+              </label>
 
               <div class="checkbox">
-                <label><input type="checkbox" name="relations" value=""><strong>2013</strong> Kongresine
-                  katıldım</label></div>
+                <label>
+                  <input type="checkbox"
+                         onchange="angular.element(this).scope().setAttendance(1,this.checked)">
+                  <strong>2013</strong>
+                  Kongresine katıldım
+                </label>
+              </div>
+
               <div class="checkbox">
-                <label><input type="checkbox" name="relations" value=""><strong>2014</strong> Kongresine
-                  katıldım</label></div>
+                <label>
+                  <input type="checkbox"
+                         onchange="angular.element(this).scope().setAttendance(2,this.checked)">
+                  <strong>2014</strong>
+                  Kongresine katıldım
+                </label>
+              </div>
+
               <div class="checkbox">
-                <label><input type="checkbox" name="relations" value=""><strong>İLK</strong> katılım</label></div>
+                <label>
+                  <input type="checkbox"
+                         onchange="angular.element(this).scope().setAttendance(4,this.checked)">
+                  <strong>İLK</strong>
+                  katılım
+                </label>
+              </div>
+
             </div>
           </div>
           <!-- COL 6-->
@@ -257,11 +289,23 @@
               <label class="btn-block text-danger">Lütfen Katılımcı Kategorisi Seçiniz</label>
 
               <div class="radio">
-                <label><input type="radio" name="usertype" value=""><strong>Öğretmen / Öğrenci </strong>
-                  <span ng-show="applicant_type == attendee" class="label-default label">100 TL</span></label></div>
-              <div class="radio"><label><input type="radio" name="usertype" value=""><strong>Sivil
-                Katılım </strong>
-                <span ng-show="applicant_type == attendee" class="label-default label">180 TL</span></label></div>
+                <label>
+                  <input ng-model="form.applicant.applicant_category" type="radio" value="instructor_student">
+                  <strong>Öğretmen / Öğrenci </strong>
+                  <span ng-show="applicant_type == attendee" class="label-default label">
+                    100 TL
+                  </span>
+                </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input ng-model="form.applicant.applicant_category" type="radio" value="civillian">
+                  <strong>Sivil Katılım </strong>
+                <span ng-show="applicant_type == attendee" class="label-default label">
+                  180 TL
+                </span>
+                </label>
+              </div>
             </div>
           </div>
           <!-- COL 6-->
@@ -271,7 +315,7 @@
       <div class="panel-footer">
         <div class="row">
           <div class="col-xs-12">
-            <button ng-click="savePersonalInfo()" class="btn btn-warning pull-right">KAYDET ve DEVAM ET</button>
+            <button ng-disabled="disableSavePersonalInfo" ng-click="savePersonalInfo()" class="btn btn-warning pull-right">KAYDET ve DEVAM ET</button>
             <!--sunum basvurusu için class="btn btn-danger pull-right" -->
           </div>
         </div>
@@ -502,42 +546,47 @@
           <div class="col-xs-12">
             <div class="form-group">
               <label for="sunumAmac">Çalışmanızın Amacı : </label>
-              <textarea rows="4" type="text" class="form-control" id="sunumAmac" placeholder="350 Karakter uzunluğunda olmalı - Boşluklu" maxlength="350"></textarea>
+              <textarea ng-model="form.presentation.purpose" rows="4" type="text" class="form-control" id="sunumAmac" placeholder="350 Karakter uzunluğunda olmalı - Boşluklu" maxlength="350"></textarea>
             </div>
           </div>
           <!-- COL 12-->
           <div class="col-xs-12">
             <div class="form-group">
               <label for="sunumKapsam">Çalışmanızın Kapsamı : </label>
-              <textarea rows="15" type="text" class="form-control" id="sunumKapsam" placeholder="2500 Karakter uzunluğunda olmalı - Boşluklu" maxlength="2500"></textarea>
+              <textarea ng-model="form.presentation.content" rows="15" type="text" class="form-control" id="sunumKapsam" placeholder="2500 Karakter uzunluğunda olmalı - Boşluklu" maxlength="2500"></textarea>
             </div>
           </div>
           <!-- COL 12-->
           <div class="col-xs-12">
             <div class="form-group">
               <label for="sunumHedef">Çalışmanızın Hedef Kitlesi : </label>
-              <textarea rows="4" type="text" class="form-control" id="sunumHedef" placeholder="350 Karakter uzunluğunda olmalı - Boşluklu" maxlength="350"></textarea>
+              <textarea ng-model="form.presentation.audience" rows="4" type="text" class="form-control" id="sunumHedef" placeholder="350 Karakter uzunluğunda olmalı - Boşluklu" maxlength="350"></textarea>
             </div>
           </div>
           <!-- COL 12-->
         </div>
       </div>
-      <div ng-if="applicant_type == presenter" class="panel-footer">
+      <div class="panel-footer">
         <div class="row">
           <div class="col-xs-12 col-sm-10 text-right">
             <div class="checkbox">
               <label>
-                <input type="checkbox"> Kabul Ediyorum
+                <input type="checkbox">
+                Bilgilerimin Doğruluğunu Kabul Ediyorum
               </label>
             </div>
           </div>
           <div class="col-xs-12 col-sm-2">
-            <button class="btn btn-danger pull-right">GÖNDER</button>
+            <button ng-disabled="disableSubmitPresentation" ng-click="submitPresentation()" class="btn btn-danger pull-right">
+              GÖNDER
+            </button>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+
 
 </section>
 

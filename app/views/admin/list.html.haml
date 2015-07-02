@@ -5,7 +5,6 @@
     %th Id
     %th Type
     %th İsim
-    %th Soyisim
     %th Meslek
     %th Adres
     %th Sehir
@@ -15,15 +14,11 @@
       %td
         = applicant.id
       %td
-        = applicant.applicant_type
+        = applicant_type applicant
       %td
-        = applicant.name
-      %td
-        = applicant.surname
+        = "#{applicant.name} #{applicant.surname}"
       %td
         = applicant.occupation
-      %td
-        = applicant.address
       %td
         = applicant.city
       %td

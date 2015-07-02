@@ -7,31 +7,44 @@ class ApplicationController < ActionController::Base
   end
 
   def register
-
     if params[:applicant_id]
       applicant = Applicant.find(params[:applicant_id])
-    else
-      applicant = Applicant.create
     end
-    permitted_params = params.permit(
-      :name,
-      :surname,
-      :email,
-      :tckn,
-      :birthday,
-      :phone,
-      :organization,
-      :occupation,
-      :address,
-      :city,
-      :relation_to_high_intelligence,
-      :previous_attendances,
-      :applicant_category,
-      :applicant_type
-    )
 
-    session[:applicant_type] = applicant.update(permitted_params)
+    if params[:applicant]
+      applicant = Applicant.create if !applicant
+      session[:applicant_type] = applicant.update(
+        params[:applicant].permit(
+          :name,
+          :surname,
+          :email,
+          :tckn,
+          :birthday,
+          :phone,
+          :organization,
+          :occupation,
+          :address,
+          :city,
+          :relation_to_high_intelligence,
+          :previous_attendances,
+          :applicant_category,
+          :applicant_type
+        ))
+    end
+
+    if params[:presentation] && applicant
+      presentation = Presentation.find_by_applicant_id(applicant.id)
+      presentation = Presentation.create(applicant_id:applicant.id) if ! presentation
+      presentation.update(
+        params[:presentation].permit(
+          :purpose,
+          :content,
+          :audience
+        ))
+    end
+
     render :json => applicant
   end
+
 
 end

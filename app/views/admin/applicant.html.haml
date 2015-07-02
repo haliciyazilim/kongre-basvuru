@@ -45,3 +45,30 @@
         %th Üstün zeka ile bağı
         %td
           = relation_to_high_intelligence @applicant
+      %tr
+        %th Geçmiş Katılım
+        %td
+          = previous_attendances @applicant
+      %tr
+        %th Katılımcı Kategorisi
+        %td
+          = applicant_category @applicant
+- if @presentation
+  .row
+    .col-lg-8
+      %h4 Sunum
+      %table.table
+        %tr
+          %th Çalışmanın Amacı
+          %td
+            = @presentation.purpose
+        %tr
+          %th Çalışmanın Kapsamı
+          %td
+            = @presentation.content
+        %tr
+          %th Çalışmanın Hedef Kitlesi
+          %td
+            = @presentation.audience
+
+
