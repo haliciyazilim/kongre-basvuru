@@ -45,3 +45,5 @@ gem 'bh', '~> 1.2'
 gem 'angularjs-rails'
 
 gem 'haml-rails'
+
+gem 'rails_12factor'
