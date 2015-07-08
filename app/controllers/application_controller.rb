@@ -33,8 +33,8 @@ class ApplicationController < ActionController::Base
     end
 
     if params[:presentation] && applicant
-      presentation = Presentation.find_by_applicant_id(applicant.id)
-      presentation = Presentation.create(applicant_id:applicant.id) if ! presentation
+      presentation = ApplicantPresentation.find_by_applicant_id(applicant.id)
+      presentation = ApplicantPresentation.create(applicant_id:applicant.id) if ! presentation
       presentation.update(
         params[:presentation].permit(
           :purpose,

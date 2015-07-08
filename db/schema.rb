@@ -11,10 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150702111617) do
+ActiveRecord::Schema.define(version: 20150708120935) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "applicant_presentations", force: true do |t|
+    t.integer  "applicant_id"
+    t.text     "purpose"
+    t.text     "content"
+    t.text     "audience"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "applicants", force: true do |t|
     t.string   "name"
@@ -31,15 +40,6 @@ ActiveRecord::Schema.define(version: 20150702111617) do
     t.string   "previous_attendances"
     t.string   "applicant_category"
     t.string   "applicant_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "presentations", force: true do |t|
-    t.integer  "applicant_id"
-    t.text     "purpose"
-    t.text     "content"
-    t.text     "audience"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

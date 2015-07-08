@@ -5,6 +5,6 @@ class AdminController < ApplicationController
   end
   def applicant
     @applicant = Applicant.find(params[:id])
-    @presentation = Presentation.find_by_applicant_id(params[:id])
+    @presentation = ApplicantPresentation.find_by_applicant_id(params[:id])
   end
 end
