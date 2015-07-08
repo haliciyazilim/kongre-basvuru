@@ -81,6 +81,7 @@ test:
 #
 production:
   <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
   database: kongre_form_production
   username: kongre_form
   password: <%= ENV['KONGRE_FORM_DATABASE_PASSWORD'] %>
