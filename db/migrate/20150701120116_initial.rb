@@ -21,14 +21,12 @@ class Initial < ActiveRecord::Migration
     end
 
     create_table :presentations do |t|
-      t.belongs_to :applicant_type
+      t.belongs_to :applicant
       t.text :purpose
       t.text :content
       t.text :audience
       t.timestamps
     end
-
-
 
   end
 
