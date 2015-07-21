@@ -46,3 +46,6 @@ gem 'angularjs-rails'
 gem 'haml-rails'
 
 gem 'rails_12factor'
+
+gem 'HaliciPaymentConnector', git: 'git@github.com:yunuserenguzel/halicipaymentconnector.git'
+gem 'rest-client' #required for HaliciPaymentConnector

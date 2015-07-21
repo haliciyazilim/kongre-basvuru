@@ -10,6 +10,12 @@ Rails.application.routes.draw do
 
   post 'register' => 'application#register'
 
+  post 'order' => 'application#order'
+
+  get 'callback/:result' => 'application#callback'
+
+  get 'admin/receipts'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

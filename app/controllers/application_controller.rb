@@ -3,7 +3,8 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :null_session
   def show
-
+    @workshops_24 = Workshop.at_day '2015-10-24'
+    @workshops_25 = Workshop.at_day '2015-10-25'
   end
 
   def register
@@ -44,6 +45,45 @@ class ApplicationController < ActionController::Base
     end
 
     render :json => applicant
+  end
+
+  def order
+    applicant = Applicant.find(params[:applicant_id])
+    ActiveRecord::Base.transaction do
+      receipt = Receipt.create(applicant:applicant)
+      ReceiptProduct.create(
+        receipt:receipt,
+        product:Attendance.last.product,
+        price:applicant.applicant_category == ApplicantCategory.instructor_student ? 10000 : 18000
+      )
+      if params[:workshops]
+        params[:workshops].each do |workshop_id|
+          workshop = Workshop.find(workshop_id)
+          ReceiptProduct.create(
+            receipt:receipt,
+            product:workshop.product,
+            price:workshop.product.price
+          )
+        end
+      end
+      receipt.update(price:receipt.calculate_total_amount)
+      url = PaymentManager.checkout(
+        user_id: applicant.id,
+        user_name: applicant.name,
+        order_id: receipt.id,
+        product_name: 'Kongre Katılım',
+        price: receipt.price
+      )
+      render json: { redirect_url:url }
+    end
+  end
+
+  def callback
+    @result = params[:result]
+    @payment = PaymentManager.check(params[:payment_id])
+    if @payment['status'] == 'successful'
+      Receipt.find(@payment['order_id']).update(is_paid:true)
+    end
   end
 
 

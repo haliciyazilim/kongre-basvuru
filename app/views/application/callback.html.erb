@@ -1,0 +1,23 @@
+<% if @payment['status'] == 'successful' %>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-8 col-xs-offset-2">
+        <p class="alert alert-info text-center">
+          Kongre katılımızını başarı ile gerçekleştirdiniz.<br/>
+        </p>
+      </div>
+    </div>
+  </div>
+<% else %>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-8 col-xs-offset-2">
+        <p class="alert alert-danger text-center">
+          Ödemenizi Gerçekleştiremediniz.
+          <a href="javascript: window.location = '/'">Lütfen tekrar deneyiniz</a><br/>
+        </p>
+      </div>
+    </div>
+  </div>
+<% end %>

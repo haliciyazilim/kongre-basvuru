@@ -3,9 +3,9 @@
     <!--STEP 1 Start -->
     <div class="row">
       <div class="col-xs-12">
-        <h1 ng-show="applicant == null">KONGRE 2015 BAŞVURU FORMU</h1>
-        <h1 ng-show="applicant == attendee">KONGRE 2015 KATILIMCI BAŞVURU FORMU</h1>
-        <h1 ng-show="applicant == presenter">KONGRE 2015 SUNUM BAŞVURU FORMU</h1>
+        <h1 ng-show="applicant_type == null">KONGRE 2015 BAŞVURU FORMU</h1>
+        <h1 ng-show="applicant_type == attendee">KONGRE 2015 KATILIMCI BAŞVURU FORMU</h1>
+        <h1 ng-show="applicant_type == presenter">KONGRE 2015 SUNUM BAŞVURU FORMU</h1>
       </div>
     </div>
     <div ng-if="showApplicationTypeButtons" class="row margin-bottom">
@@ -315,7 +315,7 @@
       <div class="panel-footer">
         <div class="row">
           <div class="col-xs-12">
-            <button ng-disabled="disableSavePersonalInfo" ng-click="savePersonalInfo()" class="btn btn-warning pull-right">KAYDET ve DEVAM ET</button>
+            <button ng-disabled="disableSavePersonalInfo" ng-click="savePersonalInfo()" class="btn btn-warning pull-right">DEVAM ET</button>
             <!--sunum basvurusu için class="btn btn-danger pull-right" -->
           </div>
         </div>
@@ -324,7 +324,11 @@
     <!--panel-->
     <!--STEP 2 end -->
     <!--STEP 3 for KATILIMCI Start-->
-    <div ng-if="false" class="panel panel-warning">
+    <script>
+      var workshops24 = <%= @workshops_24.to_json.html_safe %>
+      var workshops25 = <%= @workshops_25.to_json.html_safe %>
+    </script>
+    <div ng-if="showWorkshops" class="panel panel-warning">
       <div class="panel-heading">
         <h3 class="panel-title">Katılmak İstediğiniz Atölyeleri Seçebilirsiniz</h3>
       </div>
@@ -361,39 +365,10 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="info">
-                      <td><input type="checkbox" name="relations" value=""></td>
-                      <th scope="row">14:30 ~ 16:00</th>
-                      <td>SALON B</td>
-                      <td>Üstün Yetenekli Çocuklarda Sık Görülen Psikolojik Sorunlar ve Profesyonel Yardım Uygulamaları
-                        Atölyesi
-                      </td>
-                      <td>Yrd. Doç. Dr. Mehmet Palancı</td>
-                      <th scope="row">
-                        <div class="label label-default"> 100 TL</div>
-                      </th>
-                    </tr>
-                    <tr class="info">
-                      <td><input type="checkbox" name="relations" value=""></td>
-                      <th scope="row">16:00 ~ 17:30</th>
-                      <td>SALON B</td>
-                      <td>Üstün Yetenekli Çocuklar için İlkokul ve/veya Ortaokul düzeyinde Matematikte Iraksak ve
-                        Yakınsak Problem Uygulamaları
-                      </td>
-                      <td>Dr. Burak Karabey</td>
-                      <th scope="row">
-                        <div class="label label-default"> 100 TL</div>
-                      </th>
-                    </tr>
-                    <tr class="warning">
-                      <td><input type="checkbox" name="relations" value=""></td>
-                      <th scope="row">14:30 ~ 17:30</th>
-                      <td>SALON B</td>
-                      <td>Ahşap Atölyesi</td>
-                      <td>Gilika Çocuk Tasarım Atölyesi</td>
-                      <th scope="row">
-                        <div class="label label-default"> 180 TL</div>
-                      </th>
+
+                    <tr ng-repeat="workshop in workshops24" class="{{workshop.class}}"
+                        ng-disabled="workshop.class == 'warning' ">
+                      <%= render partial: 'partials/workshop_row'%>
                     </tr>
                     </tbody>
                   </table>
@@ -421,47 +396,8 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="success">
-                      <td><input type="checkbox" name="relations" value=""></td>
-                      <th scope="row">10:30 ~ 12:00</th>
-                      <td>SALON B</td>
-                      <td>Erken Yaştaki Üstün Potansiyelli Çocuklara Erken Müdahale Yöntemleri ve Uygulamaları</td>
-                      <td>Yrd. Doç. Dr. Adile Gülşah Saranlı</td>
-                      <th scope="row">
-                        <div class="label label-default"> 100 TL</div>
-                      </th>
-                    </tr>
-                    <tr class="info">
-                      <td><input type="checkbox" name="relations" value=""></td>
-                      <th scope="row">12:00 ~ 13:30</th>
-                      <td>SALON B</td>
-                      <td>Çocuklarda Yaratıcı Hareket Yoluyla Düşünme ve Problem Çözme Becerilerini Geliştirme
-                        Atölyesi
-                      </td>
-                      <td>Dr. Serap Sevimli Çelik</td>
-                      <th scope="row">
-                        <div class="label label-default"> 100 TL</div>
-                      </th>
-                    </tr>
-                    <tr class="warning">
-                      <td><input type="checkbox" name="relations" value=""></td>
-                      <th scope="row">10:30 ~ 13:30</th>
-                      <td>SALON B</td>
-                      <td>Kâğıt Atölyesi – Origami & Krigami</td>
-                      <td>Gilika Çocuk Tasarım Atölyeleri</td>
-                      <th scope="row">
-                        <div class="label label-default"> 180 TL</div>
-                      </th>
-                    </tr>
-                    <tr class="warning">
-                      <td><input type="checkbox" name="relations" value=""></td>
-                      <th scope="row">13:30 ~ 16:30</th>
-                      <td>SALON B</td>
-                      <td>Zekâ Oyunları ve Oyuncakları Tasarımı Atölyesi</td>
-                      <td>Hasan Yurtoğlu</td>
-                      <th scope="row">
-                        <div class="label label-default"> 100 TL</div>
-                      </th>
+                    <tr ng-repeat="workshop in workshops25" class="{{workshop.class}}">
+                      <%= render partial: 'partials/workshop_row' %>
                     </tr>
                     </tbody>
                   </table>
@@ -471,17 +407,17 @@
           </div>
         </div>
       </div>
-      <div class="panel-footer">
-        <div class="row">
-          <div class="col-xs-12">
-            <button class="btn btn-warning pull-right">KAYDET ve DEVAM ET</button>
-          </div>
-        </div>
-      </div>
+      <!--<div class="panel-footer">-->
+        <!--<div class="row">-->
+          <!--<div class="col-xs-12">-->
+            <!--<button class="btn btn-warning pull-right">KAYDET ve DEVAM ET</button>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
     </div>
     <!--panel-->
     <!--STEP 3 for KATILIMCI End -->
-    <div ng-if="false" class="panel panel-success">
+    <div ng-if="showCheckout" class="panel panel-success">
       <div class="panel-heading">
         <h3 class="panel-title">Ücretler Toplamı</h3>
       </div>
@@ -497,29 +433,33 @@
                 </tr>
                 </thead>
                 <tbody>
+                <!--<tr>-->
+                  <!--<td>Üst kısımdaki ilk butondan itibaren listelenmeye başlayacak</td>-->
+                  <!--<td class="text-right">-->
+                    <!--<div class="label label-default"> 80 TL</div>-->
+                  <!--</td>-->
+                <!--</tr>-->
                 <tr>
-                  <td>Üst kısımdaki ilk butondan itibaren listelenmeye başlayacak</td>
+                  <td>Katılımcı</td>
                   <td class="text-right">
-                    <div class="label label-default"> 80 TL</div>
+                    <div class="label label-default">
+                      <span ng-show="form.applicant.applicant_category == 'instructor_student'">100 TL</span>
+                      <span ng-show="form.applicant.applicant_category == 'civillian'">180 TL</span>
+                    </div>
                   </td>
                 </tr>
-                <tr>
-                  <td>Öğrenci
-                  </th>
-                  <td class="text-right">
-                    <div class="label label-default"> 100 TL</div>
+                <tr ng-repeat="workshop in selectedWorkshops">
+                  <td>
+                    {{workshop.product.name}}
                   </td>
-                </tr>
-                <tr>
-                  <td>Atölyelerden birinin adı</td>
                   <td class="text-right">
-                    <div class="label label-default"> 160 TL</div>
+                    <div class="label label-default"> {{workshop.product.price/100}} TL</div>
                   </td>
                 </tr>
                 <tr class="success">
                   <th scope="row">Genel Toplam</th>
                   <td class="text-right">
-                    <div class="label label-success"> 100 TL</div>
+                    <div class="label label-success"> {{totalAmount/100}} TL</div>
                   </td>
                 </tr>
                 </tbody>
@@ -530,7 +470,7 @@
         </div>
         <div class="row">
           <div class="col-xs-12">
-            <button class="btn btn-success pull-right">ÖDEME SAYFASINA GEÇ</button>
+            <button class="btn btn-success pull-right" ng-click="order()">ÖDEME SAYFASINA GEÇ</button>
           </div>
         </div>
       </div>

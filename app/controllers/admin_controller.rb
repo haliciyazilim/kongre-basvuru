@@ -3,6 +3,9 @@ class AdminController < ApplicationController
   def list
     @applicants = Applicant.all.order(id: :desc)
   end
+  def receipts
+    @receipts = Receipt.all.order(id: :desc)
+  end
   def applicant
     @applicant = Applicant.find(params[:id])
     @presentation = ApplicantPresentation.find_by_applicant_id(params[:id])

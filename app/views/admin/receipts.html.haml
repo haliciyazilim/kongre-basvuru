@@ -1,0 +1,27 @@
+%h2
+  Kongre Odemeleri
+%table.table
+  %tr
+    %th Id
+    %th is paid
+    %th Applicant
+    %th Price
+    %th
+    %th
+  - @receipts.each do |receipt|
+    %tr
+      %td
+        = receipt.id
+      %td
+        = receipt.is_paid
+      %td
+        = "#{receipt.applicant.name} #{receipt.applicant.surname}"
+      %td
+        = "#{receipt.price/100} TL"
+      %td
+        - receipt.receipt_products.each do |rp|
+          %p
+            = rp.product.name
+      %td
+        %a{href:"/admin/applicant/#{receipt.applicant.id}"}
+          Detaylar

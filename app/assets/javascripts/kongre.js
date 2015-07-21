@@ -5,7 +5,19 @@ kongreApp.controller('registerFormController', ['$scope','$http',function (
 ) {
   $scope.attendee = 'attendee';
   $scope.presenter = 'presenter';
+  $scope.showWorkshops = false;
+  $scope.showCheckout = false;
   $scope.applicant_type = null;
+  $scope.workshops24 = workshops24;
+  $scope.totalAmount = 0;
+  for(var i=0; i< $scope.workshops24.length; i++) {
+    $scope.workshops24[i].class = 'info';
+  }
+  $scope.workshops25 = workshops25;
+  for(var i=0; i< $scope.workshops25.length; i++) {
+    $scope.workshops25[i].class = 'info';
+  }
+  $scope.selectedWorkshops = [];
   $scope.form = {
     relation_to_high_intelligence_other : '',
     applicant:{
@@ -16,22 +28,23 @@ kongreApp.controller('registerFormController', ['$scope','$http',function (
     presentation:{}
   };
 
-  //$scope.form.applicant = {
-  //  name:'Yunus Eren',
-  //  surname:'Guzel',
-  //  email:'yeguzel@halici.com.tr',
-  //  tckn:'17515095902',
-  //  birthday:'24.04.1989',
-  //  phone:'+905324648399',
-  //  organization:'Halici',
-  //  occupation:'Computer Engineer',
-  //  address:'75.Sok 48/3 Bahcelievler Cankaya',
-  //  city:'Ankara',
-  //  previous_attendances:0,
-  //  relation_to_high_intelligence:null,
-  //  previous_attendances:null
-  //
-  //};
+  $scope.form.applicant = {
+    name:'Yunus Eren',
+    surname:'Guzel',
+    email:'yeguzel@halici.com.tr',
+    tckn:'17515095902',
+    birthday:'24.04.1989',
+    phone:'+905324648399',
+    organization:'Halici',
+    occupation:'Computer Engineer',
+    address:'75.Sok 48/3 Bahcelievler Cankaya',
+    city:'Ankara',
+    applicant_category:'instructor_student',
+    previous_attendances:0,
+    relation_to_high_intelligence:null,
+    previous_attendances:null
+
+  };
 
   //$scope.form.presentation = {
   //  purpose:"Lorem Ipsum, dizgi ve baskı endüstrisinde kullanılan mıgır metinlerdir. Lorem Ipsum, adı bilinmeyen bir matbaacının bir hurufat numune kitabı oluşturmak üzere bir yazı galerisini alarak karıştırdığı 1500'lerden beri endüstri standardı sahte metinler olarak kullanılmıştır.",
@@ -46,7 +59,8 @@ kongreApp.controller('registerFormController', ['$scope','$http',function (
     if($scope.applicant_type == $scope.presenter) {
       $scope.showPersonalInfoForm = true;
     } else {
-      $scope.showAttendeeWarning = true;
+      $scope.showPersonalInfoForm = true;
+      //$scope.showAttendeeWarning = true;
     }
     $scope.showApplicationTypeButtons = false;
     $scope.form.applicant.applicant_type = $scope.applicant_type;
@@ -56,6 +70,56 @@ kongreApp.controller('registerFormController', ['$scope','$http',function (
     $scope.form.applicant.previous_attendances = add ?
       $scope.form.applicant.previous_attendances | attendance :
       $scope.form.applicant.previous_attendances & ~attendance;
+  }
+
+  $scope.toggleSelectedWorkshops = function (id) {
+    var workshop = $scope.getSelectedWorkshopWithId(id);
+    var index = $scope.selectedWorkshops.indexOf(workshop);
+    if (index < 0) {
+      $scope.selectedWorkshops.push(workshop);
+    }
+    else {
+      $scope.selectedWorkshops.splice(index, 1);
+    }
+    $scope.checkWorkshops();
+    $scope.refreshTotalAmount();
+    $scope.$apply();
+  }
+
+  $scope.getSelectedWorkshopWithId = function (id) {
+    var workshops = $scope.workshops24.concat($scope.workshops25);
+    for(var i=0;i < workshops.length;i++) {
+      if(workshops[i].id == id) {
+        return workshops[i];
+      }
+    }
+  }
+  $scope.checkWorkshops = function () {
+    var workshops = $scope.workshops24.concat($scope.workshops25);
+    for(var i=0;i<workshops.length; i++) {
+      var workshop = workshops[i];
+      var start_at = new Date(workshop.start_at);
+      var finish_at = new Date(workshop.finish_at);
+      var className = 'info';
+      for(var j=0;j<$scope.selectedWorkshops.length;j++) {
+        var selectedWorkshop = $scope.selectedWorkshops[j];
+        if(workshop == selectedWorkshop) {
+          className = 'warning';
+          break;
+        }
+        else {
+          var selected_start_at = new Date(selectedWorkshop.start_at);
+          var selected_finish_at = new Date(selectedWorkshop.finish_at);
+          if(selected_start_at < start_at && start_at < selected_finish_at
+            || selected_start_at < finish_at && finish_at < selected_finish_at
+            || start_at < selected_start_at && selected_start_at < finish_at
+            || start_at < selected_finish_at && selected_finish_at < finish_at) {
+            className = 'danger';
+          }
+        }
+      }
+      workshop.class = className;
+    }
   }
 
   $scope.hasEmptyField = function(form) {
@@ -85,10 +149,12 @@ kongreApp.controller('registerFormController', ['$scope','$http',function (
         if($scope.applicant_type == $scope.presenter) {
           $scope.showPresentationInfoForm = true;
         }
+        else if($scope.applicant_type == $scope.attendee) {
+          $scope.showWorkshops = true;
+          $scope.showCheckout = true;
+        }
       })
-      .error(function () {
-
-      })
+      .error(function () { })
       .then(function () {
         $scope.disableSavePersonalInfo = false;
       });
@@ -110,9 +176,32 @@ kongreApp.controller('registerFormController', ['$scope','$http',function (
         $scope.showPersonalInfoForm = false;
         $scope.showPresentationInfoForm = false;
       })
-      .error(function () {
+      .error(function () { })
+  }
 
+  $scope.refreshTotalAmount = function () {
+    $scope.totalAmount = $scope.form.applicant.applicant_category == 'instructor_student' ? 10000 : 18000;
+    for(var i=0; i<$scope.selectedWorkshops.length ; i++) {
+      $scope.totalAmount += $scope.selectedWorkshops[i].product.price;
+    }
+  }
+  $scope.$watch('form.applicant.application_category',$scope.refreshTotalAmount);
+
+  $scope.order = function () {
+    if(confirm('Ödemenizi onaylıyor musunuz?')) {
+      var workshops = [];
+      for(var i=0; i<$scope.selectedWorkshops.length; i++) {
+        workshops.push($scope.selectedWorkshops[i].id);
+      }
+      $http.post('/order',{
+        workshops:workshops,
+        applicant_id:$scope.applicant.id
       })
+        .success(function (data) {
+          //console.log(data)
+          window.location = data.redirect_url;
+        })
+    }
   }
 
 

@@ -7,3 +7,4 @@
 .DS_STORE
 log
 vendor
+config/initializers/private.rb
