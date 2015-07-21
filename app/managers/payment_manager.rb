@@ -12,8 +12,8 @@ class PaymentManager
 
   def self.checkout(params)
     params[:token] = token
-    params[:success_callback] = 'http://localhost:1234/callback/success'
-    params[:error_callback] = 'http://localhost:1234/callback/error'
+    params[:success_callback] = 'http://kongre-basvuru.herokuapp.com/callback/success'
+    params[:error_callback] = 'http://kongre-basvuru.herokuapp.com/callback/error'
     payment_connector.checkout(params)
   end
 
