@@ -1,12 +1,7 @@
-GIT
-  remote: git@github.com:yunuserenguzel/halicipaymentconnector.git
-  revision: c310eccef2a21f9f6a94c58ea472d316fc0cf3b8
-  specs:
-    HaliciPaymentConnector (0.0.1)
-
 GEM
   remote: https://rubygems.org/
   specs:
+    HaliciPaymentConnector (0.0.1)
     actionmailer (4.1.8)
       actionpack (= 4.1.8)
       actionview (= 4.1.8)
@@ -157,7 +152,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  HaliciPaymentConnector!
+  HaliciPaymentConnector
   angularjs-rails
   autoprefixer-rails
   bh (~> 1.2)
