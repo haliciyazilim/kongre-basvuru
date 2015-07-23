@@ -8,8 +8,8 @@ kongreApp.controller('registerFormController', ['$scope','$http',function (
   $scope.showWorkshops = false;
   $scope.showCheckout = false;
   $scope.applicant_type = null;
-  $scope.workshops24 = workshops24;
   $scope.totalAmount = 0;
+  $scope.workshops24 = workshops24;
   for(var i=0; i< $scope.workshops24.length; i++) {
     $scope.workshops24[i].class = 'info';
   }
@@ -68,8 +68,8 @@ kongreApp.controller('registerFormController', ['$scope','$http',function (
 
   $scope.setAttendance = function (attendance, add) {
     $scope.form.applicant.previous_attendances = add ?
-      $scope.form.applicant.previous_attendances | attendance :
-      $scope.form.applicant.previous_attendances & ~attendance;
+    $scope.form.applicant.previous_attendances | attendance :
+    $scope.form.applicant.previous_attendances & ~attendance;
   }
 
   $scope.toggleSelectedWorkshops = function (id) {
@@ -203,6 +203,5 @@ kongreApp.controller('registerFormController', ['$scope','$http',function (
         })
     }
   }
-
 
 }]);

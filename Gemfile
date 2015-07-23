@@ -49,3 +49,5 @@ gem 'rails_12factor'
 
 gem 'HaliciPaymentConnector'
 gem 'rest-client' #required for HaliciPaymentConnector
+
+gem 'jquery-turbolinks'

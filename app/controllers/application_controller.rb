@@ -72,7 +72,8 @@ class ApplicationController < ActionController::Base
         user_name: applicant.name,
         order_id: receipt.id,
         product_name: 'Kongre Katılım',
-        price: receipt.price
+        price: receipt.price,
+        hostname: request.protocol + request.host_with_port
       )
       render json: { redirect_url:url }
     end
@@ -82,7 +83,9 @@ class ApplicationController < ActionController::Base
     @result = params[:result]
     @payment = PaymentManager.check(params[:payment_id])
     if @payment['status'] == 'successful'
-      Receipt.find(@payment['order_id']).update(is_paid:true)
+      receipt = Receipt.find(@payment['order_id'])
+      receipt.update(is_paid:true)
+      KongreMailer.payment_accepted(receipt).deliver!
     end
   end
 
