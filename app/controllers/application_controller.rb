@@ -85,7 +85,11 @@ class ApplicationController < ActionController::Base
     if @payment['status'] == 'successful'
       receipt = Receipt.find(@payment['order_id'])
       receipt.update(is_paid:true)
-      KongreMailer.payment_accepted(receipt).deliver!
+      begin
+        KongreMailer.payment_accepted(receipt).deliver!
+      rescue
+        puts "An error occured during mail sending!"
+      end
     end
   end
 
