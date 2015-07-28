@@ -28,23 +28,22 @@ kongreApp.controller('registerFormController', ['$scope','$http',function (
     presentation:{}
   };
 
-  //$scope.form.applicant = {
-  //  name:'Yunus Eren',
-  //  surname:'Guzel',
-  //  email:'yeguzel@halici.com.tr',
-  //  tckn:'17515095902',
-  //  birthday:'24.04.1989',
-  //  phone:'+905324648399',
-  //  organization:'Halici',
-  //  occupation:'Computer Engineer',
-  //  address:'75.Sok 48/3 Bahcelievler Cankaya',
-  //  city:'Ankara',
-  //  applicant_category:'instructor_student',
-  //  previous_attendances:0,
-  //  relation_to_high_intelligence:null,
-  //  previous_attendances:null
-  //
-  //};
+  $scope.form.applicant = {
+    name:'Yunus Eren',
+    surname:'Guzel',
+    email:'yeguzel@halici.com.tr',
+    tckn:'17515095902',
+    birthday:'24.04.1989',
+    phone:'+905324648399',
+    organization:'Halici',
+    occupation:'Computer Engineer',
+    address:'75.Sok 48/3 Bahcelievler Cankaya',
+    city:'Ankara',
+    applicant_category:'instructor_student',
+    previous_attendances:0,
+    relation_to_high_intelligence:null,
+    previous_attendances:null
+  };
 
 
   $scope.showApplicationTypeButtons = true;

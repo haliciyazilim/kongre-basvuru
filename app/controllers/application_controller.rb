@@ -81,14 +81,19 @@ class ApplicationController < ActionController::Base
 
   def callback
     @result = params[:result]
-    @payment = PaymentManager.check(params[:payment_id])
+    @payment = PaymentManager.check(params[:payment_token])
     if @payment['status'] == 'successful'
       receipt = Receipt.find(@payment['order_id'])
-      receipt.update(is_paid:true)
-      begin
-        KongreMailer.payment_accepted(receipt).deliver!
-      rescue
-        puts "An error occured during mail sending!"
+      if !receipt.is_paid
+        receipt.update(is_paid:true)
+        receipt.receipt_products.each do |rp|
+          rp.product.decrement!(:stock)
+        end
+        begin
+          KongreMailer.payment_accepted(receipt).deliver!
+        rescue
+          puts 'An error occurred during mail sending!'
+        end
       end
     end
   end

@@ -17,8 +17,8 @@ class PaymentManager
     payment_connector.checkout(params)
   end
 
-  def self.check(payment_id)
-    payment_connector.check(payment_id)
+  def self.check(payment_token)
+    payment_connector.check(payment_token)
   end
 
 end

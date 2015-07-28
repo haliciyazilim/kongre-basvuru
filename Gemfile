@@ -47,7 +47,7 @@ gem 'haml-rails'
 
 gem 'rails_12factor'
 
-gem 'HaliciPaymentConnector'
+gem 'HaliciPaymentConnector', '0.0.2'
 gem 'rest-client' #required for HaliciPaymentConnector
 
 gem 'jquery-turbolinks'
