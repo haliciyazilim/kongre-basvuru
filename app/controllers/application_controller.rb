@@ -2,6 +2,10 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :null_session
+  before_action :before_action
+  def before_action
+    response.headers['X-Frame-Options'] = 'ALLOWALL'
+  end
   def show
     @workshops_24 = Workshop.at_day '2015-10-24'
     @workshops_25 = Workshop.at_day '2015-10-25'
