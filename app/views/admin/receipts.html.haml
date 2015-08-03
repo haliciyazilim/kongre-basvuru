@@ -6,15 +6,26 @@
     = @total_amount /100
   TL
 %table.table
-  %tr
-    %th Id
-    %th is paid
-    %th Applicant
-    %th Price
-    %th
-    %th
+  - previous_receipt = nil
+  - class_names = %w(active success warning danger info)
+  - class_name = ''
   - @receipts.each do |receipt|
-    %tr
+    - if !previous_receipt || previous_receipt.created_at.day != receipt.created_at.day
+      - class_name = class_names.shift
+      - class_names << class_name
+      %tr
+        %td{colspan:6}
+          %h5
+            = "#{receipt.created_at.day}.#{receipt.created_at.month}.#{receipt.created_at.year}"
+      %tr
+        %th Id
+        %th is paid
+        %th Applicant
+        %th Price
+        %th
+        %th
+    - previous_receipt = receipt
+    %tr{class:class_name}
       %td
         = receipt.id
       %td
