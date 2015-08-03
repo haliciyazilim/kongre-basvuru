@@ -2,7 +2,6 @@ Rails.application.routes.draw do
 
 
 
-  get 'admin' => 'admin#list'
 
   get 'admin/applicant/:id' => 'admin#applicant'
 
@@ -19,6 +18,10 @@ Rails.application.routes.draw do
   get 'admin/receipts/:is_paid' => 'admin#receipts'
 
   get 'admin/stocks'
+
+  get 'admin' => 'admin#list'
+
+  get 'admin/:applicant_type' => 'admin#list'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

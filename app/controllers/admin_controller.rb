@@ -1,8 +1,13 @@
 class AdminController < ApplicationController
   layout 'admin'
   def list
-    @applicants = Applicant.all.order(id: :desc)
+    if params.has_key? :applicant_type
+      @applicants = Applicant.where(applicant_type: params[:applicant_type]).order(id: :desc)
+    else
+      @applicants = Applicant.all.order(id: :desc)
+    end
   end
+
   def receipts
     if params.has_key? :is_paid
       @receipts = Receipt.where(is_paid: params[:is_paid]).order(id: :desc)
