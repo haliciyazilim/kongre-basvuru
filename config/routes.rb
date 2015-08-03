@@ -18,6 +18,8 @@ Rails.application.routes.draw do
 
   get 'admin/receipts/:is_paid' => 'admin#receipts'
 
+  get 'admin/stocks'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

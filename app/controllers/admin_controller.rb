@@ -16,4 +16,7 @@ class AdminController < ApplicationController
     @applicant = Applicant.find(params[:id])
     @presentation = ApplicantPresentation.find_by_applicant_id(params[:id])
   end
+  def stocks
+    @products = Product.all
+  end
 end

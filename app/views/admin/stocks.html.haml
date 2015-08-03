@@ -1,0 +1,10 @@
+- colors = %w(progress-bar-active progress-bar-success progress-bar-warning progress-bar-danger progress-bar-info)
+- @products.each do |product|
+  - class_name = colors.shift
+  - colors << class_name
+  - now = product.max_stock - product.stock
+  - percent = now.to_f / product.max_stock.to_f * 100
+  %h5
+    = "#{product.name} #{now} / #{product.max_stock}"
+  .progress
+    .progress-bar.progress-bar-striped.active{class:class_name,role:'progressbar','aria-valuenow'=>now,'aria-valuemin'=>0,'aria-valuemax'=>product.max_stock,style:"width: #{percent}%"}
