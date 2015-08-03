@@ -6,49 +6,44 @@
     = @total_amount /100
   TL
 %table.table
-  - previous_receipt = nil
   - class_names = %w(active success warning danger info)
-  - class_name = ''
-  - daily_total = 0
-  - @receipts.each do |receipt|
-    - if !previous_receipt || previous_receipt.created_at.day != receipt.created_at.day
-      - class_name = class_names.shift
-      - class_names << class_name
-      - if daily_total > 0
-        %tr
-          %td.text-right{colspan:3}
-            %h5 Gunluk Toplam
-          %td
-            %h5
-              = "#{daily_total / 100} TL"
-          %td{colspan:3}
-      - daily_total = 0
-      %tr
-        %td{colspan:6}
-          %h3
-            = "#{receipt.created_at.day}.#{receipt.created_at.month}.#{receipt.created_at.year}"
-      %tr
-        %th Id
-        %th is paid
-        %th Applicant
-        %th Price
-        %th
-        %th
-    - previous_receipt = receipt
-    - daily_total += receipt.price
-    %tr{class:class_name}
+  - @receipts.each do |date,receipt_group|
+    - class_name = class_names.shift
+    - class_names << class_name
+    - daily_total = 0
+    %tr
+      %td{colspan:6}
+        %h3
+          = date
+    %tr
+      %th Id
+      %th is paid
+      %th Applicant
+      %th Price
+      %th
+      %th
+    - receipt_group.each do |receipt|
+      - daily_total += receipt.price
+      %tr{class:class_name}
+        %td
+          = receipt.id
+        %td
+          = receipt.is_paid
+        %td
+          = "#{receipt.applicant.name} #{receipt.applicant.surname}"
+        %td
+          = "#{receipt.price/100} TL"
+        %td
+          - receipt.receipt_products.each do |rp|
+            %p
+              = rp.product.name
+        %td
+          %a{href:"/admin/applicant/#{receipt.applicant.id}"}
+            Detaylar
+    %tr
+      %td.text-right{colspan:3}
+        %h5 Gunluk Toplam
       %td
-        = receipt.id
-      %td
-        = receipt.is_paid
-      %td
-        = "#{receipt.applicant.name} #{receipt.applicant.surname}"
-      %td
-        = "#{receipt.price/100} TL"
-      %td
-        - receipt.receipt_products.each do |rp|
-          %p
-            = rp.product.name
-      %td
-        %a{href:"/admin/applicant/#{receipt.applicant.id}"}
-          Detaylar
+        %h5
+          = "#{daily_total / 100} TL"
+      %td{colspan:3}
