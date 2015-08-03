@@ -9,6 +9,7 @@ class AdminController < ApplicationController
     else
       @receipts = Receipt.all.order(id: :desc)
     end
+    @total_amount = @receipts.map(&:price).reduce(:+)
   end
   def applicant
     @applicant = Applicant.find(params[:id])
