@@ -9,13 +9,23 @@
   - previous_receipt = nil
   - class_names = %w(active success warning danger info)
   - class_name = ''
+  - daily_total = 0
   - @receipts.each do |receipt|
     - if !previous_receipt || previous_receipt.created_at.day != receipt.created_at.day
       - class_name = class_names.shift
       - class_names << class_name
+      - if daily_total > 0
+        %tr
+          %td.text-right{colspan:3}
+            %h5 Gunluk Toplam
+          %td
+            %h5
+              = "#{daily_total / 100} TL"
+          %td{colspan:3}
+      - daily_total = 0
       %tr
         %td{colspan:6}
-          %h5
+          %h3
             = "#{receipt.created_at.day}.#{receipt.created_at.month}.#{receipt.created_at.year}"
       %tr
         %th Id
@@ -25,6 +35,7 @@
         %th
         %th
     - previous_receipt = receipt
+    - daily_total += receipt.price
     %tr{class:class_name}
       %td
         = receipt.id
