@@ -45,7 +45,6 @@ kongreApp.controller('registerFormController', ['$scope','$http',function (
   //  previous_attendances:null
   //};
 
-
   $scope.showApplicationTypeButtons = true;
 
   $scope.applyAs = function (applicant) {
@@ -113,8 +112,9 @@ kongreApp.controller('registerFormController', ['$scope','$http',function (
         }
       }
       if(workshop.product.stock < 1) {
-        workshop.class = 'danger';
+        className = 'danger';
       }
+      workshop.className = className;
     }
   }
   $scope.checkWorkshops();

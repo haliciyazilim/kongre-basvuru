@@ -1,7 +1,7 @@
 <td>
   <input type="checkbox"
          onchange="angular.element(this).scope().toggleSelectedWorkshops(this.value)"
-         ng-disabled="workshop.class == 'danger'"
+         ng-disabled="workshop.className == 'danger'"
          value="{{workshop.id}}">
 </td>
 <th scope="row">

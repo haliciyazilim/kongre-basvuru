@@ -365,8 +365,7 @@
                     </thead>
                     <tbody>
 
-                    <tr ng-repeat="workshop in workshops24" class="{{workshop.class}}"
-                        ng-disabled="workshop.class == 'warning' ">
+                    <tr ng-repeat="workshop in workshops24" class="{{workshop.className}}">
                       <%= render partial: 'partials/workshop_row'%>
                     </tr>
                     </tbody>
@@ -396,7 +395,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="workshop in workshops25" class="{{workshop.class}}">
+                    <tr ng-repeat="workshop in workshops25" class="{{workshop.className}}">
                       <%= render partial: 'partials/workshop_row' %>
                     </tr>
                     </tbody>
