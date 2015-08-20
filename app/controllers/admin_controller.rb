@@ -24,4 +24,8 @@ class AdminController < ApplicationController
   def stocks
     @products = Product.all
   end
+
+  def workshops
+    @workshops = Workshop.all
+  end
 end

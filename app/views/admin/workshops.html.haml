@@ -1,0 +1,18 @@
+- @workshops.each do |workshop|
+  %hr
+  .row
+    .col-lg-1
+      = workshop.id
+  .row
+    .col-lg-12
+      = workshop.product.name
+  .row
+    .col-lg-3
+      = workshop.start_at
+    .col-lg-3
+      = workshop.finish_at
+  .row
+    .col-lg-1
+      = workshop.product.price
+    .col-lg-4
+      = workshop.moderator

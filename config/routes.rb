@@ -13,6 +13,8 @@ Rails.application.routes.draw do
 
   get 'callback/:result' => 'application#callback'
 
+  get 'admin/workshops'
+
   get 'admin/receipts'
 
   get 'admin/receipts/:is_paid' => 'admin#receipts'
