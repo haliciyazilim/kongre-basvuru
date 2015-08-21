@@ -39,7 +39,7 @@ kongreApp.controller('registerFormController', ['$scope','$http',function (
   //  occupation:'Computer Engineer',
   //  address:'75.Sok 48/3 Bahcelievler Cankaya',
   //  city:'Ankara',
-  //  applicant_category:'instructor_student',
+  //  //applicant_category:'instructor_student',
   //  previous_attendances:0,
   //  relation_to_high_intelligence:null,
   //  previous_attendances:null
@@ -143,6 +143,7 @@ kongreApp.controller('registerFormController', ['$scope','$http',function (
     $http.post('/register',{applicant:applicantForm})
       .success(function (data) {
         $scope.applicant = data;
+        $scope.refreshTotalAmount();
         if($scope.applicant_type == $scope.presenter) {
           $scope.showPresentationInfoForm = true;
         }
@@ -182,7 +183,7 @@ kongreApp.controller('registerFormController', ['$scope','$http',function (
       $scope.totalAmount += $scope.selectedWorkshops[i].product.price;
     }
   }
-  $scope.$watch('form.applicant.application_category',$scope.refreshTotalAmount);
+  $scope.$watch('form.applicant.application_category', $scope.refreshTotalAmount);
 
   $scope.order = function () {
     if(confirm('Ödemeniz gereken toplam tutar olan '+$scope.totalAmount/100+' TL’yi ödemek icin ödeme sayfasına yönlendirileceksiniz, Onaylıyor musunuz?')) {
