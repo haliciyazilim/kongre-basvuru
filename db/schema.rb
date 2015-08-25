@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150803142317) do
+ActiveRecord::Schema.define(version: 20150824122348) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,12 @@ ActiveRecord::Schema.define(version: 20150803142317) do
   create_table "attendances", force: true do |t|
     t.integer "product_id"
   end
+
+  create_table "card_numbers", force: true do |t|
+    t.integer "applicant_id"
+  end
+
+  add_index "card_numbers", ["applicant_id"], name: "index_card_numbers_on_applicant_id", unique: true, using: :btree
 
   create_table "products", force: true do |t|
     t.integer  "stock"
