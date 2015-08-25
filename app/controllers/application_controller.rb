@@ -89,6 +89,7 @@ class ApplicationController < ActionController::Base
     if @payment['status'] == 'successful'
       receipt = Receipt.find(@payment['order_id'])
       if !receipt.is_paid
+        CardNumber.create(:applicant_id => receipt.applicant_id)
         receipt.update(is_paid:true)
         receipt.receipt_products.each do |rp|
           rp.product.decrement!(:stock)
