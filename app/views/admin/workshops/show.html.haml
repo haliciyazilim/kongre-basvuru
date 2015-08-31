@@ -1,0 +1,28 @@
+%a.btn.btn-link{href:'/admin/workshops'}
+  <- Atölyeler
+%h2
+  = @workshop.product.name
+%table.table
+  %tr
+    %th Id
+    %th Type
+    %th İsim
+    %th Meslek
+    %th Adres
+    %th Sehir
+    %th
+  - @applicants.each do |applicant|
+    %tr
+      %td
+        = applicant.id
+      %td
+        = applicant_type applicant
+      %td
+        = "#{applicant.name} #{applicant.surname}"
+      %td
+        = applicant.occupation
+      %td
+        = applicant.city
+      %td
+        %a{href:"/admin/applicant/#{applicant.id}"}
+          Detaylar

@@ -21,4 +21,8 @@ class Workshop < ActiveRecord::Base
     return json
   end
 
+  def attendees
+    Applicant.joins(receipts: :receipt_products).where(receipts: {:is_paid => true}, receipt_products: {:product_id => self.product_id})
+  end
+
 end

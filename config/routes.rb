@@ -13,7 +13,8 @@ Rails.application.routes.draw do
 
   get 'callback/:result' => 'application#callback'
 
-  get 'admin/workshops'
+  get 'admin/workshops'     => 'admin/workshops#index'
+  get 'admin/workshops/:workshop_id' => 'admin/workshops#show', as: :admin_workshop
 
   get 'admin/receipts'
 
