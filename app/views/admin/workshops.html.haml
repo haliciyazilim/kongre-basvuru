@@ -8,11 +8,10 @@
       = workshop.product.name
   .row
     .col-lg-3
-      = workshop.start_at.in_time_zone("Istanbul")
-    .col-lg-3
-      = workshop.finish_at.in_time_zone("Istanbul")
+      = workshop.start_at.in_time_zone("Istanbul").strftime('%d.%m.%Y')
+      = workshop.start_at.in_time_zone("Istanbul").strftime('%H:%M') - workshop.finish_at.in_time_zone("Istanbul").strftime('%H:%M')
   .row
     .col-lg-1
-      = workshop.product.price
+      #{workshop.product.price/100} TL
     .col-lg-4
       = workshop.moderator
