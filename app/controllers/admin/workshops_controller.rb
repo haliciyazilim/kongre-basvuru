@@ -1,6 +1,6 @@
 class Admin::WorkshopsController < AdminController
   def index
-    @workshops = Workshop.all
+    @workshops = Workshop.all.order(:start_at)
   end
 
   def show
