@@ -25,10 +25,12 @@ module AdminHelper
   end
 
   def applicant_category(applicant)
-    if applicant.applicant_category == 'instructor_student'
+    if applicant.applicant_category == ApplicantCategory.instructor_student
       'Öğretmen / Öğrenci'
-    elsif applicant.applicant_category == 'civillian'
+    elsif applicant.applicant_category == ApplicantCategory.civillian
       'Sivil Katılım'
+    elsif applicant.applicant_category == ApplicantCategory.child
+      'Çocuk'
     else
       ''
     end
