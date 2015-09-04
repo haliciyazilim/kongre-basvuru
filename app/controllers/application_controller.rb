@@ -55,11 +55,13 @@ class ApplicationController < ActionController::Base
     applicant = Applicant.find(params[:applicant_id])
     ActiveRecord::Base.transaction do
       receipt = Receipt.create(applicant:applicant)
-      ReceiptProduct.create(
-        receipt:receipt,
-        product:Attendance.last.product,
-        price:applicant.applicant_category == ApplicantCategory.instructor_student ? 10000 : 18000
-      )
+      if applicant.applicant_category != ApplicantCategory.child
+        ReceiptProduct.create(
+          receipt:receipt,
+          product:Attendance.last.product,
+          price:applicant.applicant_category == ApplicantCategory.instructor_student ? 10000 : 18000
+        )
+      end
       if params[:workshops]
         params[:workshops].each do |workshop_id|
           workshop = Workshop.find(workshop_id)
