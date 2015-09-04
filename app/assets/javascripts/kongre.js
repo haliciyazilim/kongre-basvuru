@@ -1,7 +1,9 @@
-var kongreApp = angular.module('kongreApp',[]);
-kongreApp.controller('registerFormController', ['$scope','$http',function (
+var kongreApp = angular.module('kongreApp',['duScroll']);
+kongreApp.controller('registerFormController', ['$scope','$http', '$document', '$timeout',function (
   $scope,
-  $http
+  $http,
+	$document,
+	$timeout
 ) {
   $scope.attendee = 'attendee';
   $scope.presenter = 'presenter';
@@ -28,24 +30,31 @@ kongreApp.controller('registerFormController', ['$scope','$http',function (
     presentation:{}
   };
 
-  //$scope.form.applicant = {
-  //  name:'Yunus Eren',
-  //  surname:'Guzel',
-  //  email:'yeguzel@halici.com.tr',
-  //  tckn:'17515095902',
-  //  birthday:'24.04.1989',
-  //  phone:'+905324648399',
-  //  organization:'Halici',
-  //  occupation:'Computer Engineer',
-  //  address:'75.Sok 48/3 Bahcelievler Cankaya',
-  //  city:'Ankara',
-  //  //applicant_category:'instructor_student',
-  //  previous_attendances:0,
-  //  relation_to_high_intelligence:null,
-  //  previous_attendances:null
-  //};
+  $scope.form.applicant = {
+    name:'Yunus Eren',
+    surname:'Guzel',
+    email:'yeguzel@halici.com.tr',
+    tckn:'17515095902',
+    birthday:'24.04.1989',
+    phone:'+905324648399',
+    organization:'Halici',
+    occupation:'Computer Engineer',
+    address:'75.Sok 48/3 Bahcelievler Cankaya',
+    city:'Ankara',
+    //applicant_category:'instructor_student',
+    previous_attendances:0,
+    relation_to_high_intelligence:null,
+    previous_attendances:null
+  };
 
   $scope.showApplicationTypeButtons = true;
+
+	var scrollTo= function (id) {
+		var offset=10;
+		var duration=750;
+		var someElement = angular.element(document.getElementById(id));
+		$document.scrollToElement(someElement, offset, duration);
+	}
 
   $scope.applyAs = function (applicant) {
     $scope.applicant_type = applicant;
@@ -150,6 +159,13 @@ kongreApp.controller('registerFormController', ['$scope','$http',function (
         else if($scope.applicant_type == $scope.attendee) {
           $scope.showWorkshops = true;
           $scope.showCheckout = true;
+
+
+					$timeout(function () {
+						scrollTo('workshopsPanel');
+					}, 500);
+
+
         }
       })
       .error(function () { })
