@@ -326,7 +326,7 @@
       var workshops24 = <%= @workshops_24.to_json.html_safe %>
       var workshops25 = <%= @workshops_25.to_json.html_safe %>
     </script>
-    <div ng-if="showWorkshops" class="panel panel-warning">
+    <div ng-show="showWorkshops" id='workshopsPanel' class="panel panel-warning">
       <div class="panel-heading">
         <h3 class="panel-title">Katılmak İstediğiniz Atölyeleri Seçebilirsiniz</h3>
       </div>
