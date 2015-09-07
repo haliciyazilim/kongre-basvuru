@@ -313,7 +313,11 @@
       <div class="panel-footer">
         <div class="row">
           <div class="col-xs-12">
-            <button ng-click="savePersonalInfo()" ng-disabled="disableSavePersonalInfo" class="btn btn-warning pull-right" >DEVAM ET</button>
+            <button ng-click="savePersonalInfo()"
+                    ng-disabled="personalInfoState==actionState.onAction"
+                    class="btn btn-warning pull-right">
+              <i class="fa fa-cog fa-spin" ng-show="personalInfoState==actionState.onAction"></i>  DEVAM ET
+            </button>
             <!--sunum basvurusu için class="btn btn-danger pull-right" -->
           </div>
         </div>
@@ -469,14 +473,18 @@
         </div>
         <div class="row">
           <div class="col-xs-12">
-            <button class="btn btn-success pull-right" ng-click="order()">ÖDEME SAYFASINA GEÇ</button>
+            <button class="btn btn-success pull-right"
+                    ng-click="order()"
+                    ng-disabled="orderState==actionState.onAction" >
+              <i class="fa fa-cog fa-spin" ng-show="orderState==actionState.onAction"></i> ÖDEME SAYFASINA GEÇ
+            </button>
           </div>
         </div>
       </div>
     </div>
     <!--panel-->
     <!--STEP 3 for KATILIMCI End -->
-    <div ng-if="showPresentationInfoForm" class="panel panel-danger">
+    <div id="presentationInfoForm" ng-show="showPresentationInfoForm" class="panel panel-danger">
       <div class="panel-heading">
         <h3 class="panel-title">Sunulacak Çalışmaya İlişkin Bilgilerinizi Giriniz</h3>
       </div>
@@ -517,7 +525,7 @@
           </div>
           <div class="col-xs-12 col-sm-2">
             <button ng-disabled="disableSubmitPresentation" ng-click="submitPresentation()" class="btn btn-danger pull-right">
-              GÖNDER
+              <i class="fa fa-cog fa-spin" ng-show="disableSubmitPresentation"></i> GÖNDER
             </button>
           </div>
         </div>

@@ -1,10 +1,21 @@
 var kongreApp = angular.module('kongreApp',['duScroll']);
-kongreApp.controller('registerFormController', ['$scope','$http', '$document', '$timeout',function (
+kongreApp.controller('registerFormController', ['$scope','$http', '$document', '$timeout', '$log',function (
   $scope,
   $http,
 	$document,
-	$timeout
+	$timeout,
+	$log
 ) {
+
+
+	$scope.actionState={
+		onIdle:0,
+		onAction:1
+	};
+
+	$scope.personalInfoState=$scope.actionState.onIdle;
+	$scope.orderState=$scope.actionState.onIdle;
+
   $scope.attendee = 'attendee';
   $scope.presenter = 'presenter';
   $scope.showWorkshops = false;
@@ -148,29 +159,34 @@ kongreApp.controller('registerFormController', ['$scope','$http', '$document', '
       alert('Lütfen formu eksiksiz doldurunuz.');
       return;
     }
-    $scope.disableSavePersonalInfo = true;
+
+		$scope.personalInfoState=$scope.actionState.onAction;
     $http.post('/register',{applicant:applicantForm})
       .success(function (data) {
         $scope.applicant = data;
         $scope.refreshTotalAmount();
+
         if($scope.applicant_type == $scope.presenter) {
           $scope.showPresentationInfoForm = true;
         }
         else if($scope.applicant_type == $scope.attendee) {
           $scope.showWorkshops = true;
           $scope.showCheckout = true;
-
-
-					$timeout(function () {
-						scrollTo('workshopsPanel');
-					}, 500);
-
-
         }
       })
       .error(function () { })
       .then(function () {
-        $scope.disableSavePersonalInfo = false;
+
+				$timeout(function () {
+					if($scope.showPresentationInfoForm){
+						$log.info('presentation')
+						scrollTo('presentationInfoForm');
+					}
+					else
+						scrollTo('workshopsPanel');
+				}, 500);
+
+				$scope.personalInfoState=$scope.actionState.onIdle;
       });
   }
 
@@ -203,7 +219,9 @@ kongreApp.controller('registerFormController', ['$scope','$http', '$document', '
 
   $scope.order = function () {
     if(confirm('Ödemeniz gereken toplam tutar olan '+$scope.totalAmount/100+' TL’yi ödemek icin ödeme sayfasına yönlendirileceksiniz, Onaylıyor musunuz?')) {
-      var workshops = [];
+
+			$scope.orderState=$scope.actionState.onAction;
+			var workshops = [];
       for(var i=0; i<$scope.selectedWorkshops.length; i++) {
         workshops.push($scope.selectedWorkshops[i].id);
       }
@@ -215,6 +233,11 @@ kongreApp.controller('registerFormController', ['$scope','$http', '$document', '
           //console.log(data)
           window.location = data.redirect_url;
         })
+				.error(function (error) {
+					$log.info('error on order: ', error);
+					$scope.orderState=$scope.actionState.onIdle;
+					//TODO error handle!!
+				})
     }
   }
 
