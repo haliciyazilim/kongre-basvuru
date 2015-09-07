@@ -51,3 +51,5 @@ gem 'HaliciPaymentConnector', '0.0.2'
 gem 'rest-client' #required for HaliciPaymentConnector
 
 gem 'jquery-turbolinks'
+
+gem 'font-awesome-sass', '~> 4.4.0'
