@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150824122348) do
+ActiveRecord::Schema.define(version: 20150907125157) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,6 +84,9 @@ ActiveRecord::Schema.define(version: 20150824122348) do
     t.string   "saloon"
     t.string   "moderator"
     t.integer  "product_id"
+    t.boolean  "for_children", default: false
   end
+
+  add_index "workshops", ["for_children"], name: "index_workshops_on_for_children", using: :btree
 
 end
