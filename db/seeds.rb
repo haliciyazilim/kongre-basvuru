@@ -30,6 +30,7 @@ Workshop.create_product(
   moderator: 'Gilika Çocuk Tasarım Atölyesi',
   stock:20,
   price: 18000,
+  for_children: true,
   start_at: '2015-10-24 14:30:00 +0300',
   finish_at: '2015-10-24 17:30:00 +0300'
 )
@@ -57,6 +58,7 @@ Workshop.create_product(
   moderator: 'Gilika Çocuk Tasarım Atölyesi',
   stock:20,
   price: 18000,
+  for_children: true,
   start_at: '2015-10-25 10:30:00 +0300',
   finish_at: '2015-10-25 13:30:00 +0300'
 )
@@ -66,6 +68,7 @@ Workshop.create_product(
   moderator: 'Gilika Çocuk Tasarım Atölyesi',
   stock:20,
   price: 10000,
+  for_children: true,
   start_at: '2015-10-25 13:30:00 +0300',
   finish_at: '2015-10-25 16:30:00 +0300'
 )
