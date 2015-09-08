@@ -16,5 +16,7 @@
 //= require jquery.turbolinks
 //= require bootstrap-sprockets
 //= require angular
-//= require ui-notification.js
+//= require ui-bootstrap.js
+//= require angular-rails-templates
 //= require_tree .
+//= require_tree ./templates

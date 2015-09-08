@@ -38,7 +38,9 @@ gem 'spring',        group: :development
 # gem 'debugger', group: [:development, :test]
 
 gem 'bootstrap-sass', '~> 3.2.0'
+
 gem 'autoprefixer-rails'
+
 gem 'bh', '~> 1.2'
 
 gem 'angularjs-rails'
@@ -48,8 +50,11 @@ gem 'haml-rails'
 gem 'rails_12factor'
 
 gem 'HaliciPaymentConnector', '0.0.2'
+
 gem 'rest-client' #required for HaliciPaymentConnector
 
 gem 'jquery-turbolinks'
 
 gem 'font-awesome-sass', '~> 4.4.0'
+
+gem 'angular-rails-templates'
