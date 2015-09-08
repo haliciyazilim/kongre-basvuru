@@ -185,7 +185,8 @@
               <div class="checkbox">
                 <label>
                   <input type="checkbox"
-                         onchange="angular.element(this).scope().setAttendance(1,this.checked)">
+                         ng-change="setAttendance(1, attendances.attendance2013)"
+                         ng-model="attendances.attendance2013">
                   <strong>2013</strong>
                   Kongresine katıldım
                 </label>
@@ -194,7 +195,8 @@
               <div class="checkbox">
                 <label>
                   <input type="checkbox"
-                         onchange="angular.element(this).scope().setAttendance(2,this.checked)">
+                         ng-change="setAttendance(2,attendances.attendance2014)"
+                         ng-model="attendances.attendance2014">
                   <strong>2014</strong>
                   Kongresine katıldım
                 </label>
@@ -203,7 +205,8 @@
               <div class="checkbox">
                 <label>
                   <input name="attendances" type="checkbox"
-                         onchange="angular.element(this).scope().setAttendance(4,this.checked)">
+                         ng-change="setAttendance(4,attendances.attendanceFirst)"
+                         ng-model="attendances.attendanceFirst">
                   <strong>İLK</strong>
                   katılım
                 </label>
