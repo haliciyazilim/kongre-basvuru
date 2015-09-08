@@ -9,11 +9,6 @@ kongreApp.controller('registerFormController', ['$scope','$http', '$document', '
 	Notification
 ) {
 
-	//$log.info('notification');
-	//Notification('Selam');
-
-
-
 	$scope.actionState={
 		onIdle:0,
 		onAction:1
@@ -97,18 +92,12 @@ kongreApp.controller('registerFormController', ['$scope','$http', '$document', '
     $scope.form.applicant.previous_attendances | attendance :
     $scope.form.applicant.previous_attendances & ~attendance;
 
-		$log.info('attendace: ', attendance)
-		$log.info('attendace Add: ', add)
-		$log.info('form: ', $scope.form.applicant.previous_attendances)
-
 		if(add){
 			if(attendance!=4){
-				$log.info('First must be disabled')
 				$scope.attendances.attendanceFirst=false;
 				$scope.setAttendance(4,false);
 			}
 			else{
-				$log.info('2013 and 2014 must be disabled')
 				$scope.attendances.attendance2013=false;
 				$scope.attendances.attendance2014=false;
 				$scope.setAttendance(1,false);
@@ -186,8 +175,6 @@ kongreApp.controller('registerFormController', ['$scope','$http', '$document', '
 
   $scope.savePersonalInfo = function (form) {
 
-		$log.info('savePersonalInfo', form);
-
     var applicantForm = angular.copy($scope.form.applicant);
     if(applicantForm.relation_to_high_intelligence == 'other') {
       applicantForm.relation_to_high_intelligence = $scope.form.relation_to_high_intelligence_other;
@@ -221,7 +208,6 @@ kongreApp.controller('registerFormController', ['$scope','$http', '$document', '
 
 				$timeout(function () {
 					if($scope.showPresentationInfoForm){
-						$log.info('presentation')
 						scrollTo('presentationInfoForm');
 					}
 					else
@@ -277,13 +263,11 @@ kongreApp.controller('registerFormController', ['$scope','$http', '$document', '
 	}
 
   $scope.refreshTotalAmount = function () {
-		$log.info('refreshTotalAmount am in');
 
     $scope.totalAmount = $scope.form.applicant.applicant_category == 'instructor_student' ? 10000 : 18000;
 
 		if($scope.form.applicant.applicant_category=='child')
 			$scope.totalAmount=0;
-		$log.info('applicant_category: ', $scope.form.applicant.applicant_category);
     for(var i=0; i<$scope.selectedWorkshops.length ; i++) {
 			var workshop=$scope.selectedWorkshops[i];
 			$log.info('workShop: ', workshop);
@@ -386,9 +370,6 @@ kongreApp.controller('registerFormController', ['$scope','$http', '$document', '
 
 		});
 	};
-
-
-
 
 	$scope.cities=[
 		{value:"Adana", name:"Adana"},
