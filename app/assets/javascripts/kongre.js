@@ -1,10 +1,11 @@
-var kongreApp = angular.module('kongreApp',['duScroll', 'ui-notification', 'cwill747.phonenumber']);
-kongreApp.controller('registerFormController', ['$scope','$http', '$document', '$timeout', '$log', 'Notification',function (
+var kongreApp = angular.module('kongreApp',['duScroll', 'ui-notification', 'ui.bootstrap', 'cwill747.phonenumber', 'templates']);
+kongreApp.controller('registerFormController', ['$scope','$http', '$document', '$timeout', '$log', '$modal', 'Notification',function (
   $scope,
   $http,
 	$document,
 	$timeout,
 	$log,
+	$modal,
 	Notification
 ) {
 
@@ -84,10 +85,37 @@ kongreApp.controller('registerFormController', ['$scope','$http', '$document', '
     $scope.form.applicant.applicant_type = $scope.applicant_type;
   }
 
+	$scope.attendances={
+		attendance2013:false,
+		attendance2014:false,
+		attendanceFirst:false
+
+	}
+
   $scope.setAttendance = function (attendance, add) {
     $scope.form.applicant.previous_attendances = add ?
     $scope.form.applicant.previous_attendances | attendance :
     $scope.form.applicant.previous_attendances & ~attendance;
+
+		$log.info('attendace: ', attendance)
+		$log.info('attendace Add: ', add)
+		$log.info('form: ', $scope.form.applicant.previous_attendances)
+
+		if(add){
+			if(attendance!=4){
+				$log.info('First must be disabled')
+				$scope.attendances.attendanceFirst=false;
+				$scope.setAttendance(4,false);
+			}
+			else{
+				$log.info('2013 and 2014 must be disabled')
+				$scope.attendances.attendance2013=false;
+				$scope.attendances.attendance2014=false;
+				$scope.setAttendance(1,false);
+				$scope.setAttendance(2,false);
+			}
+		}
+
 
   }
 
@@ -272,8 +300,8 @@ kongreApp.controller('registerFormController', ['$scope','$http', '$document', '
 		$scope.refreshTotalAmount();
 	});
 
-  $scope.order = function () {
-    if(confirm('Ödemeniz gereken toplam tutar olan '+$scope.totalAmount/100+' TL’yi ödemek icin ödeme sayfasına yönlendirileceksiniz, Onaylıyor musunuz?')) {
+  $scope.order = function (isConfirmed) {
+    if(isConfirmed) {
 
 			$scope.orderState=$scope.actionState.onAction;
 			var workshops = [];
@@ -299,6 +327,11 @@ kongreApp.controller('registerFormController', ['$scope','$http', '$document', '
 					//TODO error handle!!
 				})
     }
+		else{
+			var text='Ödemeniz gereken toplam tutar olan '+$scope.totalAmount/100+' TL’yi ödemek icin ödeme sayfasına yönlendirileceksiniz, Onaylıyor musunuz?';
+
+			showOrderAlert(text);
+		}
   }
 
 
@@ -332,6 +365,30 @@ kongreApp.controller('registerFormController', ['$scope','$http', '$document', '
 
 		//$log.error(text);
 	}
+
+	var showOrderAlert = function (text) {
+
+		var modalInstance = $modal.open({
+			animation: true,
+			templateUrl: 'order_alert_modal.html',
+			controller: 'OrderAlertModalController',
+			size: 'md',
+			resolve: {
+				text: function () {
+					return text;
+				}
+			}
+		});
+
+		modalInstance.result.then(function () {
+			$scope.order(true);
+		}, function () {
+
+		});
+	};
+
+
+
 
 	$scope.cities=[
 		{value:"Adana", name:"Adana"},
@@ -419,3 +476,17 @@ kongreApp.controller('registerFormController', ['$scope','$http', '$document', '
 	];
 
 }]);
+
+
+kongreApp.controller('OrderAlertModalController', function ($scope, $modalInstance, text) {
+
+	$scope.text = text;
+
+	$scope.confirm = function () {
+		$modalInstance.close();
+	};
+
+	$scope.cancel = function () {
+		$modalInstance.dismiss('cancel');
+	};
+});
