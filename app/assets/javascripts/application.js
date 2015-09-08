@@ -16,4 +16,5 @@
 //= require jquery.turbolinks
 //= require bootstrap-sprockets
 //= require angular
+//= require ui-notification.js
 //= require_tree .
