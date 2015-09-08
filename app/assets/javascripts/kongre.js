@@ -1,11 +1,16 @@
-var kongreApp = angular.module('kongreApp',['duScroll']);
-kongreApp.controller('registerFormController', ['$scope','$http', '$document', '$timeout', '$log',function (
+var kongreApp = angular.module('kongreApp',['duScroll', 'ui-notification', 'cwill747.phonenumber']);
+kongreApp.controller('registerFormController', ['$scope','$http', '$document', '$timeout', '$log', 'Notification',function (
   $scope,
   $http,
 	$document,
 	$timeout,
-	$log
+	$log,
+	Notification
 ) {
+
+	//$log.info('notification');
+	//Notification('Selam');
+
 
 
 	$scope.actionState={
@@ -83,6 +88,7 @@ kongreApp.controller('registerFormController', ['$scope','$http', '$document', '
     $scope.form.applicant.previous_attendances = add ?
     $scope.form.applicant.previous_attendances | attendance :
     $scope.form.applicant.previous_attendances & ~attendance;
+
   }
 
   $scope.toggleSelectedWorkshops = function (id) {
@@ -150,13 +156,20 @@ kongreApp.controller('registerFormController', ['$scope','$http', '$document', '
     return false;
   }
 
-  $scope.savePersonalInfo = function () {
+  $scope.savePersonalInfo = function (form) {
+
+		$log.info('savePersonalInfo', form);
+
     var applicantForm = angular.copy($scope.form.applicant);
     if(applicantForm.relation_to_high_intelligence == 'other') {
       applicantForm.relation_to_high_intelligence = $scope.form.relation_to_high_intelligence_other;
     }
     if($scope.hasEmptyField(applicantForm)) {
-      alert('Lütfen formu eksiksiz doldurunuz.');
+
+			if($scope.form.applicant.previous_attendances==null || $scope.form.applicant.previous_attendances==0){
+				$scope.form.applicant.previous_attendances=0;
+			}
+			$scope.showErrorNotification('Lütfen formu eksiksiz doldurunuz.');
       return;
     }
 
@@ -164,6 +177,7 @@ kongreApp.controller('registerFormController', ['$scope','$http', '$document', '
     $http.post('/register',{applicant:applicantForm})
       .success(function (data) {
         $scope.applicant = data;
+				$log.info('Register: ', $scope.applicant);
         $scope.refreshTotalAmount();
 
         if($scope.applicant_type == $scope.presenter) {
@@ -192,7 +206,7 @@ kongreApp.controller('registerFormController', ['$scope','$http', '$document', '
 
   $scope.submitPresentation = function () {
     if($scope.hasEmptyField($scope.form.presentation)) {
-      alert('Lütfen formu eksiksiz doldurunuz.');
+			$scope.showErrorNotification('Lütfen formu eksiksiz doldurunuz.');
       return;
     }
     $scope.disableSubmitPresentation = true;
@@ -209,13 +223,54 @@ kongreApp.controller('registerFormController', ['$scope','$http', '$document', '
       .error(function () { })
   }
 
+	var resetForm= function () {
+		//$scope.selectedWorkshops = [];
+		//
+		for(var i=0; i<$scope.selectedWorkshops.length; i++){
+			$scope.toggleSelectedWorkshops($scope.selectedWorkshops[i].id)
+		}
+		$scope.selectedWorkshops = [];
+
+		for(var i=0; i<$scope.workshops24.length; i++)
+			$scope.workshops24[i].is_selected=false;
+
+		for(var i=0; i<$scope.workshops25.length; i++)
+			$scope.workshops25[i].is_selected=false;
+			//$scope.selectedWorkshops[i].is_selected=false;
+
+		if($scope.applicant_type == $scope.presenter) {
+			$scope.showPresentationInfoForm = false;
+		}
+		else if($scope.applicant_type == $scope.attendee) {
+			$scope.showWorkshops = false;
+			$scope.showCheckout = false;
+		}
+		$scope.checkWorkshops();
+	}
+
   $scope.refreshTotalAmount = function () {
+		$log.info('refreshTotalAmount am in');
+
     $scope.totalAmount = $scope.form.applicant.applicant_category == 'instructor_student' ? 10000 : 18000;
+
+		if($scope.form.applicant.applicant_category=='child')
+			$scope.totalAmount=0;
+		$log.info('applicant_category: ', $scope.form.applicant.applicant_category);
     for(var i=0; i<$scope.selectedWorkshops.length ; i++) {
-      $scope.totalAmount += $scope.selectedWorkshops[i].product.price;
+			var workshop=$scope.selectedWorkshops[i];
+			$log.info('workShop: ', workshop);
+
+			if($scope.form.applicant.applicant_category=='child' && !workshop.for_children){
+				continue;
+			}
+
+      $scope.totalAmount += workshop.product.price;
     }
   }
-  $scope.$watch('form.applicant.application_category', $scope.refreshTotalAmount);
+  $scope.$watch('form.applicant.applicant_category', function () {
+		resetForm();
+		$scope.refreshTotalAmount();
+	});
 
   $scope.order = function () {
     if(confirm('Ödemeniz gereken toplam tutar olan '+$scope.totalAmount/100+' TL’yi ödemek icin ödeme sayfasına yönlendirileceksiniz, Onaylıyor musunuz?')) {
@@ -223,7 +278,12 @@ kongreApp.controller('registerFormController', ['$scope','$http', '$document', '
 			$scope.orderState=$scope.actionState.onAction;
 			var workshops = [];
       for(var i=0; i<$scope.selectedWorkshops.length; i++) {
-        workshops.push($scope.selectedWorkshops[i].id);
+				var workshop=$scope.selectedWorkshops[i];
+
+				if($scope.form.applicant.applicant_category=='child' && !workshop.for_children)
+					continue;
+
+        workshops.push(workshop.id);
       }
       $http.post('/order',{
         workshops:workshops,
@@ -240,5 +300,122 @@ kongreApp.controller('registerFormController', ['$scope','$http', '$document', '
 				})
     }
   }
+
+
+
+	$scope.showSuccessNotification= function (text, duration) {
+
+		if(text){
+			//text='İşleminiz başarıyla gerçekleştrildi.'
+
+			var currentDuration=1000;
+
+			if(duration)
+				currentDuration=duration;
+
+			Notification.success({message: text, delay: currentDuration});
+		}
+	}
+
+	$scope.showErrorNotification= function (text, duration) {
+
+		if(!text){
+			text='Bilinmeyen bir hata oluştu; lütfen tekrar deneyiniz.'
+		}
+
+		var currentDuration=3000;
+
+		if(duration)
+			currentDuration=duration;
+
+		Notification.error({message: text, delay: currentDuration});
+
+		//$log.error(text);
+	}
+
+	$scope.cities=[
+		{value:"Adana", name:"Adana"},
+		{value:"Adıyaman", name:"Adıyaman"},
+		{value:"Afyonkarahisar", name:"Afyonkarahisar"},
+		{value:"Ağrı", name:"Ağrı"},
+		{value:"Amasya", name:"Amasya"},
+		{value:"Ankara", name:"Ankara"},
+		{value:"Antalya", name:"Antalya"},
+		{value:"Artvin", name:"Artvin"},
+		{value:"Aydın", name:"Aydın"},
+		{value:"Balıkesir", name:"Balıkesir"},
+		{value:"Bilecik", name:"Bilecik"},
+		{value:"Bingöl", name:"Bingöl"},
+		{value:"Bitlis", name:"Bitlis"},
+		{value:"Bolu", name:"Bolu"},
+		{value:"Burdur", name:"Burdur"},
+		{value:"Bursa", name:"Bursa"},
+		{value:"Çanakkale", name:"Çanakkale"},
+		{value:"Çankırı", name:"Çankırı"},
+		{value:"Çorum", name:"Çorum"},
+		{value:"Denizli", name:"Denizli"},
+		{value:"Diyarbakır", name:"Diyarbakır"},
+		{value:"Edirne", name:"Edirne"},
+		{value:"Elazığ", name:"Elazığ"},
+		{value:"Erzincan", name:"Erzincan"},
+		{value:"Erzurum", name:"Erzurum"},
+		{value:"Eskişehir", name:"Eskişehir"},
+		{value:"Gaziantep", name:"Gaziantep"},
+		{value:"Giresun", name:"Giresun"},
+		{value:"Gümüşhane", name:"Gümüşhane"},
+		{value:"Hakkâri", name:"Hakkâri"},
+		{value:"Hatay", name:"Hatay"},
+		{value:"Isparta", name:"Isparta"},
+		{value:"Mersin", name:"Mersin"},
+		{value:"İstanbul", name:"İstanbul"},
+		{value:"İzmir", name:"İzmir"},
+		{value:"Kars", name:"Kars"},
+		{value:"Kastamonu", name:"Kastamonu"},
+		{value:"Kayseri", name:"Kayseri"},
+		{value:"Kırklareli", name:"Kırklareli"},
+		{value:"Kırşehir", name:"Kırşehir"},
+		{value:"Kocaeli", name:"Kocaeli"},
+		{value:"Konya", name:"Konya"},
+		{value:"Kütahya", name:"Kütahya"},
+		{value:"Malatya", name:"Malatya"},
+		{value:"Manisa", name:"Manisa"},
+		{value:"Kahramanmaraş", name:"Kahramanmaraş"},
+		{value:"Mardin", name:"Mardin"},
+		{value:"Muğla", name:"Muğla"},
+		{value:"Muş", name:"Muş"},
+		{value:"Nevşehir", name:"Nevşehir"},
+		{value:"Niğde", name:"Niğde"},
+		{value:"Ordu", name:"Ordu"},
+		{value:"Rize", name:"Rize"},
+		{value:"Sakarya", name:"Sakarya"},
+		{value:"Samsun", name:"Samsun"},
+		{value:"Siirt", name:"Siirt"},
+		{value:"Sinop", name:"Sinop"},
+		{value:"Sivas", name:"Sivas"},
+		{value:"Tekirdağ", name:"Tekirdağ"},
+		{value:"Tokat", name:"Tokat"},
+		{value:"Trabzon", name:"Trabzon"},
+		{value:"Tunceli", name:"Tunceli"},
+		{value:"Şanlıurfa", name:"Şanlıurfa"},
+		{value:"Uşak", name:"Uşak"},
+		{value:"Van", name:"Van"},
+		{value:"Yozgat", name:"Yozgat"},
+		{value:"Zonguldak", name:"Zonguldak"},
+		{value:"Aksaray", name:"Aksaray"},
+		{value:"Bayburt", name:"Bayburt"},
+		{value:"Karaman", name:"Karaman"},
+		{value:"Kırıkkale", name:"Kırıkkale"},
+		{value:"Batman", name:"Batman"},
+		{value:"Şırnak", name:"Şırnak"},
+		{value:"Bartın", name:"Bartın"},
+		{value:"Ardahan", name:"Ardahan"},
+		{value:"Iğdır", name:"Iğdır"},
+		{value:"Yalova", name:"Yalova"},
+		{value:"Karabük", name:"Karabük"},
+		{value:"Kilis", name:"Kilis"},
+		{value:"Osmaniye", name:"Osmaniye"},
+		{value:"Düzce", name:"Düzce"},
+		{value:"Diğer", name:"Diğer"}
+	];
 
 }]);

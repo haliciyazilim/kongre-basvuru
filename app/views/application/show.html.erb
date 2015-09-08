@@ -43,210 +43,140 @@
       </div>
     </div>
     <!-- ROW -->
-    <div ng-if="showPersonalInfoForm" class="panel panel-warning"><!--sunum basvurusu için class="panel panel-danger" -->
+    <form ng-if="showPersonalInfoForm" class="panel panel-warning" name="personalInfoForm" ng-submit="savePersonalInfo(personalInfoForm)"><!--sunum basvurusu için class="panel panel-danger" -->
       <div class="panel-heading">
         <h3 class="panel-title">Kişisel Bilgilerinizi Giriniz</h3>
       </div>
       <div class="panel-body">
-        <div class="row">
+        <div class="row" >
           <div class="col-xs-12 col-sm-6">
-            <div class="form-group">
+            <div class="form-group" ng-class="{'has-error':personalInfoForm.firstName.$dirty && personalInfoForm.firstName.$invalid}">
               <label for="firstName">Adı</label>
-              <input ng-model="form.applicant.name" type="text" class="form-control" id="firstName" placeholder="Adı">
+              <input name='firstName' type="text" class="form-control" id="firstName" placeholder="Adı" required
+                     ng-model="form.applicant.name">
             </div>
           </div>
           <!-- COL 6-->
           <div class="col-xs-12 col-sm-6">
-            <div class="form-group">
+            <div class="form-group" ng-class="{'has-error':personalInfoForm.lastName.$dirty && personalInfoForm.lastName.$invalid}" >
               <label for="lastName">Soyadı</label>
-              <input ng-model="form.applicant.surname" type="text" class="form-control" id="lastName" placeholder="Soyadı">
+              <input name="lastName" ng-model="form.applicant.surname" type="text" class="form-control" id="lastName" placeholder="Soyadı" required>
             </div>
           </div>
           <!-- COL 6-->
           <div class="col-xs-12 col-sm-6">
-            <div class="form-group">
+            <div class="form-group" ng-class="{'has-error':personalInfoForm.email.$dirty && personalInfoForm.email.$invalid}">
               <label for="email">e-Posta Adresi</label>
-              <input ng-model="form.applicant.email" type="email" class="form-control" id="email" placeholder="email@example.com">
+              <input name="email" ng-model="form.applicant.email" type="email" class="form-control" id="email" placeholder="email@example.com" required>
             </div>
           </div>
           <!-- COL 6-->
           <div class="col-xs-12 col-sm-6">
-            <div class="form-group">
+            <div class="form-group" ng-class="{'has-error':personalInfoForm.tckNo.$dirty && personalInfoForm.tckNo.$invalid}">
               <label for="tckNo">T.C. Kimlik Numarası</label>
-              <input ng-model="form.applicant.tckn" type="text" class="form-control" id="tckNo" placeholder="XXXXXXXXXXX">
+              <input name="tckNo" type="text" class="form-control" id="tckNo"  placeholder="XXXXXXXXXXX"
+                     ng-model="form.applicant.tckn" ng-pattern="/^[0-9]{11,11}$/" maxlength="11" required>
             </div>
           </div>
           <!-- COL 6-->
           <div class="col-xs-12 col-sm-6">
-            <div class="form-group">
+            <div class="form-group" ng-class="{'has-error':personalInfoForm.dofBirth.$dirty && personalInfoForm.dofBirth.$invalid}">
               <label for="dofBirth">Doğum Tarihi</label>
-              <input ng-model="form.applicant.birthday" type="text" class="form-control" id="dofBirth" placeholder="GG.AA.YYYY">
+              <input name="dofBirth" type="text" class="form-control" id="dofBirth" placeholder="GG.AA.YYYY"
+                     ng-model="form.applicant.birthday" ng-pattern="/\d{2}.\d{2}.\d{4}/" maxlength="10" required>
             </div>
           </div>
           <!-- COL 6-->
           <div class="col-xs-12 col-sm-6">
-            <div class="form-group">
+            <div class="form-group" ng-class="{'has-error':personalInfoForm.phone.$dirty && personalInfoForm.phone.$invalid}">
               <label for="telephone">Telefon Numarası</label>
-              <input ng-model="form.applicant.phone" type="text" class="form-control" id="telephone" placeholder="+905xxxxxxxxx">
+              <input name="phone" type="text" class="form-control" id="telephone" placeholder="+90 5xx xxx xx xx"
+                     ng-model="form.applicant.phone" phone-number country-code="tr">
             </div>
           </div>
           <!-- COL 6-->
           <div class="col-xs-12 col-sm-6">
-            <div class="form-group">
+            <div class="form-group" ng-class="{'has-error':personalInfoForm.organization.$dirty && personalInfoForm.organization.$invalid}">
               <label for="company">Çalıştığı Kurum / Kuruluş</label>
-              <input ng-model="form.applicant.organization" type="text" class="form-control" id="company" placeholder="Çalıştığı Kurum / Kuruluş">
+              <input name="organization" type="text" class="form-control" id="company" placeholder="Çalıştığı Kurum / Kuruluş"
+                     ng-model="form.applicant.organization" required>
             </div>
           </div>
           <!-- COL 6-->
           <div class="col-xs-12 col-sm-6">
-            <div class="form-group">
+            <div class="form-group" ng-class="{'has-error':personalInfoForm.occupation.$dirty && personalInfoForm.occupation.$invalid}">
               <label for="brans">Mesleğiniz / Branşınız</label>
-              <input ng-model="form.applicant.occupation" type="text" class="form-control" id="brans" placeholder="Mesleğiniz / Branşınız">
+              <input name="occupation"type="text" class="form-control" id="brans" placeholder="Mesleğiniz / Branşınız"
+                     ng-model="form.applicant.occupation" required>
             </div>
           </div>
           <!-- COL 6-->
           <div class="col-xs-12 col-sm-6">
-            <div class="form-group">
+            <div class="form-group" ng-class="{'has-error':personalInfoForm.postalAddress.$dirty && personalInfoForm.postalAddress.$invalid}">
               <label for="postalAddress">Posta Adresi</label>
-              <textarea ng-model="form.applicant.address" class="form-control" id="postalAddress" placeholder="Posta Adresi"></textarea>
+              <textarea name="postalAddress" class="form-control" id="postalAddress" placeholder="Posta Adresi"
+                        ng-model="form.applicant.address" required></textarea>
             </div>
           </div>
           <!-- COL 6-->
           <div class="col-xs-12 col-sm-6">
-            <div class="form-group">
+            <div class="form-group" ng-class="{'has-error':personalInfoForm.sehir.$dirty && personalInfoForm.sehir.$invalid}" >
               <label for="postalAddress">Şehir Seçiniz</label>
-              <select ng-model="form.applicant.city" name="sehir" id="sehir" aria-label="Şehir" aria-required="true" class="form-control">
-                <option value="seciniz">Şehir Seçiniz</option>
-                <option value="Adana">Adana</option>
-                <option value="Adıyaman">Adıyaman</option>
-                <option value="Afyonkarahisar">Afyonkarahisar</option>
-                <option value="Ağrı">Ağrı</option>
-                <option value="Amasya">Amasya</option>
-                <option value="Ankara">Ankara</option>
-                <option value="Antalya">Antalya</option>
-                <option value="Artvin">Artvin</option>
-                <option value="Aydın">Aydın</option>
-                <option value="Balıkesir">Balıkesir</option>
-                <option value="Bilecik">Bilecik</option>
-                <option value="Bingöl">Bingöl</option>
-                <option value="Bitlis">Bitlis</option>
-                <option value="Bolu">Bolu</option>
-                <option value="Burdur">Burdur</option>
-                <option value="Bursa">Bursa</option>
-                <option value="Çanakkale">Çanakkale</option>
-                <option value="Çankırı">Çankırı</option>
-                <option value="Çorum">Çorum</option>
-                <option value="Denizli">Denizli</option>
-                <option value="Diyarbakır">Diyarbakır</option>
-                <option value="Edirne">Edirne</option>
-                <option value="Elazığ">Elazığ</option>
-                <option value="Erzincan">Erzincan</option>
-                <option value="Erzurum">Erzurum</option>
-                <option value="Eskişehir">Eskişehir</option>
-                <option value="Gaziantep">Gaziantep</option>
-                <option value="Giresun">Giresun</option>
-                <option value="Gümüşhane">Gümüşhane</option>
-                <option value="Hakkâri">Hakkâri</option>
-                <option value="Hatay">Hatay</option>
-                <option value="Isparta">Isparta</option>
-                <option value="Mersin">Mersin</option>
-                <option value="İstanbul">İstanbul</option>
-                <option value="İzmir">İzmir</option>
-                <option value="Kars">Kars</option>
-                <option value="Kastamonu">Kastamonu</option>
-                <option value="Kayseri">Kayseri</option>
-                <option value="Kırklareli">Kırklareli</option>
-                <option value="Kırşehir">Kırşehir</option>
-                <option value="Kocaeli">Kocaeli</option>
-                <option value="Konya">Konya</option>
-                <option value="Kütahya">Kütahya</option>
-                <option value="Malatya">Malatya</option>
-                <option value="Manisa">Manisa</option>
-                <option value="Kahramanmaraş">Kahramanmaraş</option>
-                <option value="Mardin">Mardin</option>
-                <option value="Muğla">Muğla</option>
-                <option value="Muş">Muş</option>
-                <option value="Nevşehir">Nevşehir</option>
-                <option value="Niğde">Niğde</option>
-                <option value="Ordu">Ordu</option>
-                <option value="Rize">Rize</option>
-                <option value="Sakarya">Sakarya</option>
-                <option value="Samsun">Samsun</option>
-                <option value="Siirt">Siirt</option>
-                <option value="Sinop">Sinop</option>
-                <option value="Sivas">Sivas</option>
-                <option value="Tekirdağ">Tekirdağ</option>
-                <option value="Tokat">Tokat</option>
-                <option value="Trabzon">Trabzon</option>
-                <option value="Tunceli">Tunceli</option>
-                <option value="Şanlıurfa">Şanlıurfa</option>
-                <option value="Uşak">Uşak</option>
-                <option value="Van">Van</option>
-                <option value="Yozgat">Yozgat</option>
-                <option value="Zonguldak">Zonguldak</option>
-                <option value="Aksaray">Aksaray</option>
-                <option value="Bayburt">Bayburt</option>
-                <option value="Karaman">Karaman</option>
-                <option value="Kırıkkale">Kırıkkale</option>
-                <option value="Batman">Batman</option>
-                <option value="Şırnak">Şırnak</option>
-                <option value="Bartın">Bartın</option>
-                <option value="Ardahan">Ardahan</option>
-                <option value="Iğdır">Iğdır</option>
-                <option value="Yalova">Yalova</option>
-                <option value="Karabük">Karabük</option>
-                <option value="Kilis">Kilis</option>
-                <option value="Osmaniye">Osmaniye</option>
-                <option value="Düzce">Düzce</option>
-                <option value="Diğer">Diğer</option>
+              <select
+                ng-model="form.applicant.city" ng-options="city.value as city.name for city in cities"
+                name="sehir" id="sehir" aria-label="Şehir" aria-required="true" class="form-control" required>
+                <option value="">Şehir Seçiniz</option>
+
               </select>
             </div>
           </div>
           <!-- COL 6-->
         </div>
+        <!-- ROW-->
+
         <div class="row">
+          <!-- COL 6-->
           <div class="col-xs-12 col-sm-6">
-            <div class="form-group">
+            <div class="form-group" ng-class="{'has-error':personalInfoForm.relation_to_high_intelligence.$dirty && personalInfoForm.relation_to_high_intelligence.$invalid}">
               <label class="btn-block">Üstün zekalı ya da üstün yeteneklilerle olan bağınız varsa belirtiniz.</label>
 
               <div class="radio">
                 <label>
-                  <input ng-model="form.applicant.relation_to_high_intelligence" type="radio" name="relations" value="high_intelligent">
+                  <input name="relation_to_high_intelligence" ng-model="form.applicant.relation_to_high_intelligence" type="radio" name="relations" value="high_intelligent" required>
                   Üstün zekâlıyım / yetenekliyim
                 </label>
               </div>
               <div class="radio">
                 <label>
-                  <input ng-model="form.applicant.relation_to_high_intelligence" type="radio" name="relations" value="high_intelligent_relative">
+                  <input name="relation_to_high_intelligence" ng-model="form.applicant.relation_to_high_intelligence" type="radio" name="relations" value="high_intelligent_relative" required>
                   Ailemde üstün zekâlı var
                 </label>
               </div>
               <div class="radio">
                 <label>
-                  <input ng-model="form.applicant.relation_to_high_intelligence" type="radio" name="relations" value="educator">
+                  <input name="relation_to_high_intelligence" ng-model="form.applicant.relation_to_high_intelligence" type="radio" name="relations" value="educator" required>
                   Eğitimci / Araştırmacı
                 </label>
               </div>
               <div class="radio">
                 <label>
-                  <input ng-model="form.applicant.relation_to_high_intelligence" type="radio" name="relations" value="psychologist">
+                  <input name="relation_to_high_intelligence" ng-model="form.applicant.relation_to_high_intelligence" type="radio" name="relations" value="psychologist" required>
                   Psikolog / Psikiyatrist
                 </label>
               </div>
               <div class="radio">
                 <label>
-                  <input ng-model="form.applicant.relation_to_high_intelligence" type="radio" name="relations" value="other">
+                  <input name="relation_to_high_intelligence" ng-model="form.applicant.relation_to_high_intelligence" type="radio" name="relations" value="other" required>
                   Diğer:
-                  <input ng-model="form.relation_to_high_intelligence_other"
+                  <input name="relation_to_high_intelligence" ng-model="form.relation_to_high_intelligence_other"
                          class="form-inline" placeholder="Diğer" type="text"
                          ng-focus="form.applicant.relation_to_high_intelligence = 'other'">
                 </label>
               </div>
             </div>
           </div>
-          <!-- COL 6-->
-          <div class="col-xs-12 col-sm-6">
-            <div class="form-group">
+          <div class="col-xs-12 col-sm-6 ">
+            <div class="form-group" ng-class="{'has-error':form.applicant.previous_attendances==0}">
 
               <label class="btn-block">
                 Önceki Zeka ve Yetenek Kongrelerine katıldınız mı?
@@ -272,7 +202,7 @@
 
               <div class="checkbox">
                 <label>
-                  <input type="checkbox"
+                  <input name="attendances" type="checkbox"
                          onchange="angular.element(this).scope().setAttendance(4,this.checked)">
                   <strong>İLK</strong>
                   katılım
@@ -283,12 +213,12 @@
           </div>
           <!-- COL 6-->
           <div class="col-xs-12 col-sm-6 margin-top">
-            <div class="form-group">
+            <div class="form-group" ng-class="{'has-error':personalInfoForm.applicant_category.$dirty && personalInfoForm.applicant_category.$invalid}">
               <label class="btn-block text-danger">Lütfen Katılımcı Kategorisi Seçiniz</label>
 
               <div class="radio">
                 <label>
-                  <input ng-model="form.applicant.applicant_category" type="radio" value="instructor_student">
+                  <input name="applicant_category" ng-model="form.applicant.applicant_category" type="radio" value="instructor_student" required>
                   <strong>Öğretmen / Öğrenci </strong>
                   <span ng-show="applicant_type == attendee" class="label-default label">
                     100 TL
@@ -297,23 +227,34 @@
               </div>
               <div class="radio">
                 <label>
-                  <input ng-model="form.applicant.applicant_category" type="radio" value="civillian">
+                  <input name="applicant_category" ng-model="form.applicant.applicant_category" type="radio" value="civillian" required>
                   <strong>Sivil Katılım </strong>
                 <span ng-show="applicant_type == attendee" class="label-default label">
                   180 TL
                 </span>
                 </label>
               </div>
+              <div class="radio">
+                <label>
+                  <input name="applicant_category" ng-model="form.applicant.applicant_category" type="radio" value="child" required>
+                  <strong>Çocuk </strong>
+                <span ng-show="applicant_type == attendee" class="label-default label">
+                  0 TL
+                </span>
+                </label>
+              </div>
+
             </div>
           </div>
-          <!-- COL 6-->
         </div>
-        <!-- ROW-->
+
       </div>
+
+      <!-- COL 6-->
       <div class="panel-footer">
         <div class="row">
           <div class="col-xs-12">
-            <button ng-click="savePersonalInfo()"
+            <button type="submit"
                     ng-disabled="personalInfoState==actionState.onAction"
                     class="btn btn-warning pull-right">
               <i class="fa fa-cog fa-spin" ng-show="personalInfoState==actionState.onAction"></i>  DEVAM ET
@@ -322,7 +263,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </form>
     <!--panel-->
     <!--STEP 2 end -->
     <!--STEP 3 for KATILIMCI Start-->
@@ -369,7 +310,7 @@
                     </thead>
                     <tbody>
 
-                    <tr ng-repeat="workshop in workshops24" class="{{workshop.className}}">
+                    <tr ng-repeat="workshop in workshops24" class="{{workshop.className}}" ng-show="form.applicant.applicant_category=='child'?workshop.for_children:true">
                       <%= render partial: 'partials/workshop_row'%>
                     </tr>
                     </tbody>
@@ -399,7 +340,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="workshop in workshops25" class="{{workshop.className}}">
+                    <tr ng-repeat="workshop in workshops25" class="{{workshop.className}}" ng-show="form.applicant.applicant_category=='child'?workshop.for_children:true">
                       <%= render partial: 'partials/workshop_row' %>
                     </tr>
                     </tbody>
@@ -446,12 +387,13 @@
                   <td>Katılımcı</td>
                   <td class="text-right">
                     <div class="label label-default">
+                      <span ng-show="form.applicant.applicant_category == 'child'">0 TL</span>
                       <span ng-show="form.applicant.applicant_category == 'instructor_student'">100 TL</span>
                       <span ng-show="form.applicant.applicant_category == 'civillian'">180 TL</span>
                     </div>
                   </td>
                 </tr>
-                <tr ng-repeat="workshop in selectedWorkshops">
+                <tr ng-repeat="workshop in selectedWorkshops" ng-show="form.applicant.applicant_category=='child'?workshop.for_children:true">
                   <td>
                     {{workshop.product.name}}
                   </td>

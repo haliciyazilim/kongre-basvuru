@@ -2,7 +2,8 @@
   <input type="checkbox"
          onchange="angular.element(this).scope().toggleSelectedWorkshops(this.value)"
          ng-disabled="workshop.className == 'danger'"
-         value="{{workshop.id}}">
+         value="{{workshop.id}}"
+         ng-model="workshop.is_selected">
 </td>
 <th scope="row">
   {{workshop.start_at | date: "HH:mm"}}
