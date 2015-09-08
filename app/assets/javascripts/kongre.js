@@ -10,6 +10,7 @@ kongreApp.controller('registerFormController', ['$scope','$http', '$document', '
 ) {
 
 	$scope.actionState={
+		invalid:-1,
 		onIdle:0,
 		onAction:1
 	};
@@ -268,6 +269,7 @@ kongreApp.controller('registerFormController', ['$scope','$http', '$document', '
 
 		if($scope.form.applicant.applicant_category=='child')
 			$scope.totalAmount=0;
+
     for(var i=0; i<$scope.selectedWorkshops.length ; i++) {
 			var workshop=$scope.selectedWorkshops[i];
 			$log.info('workShop: ', workshop);
@@ -278,6 +280,8 @@ kongreApp.controller('registerFormController', ['$scope','$http', '$document', '
 
       $scope.totalAmount += workshop.product.price;
     }
+
+			$scope.orderState=$scope.totalAmount==0?$scope.actionState.invalid:$scope.actionState.onIdle;
   }
   $scope.$watch('form.applicant.applicant_category', function () {
 		resetForm();
@@ -308,7 +312,7 @@ kongreApp.controller('registerFormController', ['$scope','$http', '$document', '
 				.error(function (error) {
 					$log.info('error on order: ', error);
 					$scope.orderState=$scope.actionState.onIdle;
-					//TODO error handle!!
+					$scope.showErrorNotification()
 				})
     }
 		else{

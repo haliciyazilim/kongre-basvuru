@@ -242,7 +242,7 @@
                   <input name="applicant_category" ng-model="form.applicant.applicant_category" type="radio" value="child" required>
                   <strong>Çocuk </strong>
                 <span ng-show="applicant_type == attendee" class="label-default label">
-                  0 TL
+                  Çocuk katılımcılar sadece atölyelere kayıt yaptırabilirler
                 </span>
                 </label>
               </div>
@@ -386,11 +386,10 @@
                 <!--<div class="label label-default"> 80 TL</div>-->
                 <!--</td>-->
                 <!--</tr>-->
-                <tr>
+                <tr ng-show="form.applicant.applicant_category != 'child'">
                   <td>Katılımcı</td>
                   <td class="text-right">
                     <div class="label label-default">
-                      <span ng-show="form.applicant.applicant_category == 'child'">0 TL</span>
                       <span ng-show="form.applicant.applicant_category == 'instructor_student'">100 TL</span>
                       <span ng-show="form.applicant.applicant_category == 'civillian'">180 TL</span>
                     </div>
@@ -420,7 +419,7 @@
           <div class="col-xs-12">
             <button class="btn btn-success pull-right"
                     ng-click="order()"
-                    ng-disabled="orderState==actionState.onAction" >
+                    ng-disabled="orderState==actionState.onAction || orderState==actionState.invalid" >
               <i class="fa fa-cog fa-spin" ng-show="orderState==actionState.onAction"></i> ÖDEME SAYFASINA GEÇ
             </button>
           </div>
