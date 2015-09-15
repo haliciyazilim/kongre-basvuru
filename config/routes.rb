@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
 
 
-
-
   get 'admin/applicant/:id' => 'admin#applicant'
 
   get '/' => 'application#show'
@@ -23,6 +21,8 @@ Rails.application.routes.draw do
   get 'admin/stocks'
 
   get 'admin' => 'admin#list'
+
+  get 'admin/get_presentations_as_word' => 'admin#get_presentations_as_word'
 
   get 'admin/:applicant_type' => 'admin#list'
 
