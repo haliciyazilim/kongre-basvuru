@@ -1,3 +1,7 @@
+= render :partial => 'partials/links'
+%h2
+  Stoklar
+
 - colors = %w(progress-bar-active progress-bar-success progress-bar-warning progress-bar-danger progress-bar-info)
 - @products.each do |product|
   - class_name = colors.shift

@@ -1,3 +1,12 @@
+= render :partial => 'partials/links'
+
+-if request.url.include? 'presenter'
+  %p
+    %a{href:"/admin/get_presentations_as_word"}
+      Konuşmacı Başvurularını indir
+
+
+
 %h2
   Kongre Basvuruları
 %table.table
