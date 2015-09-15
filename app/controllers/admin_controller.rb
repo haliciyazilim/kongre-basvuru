@@ -24,4 +24,30 @@ class AdminController < ApplicationController
   def stocks
     @products = Product.all
   end
+
+  def get_presentations_as_word
+
+    applicantsPresentation=ApplicantPresentation.all
+
+    template = Sablon.template(File.expand_path("public/template.docx"))
+    context = {presentations:[]}
+
+    applicantsPresentation.each do |presentation|
+      applicant_name="#{presentation.applicant.name} #{presentation.applicant.surname}"
+      currentPresentation={
+          applicant:{name:applicant_name,email:presentation.applicant.email, phone:presentation.applicant.phone},
+          purpose: presentation.purpose,
+          content: presentation.content,
+          audience: presentation.audience
+      }
+
+      context[:presentations].push(currentPresentation)
+    end
+
+
+
+    data=template.render_to_string context
+
+    send_data data, :filename => " Kongre Payment Rapor.docx"
+  end
 end
