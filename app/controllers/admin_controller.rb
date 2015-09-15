@@ -32,9 +32,10 @@ class AdminController < ApplicationController
     template = Sablon.template(File.expand_path("public/template.docx"))
     context = {presentations:[]}
 
-    applicantsPresentation.each do |presentation|
+    applicantsPresentation.each_with_index  do |presentation, index|
       applicant_name="#{presentation.applicant.name} #{presentation.applicant.surname}"
       currentPresentation={
+          index:index+1,
           applicant:{name:applicant_name,email:presentation.applicant.email, phone:presentation.applicant.phone},
           purpose: presentation.purpose,
           content: presentation.content,
