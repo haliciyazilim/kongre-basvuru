@@ -11,6 +11,6 @@ class Admin::ApplicantsController < AdminController
       ORDER BY applicants.tckn;
     SQL
 
-    @applicants = ActiveRecord.connection.execute(sql)
+    @applicants = ActiveRecord::Base.connection.execute(sql)
   end
 end
