@@ -15,8 +15,8 @@ namespace :free_subscription do
 
 
     if !@receipt.is_paid
-      CardNumber.create(:applicant_id => @receipt.applicant_id)
-      @receipt.update(is_paid:true)
+      CardNumber.find_or_create_by(:applicant_id => @receipt.applicant_id)
+      @receipt.update(is_paid:true, price:0)
       @receipt.receipt_products.each do |rp|
         rp.product.decrement!(:stock)
       end
