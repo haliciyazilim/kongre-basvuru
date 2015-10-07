@@ -316,7 +316,7 @@ kongreApp.controller('registerFormController', ['$scope','$http', '$document', '
 				})
     }
 		else{
-			var text='Ödemeniz gereken toplam tutar olan '+$scope.totalAmount/100+' TL’yi ödemek icin ödeme sayfasına yönlendirileceksiniz, Onaylıyor musunuz?';
+			var text='Ödemeniz gereken toplam tutar olan '+$scope.totalAmount/100+' TL’yi ödemek için ödeme sayfasına yönlendirileceksiniz, ücret iadesi mümkün olmayacaktır; onaylıyor musunuz?';
 
 			showOrderAlert(text);
 		}
