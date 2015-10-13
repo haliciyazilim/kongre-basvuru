@@ -1,35 +1,11 @@
 = render :partial => 'partials/links'
 
--if request.url.include? 'presenter'
-  %p
-    %a{href:"/admin/get_presentations_as_word"}
-      Konuşmacı Başvurularını indir
-
-
-
 %h2
   Kongre Basvuruları
 %table.table
   %tr
-    %th Id
-    %th Type
-    %th İsim
-    %th Meslek
-    %th Adres
-    %th Sehir
-    %th
+    %th Email
   - @applicants.each do |applicant|
     %tr
       %td
-        = applicant['id']
-      %td
-        = applicant['applicant_type']
-      %td
-        = "#{applicant['name']} #{applicant['surname']}"
-      %td
-        = applicant['occupation']
-      %td
-        = applicant['city']
-      %td
-        %a{href:"/admin/applicant/#{applicant['id']}"}
-          Detaylar
+        = applicant['email']
