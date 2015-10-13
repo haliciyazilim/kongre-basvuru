@@ -43,22 +43,22 @@ kongreApp.controller('registerFormController', ['$scope','$http', '$document', '
     presentation:{}
   };
 
-  $scope.form.applicant = {
-    name:'Yunus Eren',
-    surname:'Guzel',
-    email:'yeguzel@halici.com.tr',
-    tckn:'17515095902',
-    birthday:'24.04.1989',
-    phone:'+905324648399',
-    organization:'Halici',
-    occupation:'Computer Engineer',
-    address:'75.Sok 48/3 Bahcelievler Cankaya',
-    city:'Ankara',
-    //applicant_category:'instructor_student',
-    previous_attendances:0,
-    relation_to_high_intelligence:null,
-    previous_attendances:null
-  };
+  //$scope.form.applicant = {
+  //  name:'Yunus Eren',
+  //  surname:'Guzel',
+  //  email:'yeguzel@halici.com.tr',
+  //  tckn:'17515095902',
+  //  birthday:'24.04.1989',
+  //  phone:'+905324648399',
+  //  organization:'Halici',
+  //  occupation:'Computer Engineer',
+  //  address:'75.Sok 48/3 Bahcelievler Cankaya',
+  //  city:'Ankara',
+  //  //applicant_category:'instructor_student',
+  //  previous_attendances:0,
+  //  relation_to_high_intelligence:null,
+  //  previous_attendances:null
+  //};
 
   $scope.showApplicationTypeButtons = true;
 
@@ -265,7 +265,7 @@ kongreApp.controller('registerFormController', ['$scope','$http', '$document', '
 
   $scope.refreshTotalAmount = function () {
 
-    $scope.totalAmount = $scope.form.applicant.applicant_category == 'instructor_student' ? 10000 : 18000;
+    $scope.totalAmount = $scope.form.applicant.applicant_category == 'instructor_student' ? 10000 : 10000;
 
 		if($scope.form.applicant.applicant_category=='child')
 			$scope.totalAmount=0;
@@ -316,7 +316,7 @@ kongreApp.controller('registerFormController', ['$scope','$http', '$document', '
 				})
     }
 		else{
-			var text='Ödemeniz gereken toplam tutar olan '+$scope.totalAmount/100+' TL’yi ödemek icin ödeme sayfasına yönlendirileceksiniz, Onaylıyor musunuz?';
+			var text='Ödemeniz gereken toplam tutar olan '+$scope.totalAmount/100+' TL’yi ödemek için ödeme sayfasına yönlendirileceksiniz, ücret iadesi mümkün olmayacaktır; onaylıyor musunuz?';
 
 			showOrderAlert(text);
 		}
