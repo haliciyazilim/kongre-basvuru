@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get 'admin/receipts/:is_paid' => 'admin#receipts'
 
   get 'admin/applicants/unpaid' => 'admin/applicants#unpaid'
+  get 'admin/applicants/unpaid_all' => 'admin/applicants#unpaid_all'
 
   get 'admin/stocks'
 
