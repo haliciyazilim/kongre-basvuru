@@ -42,7 +42,7 @@ class Admin::ApplicantsController < AdminController
     @applicants = ActiveRecord::Base.connection.execute(sql)
 
     @emails = @applicants.map{ |e| e['email'] }
-    @emails = @emails - Applicant.where(tckn: Applicant.where(email: emails).uniq.pluck(:tckn), applicant_type: 'presenter').uniq.pluck(:email)
-    @emails = @emails - Applicant.joins(:receipts).where(tckn: Applicant.where(email: emails).uniq.pluck(:tckn), receipts: {is_paid: true}).uniq.pluck(:email)
+    @emails = @emails - Applicant.where(tckn: Applicant.where(email: @emails).uniq.pluck(:tckn), applicant_type: 'presenter').uniq.pluck(:email)
+    @emails = @emails - Applicant.joins(:receipts).where(tckn: Applicant.where(email: @emails).uniq.pluck(:tckn), receipts: {is_paid: true}).uniq.pluck(:email)
   end
 end
