@@ -219,21 +219,21 @@
             <div class="form-group" ng-class="{'has-error':personalInfoForm.applicant_category.$dirty && personalInfoForm.applicant_category.$invalid}">
               <label class="btn-block text-danger">Lütfen Katılımcı Kategorisi Seçiniz</label>
 
-              <!--<div class="radio">-->
-                <!--<label>-->
-                  <!--<input name="applicant_category" ng-model="form.applicant.applicant_category" type="radio" value="instructor_student" required>-->
-                  <!--<strong>Öğretmen / Öğrenci </strong>-->
-                  <!--<span ng-show="applicant_type == attendee" class="label-default label">-->
-                    <!--100 TL-->
-                  <!--</span>-->
-                <!--</label>-->
-              <!--</div>-->
+              <div class="radio">
+                <label>
+                  <input name="applicant_category" ng-model="form.applicant.applicant_category" type="radio" value="instructor_student" required>
+                  <strong>Öğretmen / Öğrenci </strong>
+                  <span ng-show="applicant_type == attendee" class="label-default label">
+                    100 TL
+                  </span>
+                </label>
+              </div>
               <div class="radio">
                 <label>
                   <input name="applicant_category" ng-model="form.applicant.applicant_category" type="radio" value="civillian" required>
                   <strong>Katılım </strong>
                 <span ng-show="applicant_type == attendee" class="label-default label">
-                  100 TL
+                  180 TL
                 </span>
                 </label>
               </div>
