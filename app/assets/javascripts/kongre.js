@@ -265,7 +265,7 @@ kongreApp.controller('registerFormController', ['$scope','$http', '$document', '
 
   $scope.refreshTotalAmount = function () {
 
-    $scope.totalAmount = $scope.form.applicant.applicant_category == 'instructor_student' ? 10000 : 18000;
+    $scope.totalAmount = $scope.form.applicant.applicant_category == 'instructor_student' ? 10000 : 10000;
 
 		if($scope.form.applicant.applicant_category=='child')
 			$scope.totalAmount=0;
