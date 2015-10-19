@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
   get 'admin/workshops'     => 'admin/workshops#index'
   get 'admin/workshops/:workshop_id' => 'admin/workshops#show', as: :admin_workshop
+  get 'admin/workshops/download/:workshop_id' => 'admin/workshops#get_applicants_as_word'
 
   get 'admin/receipts'
 

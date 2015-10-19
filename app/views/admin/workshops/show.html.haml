@@ -1,5 +1,7 @@
 %a.btn.btn-link{href:'/admin/workshops'}
   <- Atölyeler
+%a.btn.btn-link{href:"/admin/workshops/download/#{@workshop.id}"}
+  indir
 %h2
   = @workshop.product.name
 %table.table
