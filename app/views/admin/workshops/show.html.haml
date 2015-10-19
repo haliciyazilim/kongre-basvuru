@@ -7,6 +7,9 @@
     %th Id
     %th Type
     %th İsim
+    %th Telefon
+    %th E-mail
+    %th Organization
     %th Meslek
     %th Adres
     %th Sehir
@@ -19,6 +22,12 @@
         = applicant_type applicant
       %td
         = "#{applicant.name} #{applicant.surname}"
+      %td
+        = applicant.phone
+      %td
+        = applicant.email
+      %td
+        = applicant.organization
       %td
         = applicant.occupation
       %td
