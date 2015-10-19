@@ -313,7 +313,8 @@
                     </thead>
                     <tbody>
 
-                    <tr ng-repeat="workshop in workshops24" class="{{workshop.className}}" ng-show="form.applicant.applicant_category=='child'?workshop.for_children:true">
+                    <tr ng-repeat="workshop in workshops24" class="{{workshop.className}}"
+                        ng-show="form.applicant.applicant_category=='child'?workshop.for_children:true && workshop.product.stock > 0">
                       <%= render partial: 'partials/workshop_row'%>
                     </tr>
                     </tbody>
@@ -343,7 +344,8 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="workshop in workshops25" class="{{workshop.className}}" ng-show="form.applicant.applicant_category=='child'?workshop.for_children:true">
+                    <tr ng-repeat="workshop in workshops25" class="{{workshop.className}}"
+                        ng-show="form.applicant.applicant_category=='child'?workshop.for_children:true && workshop.product.stock > 0">
                       <%= render partial: 'partials/workshop_row' %>
                     </tr>
                     </tbody>
