@@ -212,7 +212,8 @@ kongreApp.controller('registerFormController', ['$scope','$http', '$document', '
 						scrollTo('presentationInfoForm');
 					}
 					else
-						scrollTo('workshopsPanel');
+						//scrollTo('workshopsPanel');
+						scrollTo('checkoutPanel');
 				}, 500);
 
 				$scope.personalInfoState=$scope.actionState.onIdle;
