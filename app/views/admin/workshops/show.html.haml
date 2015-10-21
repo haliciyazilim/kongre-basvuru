@@ -1,5 +1,7 @@
 %a.btn.btn-link{href:'/admin/workshops'}
   <- Atölyeler
+%a.btn.btn-link{href:"/admin/workshops/download/#{@workshop.id}"}
+  indir
 %h2
   = @workshop.product.name
 %table.table
@@ -7,6 +9,9 @@
     %th Id
     %th Type
     %th İsim
+    %th Telefon
+    %th E-mail
+    %th Organization
     %th Meslek
     %th Adres
     %th Sehir
@@ -19,6 +24,12 @@
         = applicant_type applicant
       %td
         = "#{applicant.name} #{applicant.surname}"
+      %td
+        = applicant.phone
+      %td
+        = applicant.email
+      %td
+        = applicant.organization
       %td
         = applicant.occupation
       %td

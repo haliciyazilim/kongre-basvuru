@@ -212,7 +212,8 @@ kongreApp.controller('registerFormController', ['$scope','$http', '$document', '
 						scrollTo('presentationInfoForm');
 					}
 					else
-						scrollTo('workshopsPanel');
+						//scrollTo('workshopsPanel');
+						scrollTo('checkoutPanel');
 				}, 500);
 
 				$scope.personalInfoState=$scope.actionState.onIdle;
@@ -265,7 +266,7 @@ kongreApp.controller('registerFormController', ['$scope','$http', '$document', '
 
   $scope.refreshTotalAmount = function () {
 
-    $scope.totalAmount = $scope.form.applicant.applicant_category == 'instructor_student' ? 10000 : 10000;
+    $scope.totalAmount = $scope.form.applicant.applicant_category == 'instructor_student' ? 10000 : 18000;
 
 		if($scope.form.applicant.applicant_category=='child')
 			$scope.totalAmount=0;

@@ -219,33 +219,33 @@
             <div class="form-group" ng-class="{'has-error':personalInfoForm.applicant_category.$dirty && personalInfoForm.applicant_category.$invalid}">
               <label class="btn-block text-danger">Lütfen Katılımcı Kategorisi Seçiniz</label>
 
-              <!--<div class="radio">-->
-                <!--<label>-->
-                  <!--<input name="applicant_category" ng-model="form.applicant.applicant_category" type="radio" value="instructor_student" required>-->
-                  <!--<strong>Öğretmen / Öğrenci </strong>-->
-                  <!--<span ng-show="applicant_type == attendee" class="label-default label">-->
-                    <!--100 TL-->
-                  <!--</span>-->
-                <!--</label>-->
-              <!--</div>-->
+              <div class="radio">
+                <label>
+                  <input name="applicant_category" ng-model="form.applicant.applicant_category" type="radio" value="instructor_student" required>
+                  <strong>Öğretmen / Öğrenci </strong>
+                  <span ng-show="applicant_type == attendee" class="label-default label">
+                    100 TL
+                  </span>
+                </label>
+              </div>
               <div class="radio">
                 <label>
                   <input name="applicant_category" ng-model="form.applicant.applicant_category" type="radio" value="civillian" required>
                   <strong>Katılım </strong>
                 <span ng-show="applicant_type == attendee" class="label-default label">
-                  100 TL
+                  180 TL
                 </span>
                 </label>
               </div>
-              <div class="radio">
-                <label>
-                  <input name="applicant_category" ng-model="form.applicant.applicant_category" type="radio" value="child" required>
-                  <strong>Çocuk </strong>
-                <span ng-show="applicant_type == attendee" class="label-default label">
-                  Çocuk katılımcılar sadece atölyelere kayıt yaptırabilirler
-                </span>
-                </label>
-              </div>
+              <!--<div class="radio">-->
+                <!--<label>-->
+                  <!--<input name="applicant_category" ng-model="form.applicant.applicant_category" type="radio" value="child" required>-->
+                  <!--<strong>Çocuk </strong>-->
+                <!--<span ng-show="applicant_type == attendee" class="label-default label">-->
+                  <!--Çocuk katılımcılar sadece atölyelere kayıt yaptırabilirler-->
+                <!--</span>-->
+                <!--</label>-->
+              <!--</div>-->
 
             </div>
           </div>
@@ -274,7 +274,7 @@
       var workshops24 = <%= @workshops_24.to_json.html_safe %>
       var workshops25 = <%= @workshops_25.to_json.html_safe %>
     </script>
-    <div ng-show="showWorkshops" id='workshopsPanel' class="panel panel-warning">
+    <div ng-show="false" id='workshopsPanel' class="panel panel-warning">
       <div class="panel-heading">
         <h3 class="panel-title">Katılmak İstediğiniz Atölyeleri Seçebilirsiniz</h3>
       </div>
@@ -313,7 +313,8 @@
                     </thead>
                     <tbody>
 
-                    <tr ng-repeat="workshop in workshops24" class="{{workshop.className}}" ng-show="form.applicant.applicant_category=='child'?workshop.for_children:true">
+                    <tr ng-repeat="workshop in workshops24" class="{{workshop.className}}"
+                        ng-show="form.applicant.applicant_category=='child'?workshop.for_children:true && workshop.product.stock > 0">
                       <%= render partial: 'partials/workshop_row'%>
                     </tr>
                     </tbody>
@@ -343,7 +344,8 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="workshop in workshops25" class="{{workshop.className}}" ng-show="form.applicant.applicant_category=='child'?workshop.for_children:true">
+                    <tr ng-repeat="workshop in workshops25" class="{{workshop.className}}"
+                        ng-show="form.applicant.applicant_category=='child'?workshop.for_children:true && workshop.product.stock > 0">
                       <%= render partial: 'partials/workshop_row' %>
                     </tr>
                     </tbody>
@@ -364,7 +366,7 @@
     </div>
     <!--panel-->
     <!--STEP 3 for KATILIMCI End -->
-    <div ng-if="showCheckout" class="panel panel-success">
+    <div ng-if="showCheckout" class="panel panel-success" id="checkoutPanel">
       <div class="panel-heading">
         <h3 class="panel-title">Ücretler Toplamı</h3>
       </div>
@@ -391,7 +393,7 @@
                   <td class="text-right">
                     <div class="label label-default">
                       <span ng-show="form.applicant.applicant_category == 'instructor_student'">100 TL</span>
-                      <span ng-show="form.applicant.applicant_category == 'civillian'">100 TL</span>
+                      <span ng-show="form.applicant.applicant_category == 'civillian'">180 TL</span>
                     </div>
                   </td>
                 </tr>
