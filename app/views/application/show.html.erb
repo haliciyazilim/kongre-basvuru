@@ -237,15 +237,15 @@
                 </span>
                 </label>
               </div>
-              <div class="radio">
-                <label>
-                  <input name="applicant_category" ng-model="form.applicant.applicant_category" type="radio" value="child" required>
-                  <strong>Çocuk </strong>
-                <span ng-show="applicant_type == attendee" class="label-default label">
-                  Çocuk katılımcılar sadece atölyelere kayıt yaptırabilirler
-                </span>
-                </label>
-              </div>
+              <!--<div class="radio">-->
+                <!--<label>-->
+                  <!--<input name="applicant_category" ng-model="form.applicant.applicant_category" type="radio" value="child" required>-->
+                  <!--<strong>Çocuk </strong>-->
+                <!--<span ng-show="applicant_type == attendee" class="label-default label">-->
+                  <!--Çocuk katılımcılar sadece atölyelere kayıt yaptırabilirler-->
+                <!--</span>-->
+                <!--</label>-->
+              <!--</div>-->
 
             </div>
           </div>
@@ -274,7 +274,7 @@
       var workshops24 = <%= @workshops_24.to_json.html_safe %>
       var workshops25 = <%= @workshops_25.to_json.html_safe %>
     </script>
-    <div ng-show="showWorkshops" id='workshopsPanel' class="panel panel-warning">
+    <div ng-show="false" id='workshopsPanel' class="panel panel-warning">
       <div class="panel-heading">
         <h3 class="panel-title">Katılmak İstediğiniz Atölyeleri Seçebilirsiniz</h3>
       </div>
@@ -366,7 +366,7 @@
     </div>
     <!--panel-->
     <!--STEP 3 for KATILIMCI End -->
-    <div ng-if="showCheckout" class="panel panel-success">
+    <div ng-if="showCheckout" class="panel panel-success" id="checkoutPanel">
       <div class="panel-heading">
         <h3 class="panel-title">Ücretler Toplamı</h3>
       </div>
