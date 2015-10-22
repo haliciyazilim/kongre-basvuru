@@ -49,4 +49,36 @@ class Admin::ApplicantsController < AdminController
 
     @emails = @emails - @applicants.map{|e|e['email']}
   end
+
+  def get_applicants_as_word
+
+    # applicants=Applicant.joins(:receipts, :card_numbers).where(:receipts=>{:is_paid=>true})
+
+    cards=CardNumber.all
+
+    template = Sablon.template(File.expand_path("public/applicants_template.docx"))
+    context = {applicants:[]}
+
+    cards.each_with_index  do |card, index|
+      currentApplicant={
+          index:index+1,
+          id:card.id,
+          name:card.applicant.name,
+          surname:card.applicant.surname,
+          occupation:card.applicant.occupation
+      }
+
+      context[:applicants].push(currentApplicant)
+    end
+
+
+
+    data=template.render_to_string context
+
+    send_data data, :filename => " Kongre Payment Rapor.docx"
+  end
+
 end
+
+
+
