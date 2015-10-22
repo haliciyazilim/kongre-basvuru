@@ -29,7 +29,7 @@ class AdminController < ApplicationController
 
     applicantsPresentation=ApplicantPresentation.all
 
-    template = Sablon.template(File.expand_path("public/template.docx"))
+    template = Sablon.template(File.expand_path("public/presentations_template.docx"))
     context = {presentations:[]}
 
     applicantsPresentation.each_with_index  do |presentation, index|
