@@ -75,7 +75,7 @@ class Admin::ApplicantsController < AdminController
 
     data=template.render_to_string context
 
-    send_data data, :filename => " Kongre Payment Rapor.docx"
+    send_data data, :filename => " Kongre Katılımcılar Listesi.docx"
   end
 
 end
