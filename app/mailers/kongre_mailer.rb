@@ -10,10 +10,10 @@ class KongreMailer < ActionMailer::Base
   end
 
   def attendance_info_mail(applicant)
-    @name         = applicant.name + ' ' + applicant.surname
+    @name         = "#{applicant.name} #{applicant.surname}"
     @card_number  = applicant.card_number.id
     @workshops    = applicant.paid_workshops.map{ |w| w.product.name }
 
-    mail(to: 'eren@halici.com.tr', subject: 'Hep beraber soralım: BeyinSizMisiniz?')
+    mail(to: applicant.email, subject: 'Hep beraber soralım: BeyinSizMisiniz?')
   end
 end
