@@ -1,24 +1,22 @@
 %html
   %body
     %p
-      Sayın
-      %span.strong= @name
-      ,
+      Sayın <b>@name</b>,
     %p
       Kongreye sayılı saatler kaldı.
     %p
-      ODTÜ kapılarından III. Zeka ve Yetenek Kongresine geldiğinizi belirterek girebilirsiniz. Kültür Kongre Merkezi'nde
-      %span.strong= @card_number
+      ODTÜ kapılarından III. Zeka ve Yetenek Kongresine geldiğinizi belirterek girebilirsiniz. Kültür Kongre Merkezi'nde <b>@card_number</b>
       numaralı yaka kartınızı ve çantanızı alabilirsiniz.
     - if @workshops.count > 0
       %p
         Kayıtlı olduğunuz atölyeler aşağıda listelenmiştir:
-      %ul.strong
-        - @workshops.each do |name|
-          %li= name
+      %ul
+        %strong
+          - @workshops.each do |name|
+            %li= name
     %p
       Kongre programına
-      %span.strong= link_to 'buradan', 'http://kongre.tzv.org.tr/2015/program/2015-program.pdf'
+      = link_to 'buradan', 'http://kongre.tzv.org.tr/2015/program/2015-program.pdf'
       ulaşabilirsiniz.
     %p
       Yarın 09:15'ten itibaren heyecanla sizi bekliyoruz.

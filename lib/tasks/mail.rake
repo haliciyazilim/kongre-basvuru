@@ -3,7 +3,7 @@ namespace :mail do
 
   task :send_info_mail => :environment do
     CardNumber.all.each do |card_number|
-      KongreMailer.attendance_info_mail(card_number.applicant).deliver!
+      KongreMailer.attendance_info_mail(card_number.applicant).deliver
     end
   end
 end
