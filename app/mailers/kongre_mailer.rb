@@ -8,4 +8,12 @@ class KongreMailer < ActionMailer::Base
   def test_mail(address)
     mail(to: address, subject: 'Deneme Maili')
   end
+
+  def attendance_info_mail(applicant)
+    @name         = applicant.name + ' ' + applicant.surname
+    @card_number  = applicant.card_number.id
+    @workshops    = applicant.paid_workshops.map{ |w| w.product.name }
+
+    mail(to: 'eren@halici.com.tr', subject: 'Hep beraber soralım: BeyinSizMisiniz?')
+  end
 end
