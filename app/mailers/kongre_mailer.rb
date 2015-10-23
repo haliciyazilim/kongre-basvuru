@@ -14,6 +14,6 @@ class KongreMailer < ActionMailer::Base
     @card_number  = applicant.card_number.id
     @workshops    = applicant.paid_workshops.map{ |w| w.product.name }
 
-    mail(to: 'eren@halici.com.tr', subject: '')
+    mail(to: 'eren@halici.com.tr', subject: 'Hep beraber soralım: BeyinSizMisiniz?')
   end
 end

@@ -1,11 +1,11 @@
 %html
   %body
     %p
-      Sayın <b>@name</b>,
+      Sayın <b>#{@name}</b>,
     %p
       Kongreye sayılı saatler kaldı.
     %p
-      ODTÜ kapılarından III. Zeka ve Yetenek Kongresine geldiğinizi belirterek girebilirsiniz. Kültür Kongre Merkezi'nde <b>@card_number</b>
+      ODTÜ kapılarından III. Zeka ve Yetenek Kongresine geldiğinizi belirterek girebilirsiniz. Kültür Kongre Merkezi'nde <b>#{@card_number}</b>
       numaralı yaka kartınızı ve çantanızı alabilirsiniz.
     - if @workshops.count > 0
       %p
@@ -19,7 +19,7 @@
       = link_to 'buradan', 'http://kongre.tzv.org.tr/2015/program/2015-program.pdf'
       ulaşabilirsiniz.
     %p
-      Yarın 09:15'ten itibaren heyecanla sizi bekliyoruz.
+      Yarın 09:15'ten itibaren sizi heyecanla bekliyoruz.
     %p
       Hepimiz için verimli bir kongre olması dileği ile.
     %p
