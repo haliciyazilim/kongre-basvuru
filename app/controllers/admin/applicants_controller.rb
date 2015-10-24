@@ -94,7 +94,7 @@ class Admin::ApplicantsController < AdminController
       if workshops.count>0
         w=[]
         workshops.each do |workshop|
-          w.push(workshop.name)
+          w.push(workshop.product.name)
         end
 
 
@@ -110,8 +110,6 @@ class Admin::ApplicantsController < AdminController
         context[:applicants].push(currentApplicant)
 
       end
-
-
 
     end
 
