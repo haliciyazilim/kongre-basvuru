@@ -7,11 +7,13 @@ class ApplicationController < ActionController::Base
     response.headers['X-Frame-Options'] = 'ALLOWALL'
   end
   def show
-    @workshops_24 = Workshop.at_day '2015-10-24'
-    @workshops_25 = Workshop.at_day '2015-10-25'
+    # @workshops_24 = Workshop.at_day '2015-10-24'
+    # @workshops_25 = Workshop.at_day '2015-10-25'
   end
 
   def register
+    return
+
     if params[:applicant_id]
       applicant = Applicant.find(params[:applicant_id])
     end
@@ -52,6 +54,7 @@ class ApplicationController < ActionController::Base
   end
 
   def order
+    return
     applicant = Applicant.find(params[:applicant_id])
     ActiveRecord::Base.transaction do
       receipt = Receipt.create(applicant:applicant)
