@@ -104,7 +104,7 @@ class Admin::ApplicantsController < AdminController
             name:card.applicant.name,
             surname:card.applicant.surname,
             occupation:card.applicant.occupation,
-            workshop:w
+            workshops:w
         }
 
         context[:applicants].push(currentApplicant)
