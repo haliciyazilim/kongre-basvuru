@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get '/' => 'application#show'
 
   get 'admin/applicants/download' => 'admin/applicants#get_applicants_as_word'
+  get 'admin/applicants/download_workshops' => 'admin/applicants#get_applicants_workshops_as_word'
   get 'admin/applicants/:id' => 'admin#applicant'
   get 'admin/applicants/unpaid' => 'admin/applicants#unpaid'
   get 'admin/applicants/unpaid_all' => 'admin/applicants#unpaid_all'

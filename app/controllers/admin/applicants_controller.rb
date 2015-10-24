@@ -78,6 +78,51 @@ class Admin::ApplicantsController < AdminController
     send_data data, :filename => " Kongre Katılımcılar Listesi.docx"
   end
 
+  def get_applicants_workshops_as_word
+
+    # applicants=Applicant.joins(:receipts, :card_numbers).where(:receipts=>{:is_paid=>true})
+
+    cards=CardNumber.all
+
+    template = Sablon.template(File.expand_path("public/applicants_workshops_template.docx"))
+    context = {applicants:[]}
+
+    cards.each_with_index  do |card, index|
+
+      workshops=card.applicant.paid_workshops
+
+      if workshops.count>0
+        w=[]
+        workshops.each do |workshop|
+          w.push(workshop.name)
+        end
+
+
+        currentApplicant={
+            index:index+1,
+            id:card.id,
+            name:card.applicant.name,
+            surname:card.applicant.surname,
+            occupation:card.applicant.occupation,
+            workshop:w
+        }
+
+        context[:applicants].push(currentApplicant)
+
+      end
+
+
+
+    end
+
+
+
+    data=template.render_to_string context
+
+    send_data data, :filename => " Kongre Katılımcılar Listesi.docx"
+  end
+
+
 end
 
 

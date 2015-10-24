@@ -20,7 +20,6 @@ class AdminController < ApplicationController
   def applicant
     @applicant = Applicant.find(params[:id])
     @workshops = @applicant.paid_workshops
-
     @presentation = ApplicantPresentation.find_by_applicant_id(params[:id])
   end
   def stocks
