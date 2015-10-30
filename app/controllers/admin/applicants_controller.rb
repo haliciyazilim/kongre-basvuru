@@ -63,9 +63,9 @@ class Admin::ApplicantsController < AdminController
       currentApplicant={
           index:index+1,
           id:card.id,
-          name:card.applicant.name,
-          surname:card.applicant.surname,
-          occupation:card.applicant.occupation
+          name:"#{card.applicant.name} #{card.applicant.surname}",
+          surname:card.applicant.address,
+          occupation:card.applicant.city,
       }
 
       context[:applicants].push(currentApplicant)
@@ -101,9 +101,9 @@ class Admin::ApplicantsController < AdminController
         currentApplicant={
             index:index+1,
             id:card.id,
-            name:"#{card.applicant.name} #{card.applicant.surname}",
-            surname:card.applicant.address,
-            occupation:card.applicant.city,
+            name:card.applicant.name,
+            surname:card.applicant.surname,
+            occupation:card.applicant.occupation,
             workshops:w
         }
 
