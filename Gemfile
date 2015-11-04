@@ -60,3 +60,5 @@ gem 'jquery-turbolinks'
 gem 'font-awesome-sass', '~> 4.4.0'
 
 gem 'angular-rails-templates'
+
+gem 'sablon'

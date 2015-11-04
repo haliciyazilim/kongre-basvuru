@@ -1,0 +1,32 @@
+%html
+  %body
+    %p
+      Sayın <b>#{@name}</b>,
+    %p
+      Kongreye sayılı saatler kaldı.
+    %p
+      ODTÜ kapılarından III. Zeka ve Yetenek Kongresine geldiğinizi belirterek girebilirsiniz. Kültür Kongre Merkezi'nde <b>#{@card_number}</b>
+      numaralı yaka kartınızı ve çantanızı alabilirsiniz.
+    - if @workshops.count > 0
+      %p
+        Kayıtlı olduğunuz atölyeler aşağıda listelenmiştir:
+      %ul
+        %strong
+          - @workshops.each do |name|
+            %li= name
+    %p
+      Kongre programına
+      = link_to 'buradan', 'http://kongre.tzv.org.tr/2015/program/2015-program.pdf'
+      ulaşabilirsiniz.
+    %p
+      Yarın 09:15'ten itibaren sizi heyecanla bekliyoruz.
+    %p
+      Hepimiz için verimli bir kongre olması dileği ile.
+    %p
+      Sevgiler, saygılar
+    %p
+      Ezgi Karaşin
+      %br
+      Türkiye Zeka Vaktı
+      %br
+      Etkinlik Koordinatörü

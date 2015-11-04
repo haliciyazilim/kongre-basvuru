@@ -1,0 +1,11 @@
+= render :partial => 'partials/links'
+
+%h2
+  Ödemesi Gerçekleşmemiş Kişiler
+%table.table
+  %tr
+    %th Email
+  - @applicants.each do |applicant|
+    %tr
+      %td
+        = applicant['email']

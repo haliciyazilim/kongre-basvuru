@@ -212,7 +212,8 @@ kongreApp.controller('registerFormController', ['$scope','$http', '$document', '
 						scrollTo('presentationInfoForm');
 					}
 					else
-						scrollTo('workshopsPanel');
+						//scrollTo('workshopsPanel');
+						scrollTo('checkoutPanel');
 				}, 500);
 
 				$scope.personalInfoState=$scope.actionState.onIdle;
@@ -316,7 +317,7 @@ kongreApp.controller('registerFormController', ['$scope','$http', '$document', '
 				})
     }
 		else{
-			var text='Ödemeniz gereken toplam tutar olan '+$scope.totalAmount/100+' TL’yi ödemek icin ödeme sayfasına yönlendirileceksiniz, Onaylıyor musunuz?';
+			var text='Ödemeniz gereken toplam tutar olan '+$scope.totalAmount/100+' TL’yi ödemek için ödeme sayfasına yönlendirileceksiniz, ücret iadesi mümkün olmayacaktır; onaylıyor musunuz?';
 
 			showOrderAlert(text);
 		}
@@ -459,7 +460,7 @@ kongreApp.controller('registerFormController', ['$scope','$http', '$document', '
 		{value:"Düzce", name:"Düzce"},
 		{value:"Diğer", name:"Diğer"}
 	];
-
+	$scope.applyAs($scope.attendee)
 }]);
 
 
@@ -474,4 +475,6 @@ kongreApp.controller('OrderAlertModalController', function ($scope, $modalInstan
 	$scope.cancel = function () {
 		$modalInstance.dismiss('cancel');
 	};
+
+
 });
