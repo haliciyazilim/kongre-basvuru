@@ -22,6 +22,7 @@ class ApplicationController < ActionController::Base
 
     if params[:applicant]
       applicant = Applicant.create if !applicant
+      applicant.update(:season => calculate_season)
       session[:applicant_type] = applicant.update(
           params[:applicant].permit(
               :name,
@@ -44,6 +45,7 @@ class ApplicationController < ActionController::Base
     if params[:presentation] && applicant
       presentation = ApplicantPresentation.find_by_applicant_id(applicant.id)
       presentation = ApplicantPresentation.create(applicant_id: applicant.id) if !presentation
+      presentation.update(:season => calculate_season)
       presentation.update(
           params[:presentation].permit(
               :purpose,
@@ -56,10 +58,15 @@ class ApplicationController < ActionController::Base
   end
 
   def order
-    return
     applicant = Applicant.find(params[:applicant_id])
+    if !applicant || applicant.season != calculate_season
+      return
+    end
     ActiveRecord::Base.transaction do
       receipt = Receipt.create(applicant: applicant)
+      if Attendance.last.product.season != calculate_season
+        return
+      end
       ReceiptProduct.create(
           receipt: receipt,
           product: Attendance.last.product,
@@ -68,6 +75,9 @@ class ApplicationController < ActionController::Base
       if params[:workshops]
         params[:workshops].each do |workshop_id|
           workshop = Workshop.find(workshop_id)
+          if workshop.product.season != calculate_season
+            return
+          end
           ReceiptProduct.create(
               receipt: receipt,
               product: workshop.product,
@@ -108,4 +118,11 @@ class ApplicationController < ActionController::Base
   end
 
 
+  def calculate_season
+    if Time.now.month > 6
+      return "#{Time.now.year.to_s}#{2}".to_i
+    else
+      return "#{Time.now.year.to_s}#{1}".to_i
+    end
+  end
 end

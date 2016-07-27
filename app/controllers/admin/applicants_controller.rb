@@ -1,4 +1,3 @@
-
 class Admin::ApplicantsController < AdminController
   def unpaid
     sql = <<-SQL
@@ -54,7 +53,7 @@ class Admin::ApplicantsController < AdminController
 
     # applicants=Applicant.joins(:receipts, :card_numbers).where(:receipts=>{:is_paid=>true})
 
-    cards=CardNumber.all
+    cards=CardNumber.includes(:applicant).where(:applicants => {:season => calculate_season})
 
     template = Sablon.template(File.expand_path("public/applicants_template.docx"))
     context = {applicants:[]}
@@ -71,8 +70,6 @@ class Admin::ApplicantsController < AdminController
       context[:applicants].push(currentApplicant)
     end
 
-
-
     data=template.render_to_string context
 
     send_data data, :filename => " Kongre Katılımcılar Listesi.docx"
@@ -82,7 +79,7 @@ class Admin::ApplicantsController < AdminController
 
     # applicants=Applicant.joins(:receipts, :card_numbers).where(:receipts=>{:is_paid=>true})
 
-    cards=CardNumber.all
+    cards=CardNumber.includes(:applicant).where(:applicants => {:season => calculate_season})
 
     template = Sablon.template(File.expand_path("public/applicants_workshops_template.docx"))
     context = {applicants:[]}
@@ -112,8 +109,6 @@ class Admin::ApplicantsController < AdminController
       end
 
     end
-
-
 
     data=template.render_to_string context
 
