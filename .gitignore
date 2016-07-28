@@ -8,3 +8,7 @@
 log
 vendor
 config/initializers/private.rb
+public/applicants_template.docx
+public/workshop_template.docx
+public/template.docx
+public/applicants_workshops_template.docx
