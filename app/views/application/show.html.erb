@@ -3,9 +3,9 @@
     <!--STEP 1 Start -->
     <div class="row">
       <div class="col-xs-12">
-        <h1 ng-show="applicant_type == null">KONGRE 2015 BAŞVURU FORMU</h1>
-        <h1 ng-show="applicant_type == attendee">KONGRE 2015 KATILIMCI BAŞVURU FORMU</h1>
-        <h1 ng-show="applicant_type == presenter">KONGRE 2015 SUNUM BAŞVURU FORMU</h1>
+        <h1 ng-show="applicant_type == null">KONGRE {{currentYear}} BAŞVURU FORMU</h1>
+        <h1 ng-show="applicant_type == attendee">KONGRE {{currentYear}} KATILIMCI BAŞVURU FORMU</h1>
+        <h1 ng-show="applicant_type == presenter">KONGRE {{currentYear}} SUNUM BAŞVURU FORMU</h1>
       </div>
     </div>
     <div ng-if="showApplicationTypeButtons" class="row margin-bottom">
@@ -43,7 +43,7 @@
       </div>
     </div>
     <!-- ROW -->
-    <form ng-if="showPersonalInfoForm" class="panel panel-warning" name="personalInfoForm" ng-submit="savePersonalInfo(personalInfoForm)"><!--sunum basvurusu için class="panel panel-danger" -->
+    <form ng-if="showPersonalInfoForm" class="panel panel-warning" name="personalInfoForm" ng-submit="savePersonalInfo()"><!--sunum basvurusu için class="panel panel-danger" -->
       <div class="panel-heading">
         <h3 class="panel-title">Kişisel Bilgilerinizi Giriniz</h3>
       </div>
@@ -185,7 +185,7 @@
               <div class="checkbox">
                 <label>
                   <input type="checkbox"
-                         ng-change="setAttendance(1, attendances.attendance2013)"
+                         ng-change="setAttendance('attendance2013', attendances.attendance2013)"
                          ng-model="attendances.attendance2013">
                   <strong>2013</strong>
                   Kongresine katıldım
@@ -195,9 +195,18 @@
               <div class="checkbox">
                 <label>
                   <input type="checkbox"
-                         ng-change="setAttendance(2,attendances.attendance2014)"
+                         ng-change="setAttendance('attendance2014',attendances.attendance2014)"
                          ng-model="attendances.attendance2014">
                   <strong>2014</strong>
+                  Kongresine katıldım
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"
+                         ng-change="setAttendance('attendance2015',attendances.attendance2015)"
+                         ng-model="attendances.attendance2015">
+                  <strong>2015</strong>
                   Kongresine katıldım
                 </label>
               </div>
@@ -205,7 +214,7 @@
               <div class="checkbox">
                 <label>
                   <input name="attendances" type="checkbox"
-                         ng-change="setAttendance(4,attendances.attendanceFirst)"
+                         ng-change="setAttendance('attendanceFirst',attendances.attendanceFirst)"
                          ng-model="attendances.attendanceFirst">
                   <strong>İLK</strong>
                   katılım

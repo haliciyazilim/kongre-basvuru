@@ -7,8 +7,8 @@ class ApplicationController < ActionController::Base
     response.headers['X-Frame-Options'] = 'ALLOWALL'
   end
   def show
-    @workshops_24 = Workshop.at_day '2015-10-24'
-    @workshops_25 = Workshop.at_day '2015-10-25'
+    @workshops_24 = Workshop.at_day '2016-10-24'
+    @workshops_25 = Workshop.at_day '2016-10-25'
   end
 
   def register

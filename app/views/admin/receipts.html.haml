@@ -5,7 +5,7 @@
 %h5
   Toplam Tutar
   %strong
-    = @total_amount /100
+    = @total_amount ? @total_amount / 100 : 0
   TL
 %table.table
   - class_names = %w(active success warning danger info)
