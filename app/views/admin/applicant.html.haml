@@ -1,7 +1,7 @@
 %a.btn.btn-link{href:'/admin'}
   <- Ana sayfa
 %h2
-  = "#{@applicant.name} #{@applicant.surname}"
+  = "#{@applicant.name} #{@applicant.surname} #{@workshops.length}"
 .row
   .col-lg-6
     %table.table
@@ -53,6 +53,12 @@
         %th Katılımcı Kategorisi
         %td
           = applicant_category @applicant
+
+      %tr
+        %th Atelyeler
+        %td
+          - (@workshops).each do |w|
+            %div #{w.product.name}
 - if @presentation
   .row
     .col-lg-8

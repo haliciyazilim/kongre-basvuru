@@ -4,6 +4,9 @@
   %p
     %a{href:"/admin/get_presentations_as_word"}
       Konuşmacı Başvurularını indir
+%p
+  %a.btn.btn-link{href:"/admin/applicants/download/"}
+    Katılımcıları indir
 
 
 
@@ -31,5 +34,5 @@
       %td
         = applicant.city
       %td
-        %a{href:"/admin/applicant/#{applicant.id}"}
+        %a{href:"/admin/applicants/#{applicant.id}"}
           Detaylar

@@ -26,6 +26,7 @@ kongreApp.controller('registerFormController', ['$scope', '$http', '$document', 
     $scope.workshops24 = workshops24;
     for (var i = 0; i < $scope.workshops24.length; i++) {
         $scope.workshops24[i].class = 'info';
+
     }
     $scope.workshops25 = workshops25;
     for (var i = 0; i < $scope.workshops25.length; i++) {

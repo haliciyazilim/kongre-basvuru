@@ -1,4 +1,3 @@
-
 class Admin::ApplicantsController < AdminController
   def unpaid
     sql = <<-SQL
@@ -49,4 +48,75 @@ class Admin::ApplicantsController < AdminController
 
     @emails = @emails - @applicants.map{|e|e['email']}
   end
+
+  def get_applicants_as_word
+
+    # applicants=Applicant.joins(:receipts, :card_numbers).where(:receipts=>{:is_paid=>true})
+
+    cards=CardNumber.includes(:applicant).where(:applicants => {:season => calculate_season})
+
+    template = Sablon.template(File.expand_path("public/applicants_template.docx"))
+    context = {applicants:[]}
+
+    cards.each_with_index  do |card, index|
+      currentApplicant={
+          index:index+1,
+          id:card.id,
+          name:"#{card.applicant.name} #{card.applicant.surname}",
+          surname:card.applicant.address,
+          occupation:card.applicant.city,
+      }
+
+      context[:applicants].push(currentApplicant)
+    end
+
+    data=template.render_to_string context
+
+    send_data data, :filename => " Kongre Katılımcılar Listesi.docx"
+  end
+
+  def get_applicants_workshops_as_word
+
+    # applicants=Applicant.joins(:receipts, :card_numbers).where(:receipts=>{:is_paid=>true})
+
+    cards=CardNumber.includes(:applicant).where(:applicants => {:season => calculate_season})
+
+    template = Sablon.template(File.expand_path("public/applicants_workshops_template.docx"))
+    context = {applicants:[]}
+
+    cards.each_with_index  do |card, index|
+
+      workshops=card.applicant.paid_workshops
+
+      if workshops.count>0
+        w=[]
+        workshops.each do |workshop|
+          w.push(workshop.product.name)
+        end
+
+
+        currentApplicant={
+            index:index+1,
+            id:card.id,
+            name:card.applicant.name,
+            surname:card.applicant.surname,
+            occupation:card.applicant.occupation,
+            workshops:w
+        }
+
+        context[:applicants].push(currentApplicant)
+
+      end
+
+    end
+
+    data=template.render_to_string context
+
+    send_data data, :filename => " Kongre Katılımcılar Listesi.docx"
+  end
+
+
 end
+
+
+

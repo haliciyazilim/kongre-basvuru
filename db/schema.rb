@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150907125157) do
+ActiveRecord::Schema.define(version: 20160726141148) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20150907125157) do
     t.text     "audience"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "season"
   end
 
   create_table "applicants", force: true do |t|
@@ -42,6 +43,7 @@ ActiveRecord::Schema.define(version: 20150907125157) do
     t.string   "applicant_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "season"
   end
 
   create_table "attendances", force: true do |t|
@@ -62,6 +64,7 @@ ActiveRecord::Schema.define(version: 20150907125157) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "max_stock",    default: 100
+    t.integer  "season"
   end
 
   create_table "receipt_products", force: true do |t|

@@ -1,9 +1,14 @@
 Rails.application.routes.draw do
 
 
-  get 'admin/applicant/:id' => 'admin#applicant'
 
   get '/' => 'application#show'
+
+  get 'admin/applicants/download' => 'admin/applicants#get_applicants_as_word'
+  get 'admin/applicants/download_workshops' => 'admin/applicants#get_applicants_workshops_as_word'
+  get 'admin/applicants/:id' => 'admin#applicant'
+  get 'admin/applicants/unpaid' => 'admin/applicants#unpaid'
+  get 'admin/applicants/unpaid_all' => 'admin/applicants#unpaid_all'
 
   post 'register' => 'application#register'
 
@@ -19,8 +24,6 @@ Rails.application.routes.draw do
 
   get 'admin/receipts/:is_paid' => 'admin#receipts'
 
-  get 'admin/applicants/unpaid' => 'admin/applicants#unpaid'
-  get 'admin/applicants/unpaid_all' => 'admin/applicants#unpaid_all'
 
   get 'admin/stocks'
 

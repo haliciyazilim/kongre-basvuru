@@ -1,6 +1,6 @@
 class Admin::WorkshopsController < AdminController
   def index
-    @workshops = Workshop.all.order(:start_at)
+    @workshops = Workshop.includes(:product).where(:products => {:season => calculate_season}).order(:start_at)
   end
 
   def show

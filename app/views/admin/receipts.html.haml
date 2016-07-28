@@ -18,7 +18,7 @@
         %h3
           = date
     %tr
-      %th Id
+      %th Card Number
       %th is paid
       %th Applicant
       %th Price
@@ -28,7 +28,10 @@
       - daily_total += receipt.price
       %tr{class:class_name}
         %td
-          = receipt.id
+          - if receipt.applicant.card_number
+            = receipt.applicant.card_number.id
+          - else
+            No Card Number
         %td
           = receipt.is_paid
         %td
@@ -40,7 +43,7 @@
             %p
               = rp.product.name
         %td
-          %a{href:"/admin/applicant/#{receipt.applicant.id}"}
+          %a{href:"/admin/applicants/#{receipt.applicant.id}"}
             Detaylar
     %tr
       %td.text-right{colspan:3}
