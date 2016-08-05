@@ -4,7 +4,9 @@
     <div class="row">
       <div class="col-xs-12">
         <h1 ng-show="applicant_type == null">KONGRE {{currentYear}} BAŞVURU FORMU</h1>
+
         <h1 ng-show="applicant_type == attendee">KONGRE {{currentYear}} KATILIMCI BAŞVURU FORMU</h1>
+
         <h1 ng-show="applicant_type == presenter">KONGRE {{currentYear}} SUNUM BAŞVURU FORMU</h1>
       </div>
     </div>
@@ -281,12 +283,10 @@
     <!--STEP 2 end -->
     <!--STEP 3 for KATILIMCI Start-->
     <script>
-      var workshops24 =
-      <%= @workshops_24.to_json.html_safe %>
-      var workshops25 =
-      <%= @workshops_25.to_json.html_safe %>
+        var workshops24 = <%= @workshops_24.to_json.html_safe %>
+        var workshops25 = <%= @workshops_25.to_json.html_safe %>
     </script>
-    <div ng-show="false" id='workshopsPanel' class="panel panel-warning">
+    <div ng-show="showWorkshops" id='workshopsPanel' class="panel panel-warning">
       <div class="panel-heading">
         <h3 class="panel-title">Katılmak İstediğiniz Atölyeleri Seçebilirsiniz</h3>
       </div>
@@ -356,8 +356,8 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="workshop in workshops25" class="{{workshop.className}}"
-                        ng-show="form.applicant.applicant_category=='child'?workshop.for_children:true && workshop.product.stock > 0">
+                    <tr ng-repeat="workshop in workshops25" class="{{workshop.className}}">
+                      <!--ng-show="form.applicant.applicant_category=='child'?workshop.for_children:true && workshop.product.stock > 0">-->
                       <%= render partial: 'partials/workshop_row' %>
                     </tr>
                     </tbody>
@@ -417,6 +417,12 @@
                     <div class="label label-default"> {{workshop.product.price/100}} TL</div>
                   </td>
                 </tr>
+                <tr class="danger" ng-show="discount!=0">
+                  <th scope="row">Kupon İndirimi</th>
+                  <td class="text-right">
+                    <div class="label label-danger"> {{discount/100}} TL</div>
+                  </td>
+                </tr>
                 <tr class="success">
                   <th scope="row">Genel Toplam</th>
                   <td class="text-right">
@@ -430,12 +436,25 @@
           </div>
         </div>
         <div class="row">
+          <!--<div class="col-xs-2">-->
+          <!-- -->
+          <!--</div>-->
           <div class="col-xs-12">
             <button class="btn btn-success pull-right"
                     ng-click="order()"
                     ng-disabled="orderState==actionState.onAction || orderState==actionState.invalid">
               <i class="fa fa-cog fa-spin" ng-show="orderState==actionState.onAction"></i> ÖDEME SAYFASINA GEÇ
             </button>
+            <div class="col-xs-2 pull-left">
+              <input class="form-control" id="coupon-text" type="text" placeholder="Kupon Kodu" ng-model="form.couponCode">
+            </div>
+            <div class="col-xs-2 pull-left">
+              <button class="btn btn-success"
+                      ng-click="couponCheck()"
+                      ng-disabled="orderState==actionState.onAction || orderState==actionState.invalid">
+                <i class="fa fa-cog fa-spin" ng-show="orderState==actionState.onAction"></i> Kuponu Uygula
+              </button>
+            </div>
           </div>
         </div>
       </div>

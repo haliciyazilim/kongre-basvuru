@@ -9,14 +9,12 @@ class ApplicationController < ActionController::Base
   end
 
   def show
-    @workshops_24 = Workshop.at_day '2016-10-24'
-    @workshops_25 = Workshop.at_day '2016-10-25'
+    @workshops_24 = Workshop.at_day '2016-07-28'
+    @workshops_25 = Workshop.at_day '2016-07-29'
 
   end
 
   def register
-    return
-
     if params[:applicant_id]
       applicant = Applicant.find(params[:applicant_id])
     end
@@ -24,6 +22,12 @@ class ApplicationController < ActionController::Base
     if params[:applicant]
       applicant = Applicant.create if !applicant
       applicant.update(:season => calculate_season)
+      params[:applicant][:name]= params[:applicant][:name].titleize
+      params[:applicant][:surname] = params[:applicant][:surname].titleize
+      params[:applicant][:occupation] = params[:applicant][:occupation].titleize
+      params[:applicant][:organization] = params[:applicant][:organization].titleize
+      params[:applicant][:address] = params[:applicant][:address].titleize
+      params[:applicant][:email] = params[:applicant][:email].downcase
       session[:applicant_type] = applicant.update(
           params[:applicant].permit(
               :name,
@@ -56,6 +60,18 @@ class ApplicationController < ActionController::Base
     end
 
     render :json => applicant
+  end
+
+  def coupon_check
+    begin
+      raise NoCouponException unless params[:code]
+      @coupon = Coupon.find_by_code params[:code]
+      raise NoCouponException if @coupon.nil?
+      raise NoCouponException unless @coupon.season == calculate_season
+      render 'coupons/show.json'
+    rescue NoCouponException
+      show_error ErrorCodeNoCouponDefined, "Lütfen geçerli bir kupon koduna sahip olduğunuzdan emin olunuz."
+    end
   end
 
   def order
@@ -118,6 +134,25 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def show_error error_code, description
+    if !Rails.env.test?
+      err_id = rand(1000..10000)
+      puts "Error #{err_id.to_s} for parameters: "
+      puts "[err_id:#{err_id.to_s}] Error code is #{error_code.to_s} and description: #{description.to_s}"
+      params.each do |k, v|
+        puts "[err_id:#{err_id}]  #{k.to_s} = #{v.to_s}"
+      end
+    end
+
+    # redirect_to :controller => "error",:error_code => error_code, :description => description, :format => params[:format]
+    # head @error_code
+    response.headers["error"] = "true"
+    response.headers["error_code"] = error_code.to_s
+    @error_code = error_code
+    @error_description = description
+    @error_title = ErrorDescriptionTable[@error_code.to_i]
+    render 'layouts/error.json', :status => :bad_request, :format => :json
+  end
 
   def calculate_season
     if Time.now.month > 6
@@ -127,3 +162,6 @@ class ApplicationController < ActionController::Base
     end
   end
 end
+
+
+class NoCouponException < StandardError;end
