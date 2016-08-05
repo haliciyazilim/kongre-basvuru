@@ -12,7 +12,7 @@ class AdminController < ApplicationController
     if params.has_key? :is_paid
       @receipts = Receipt.includes(:applicant).where(is_paid: params[:is_paid]).where(:applicants => {:season => calculate_season}).order(id: :desc)
     else
-      @receipts = Receipt.includes(:applicant).where(:applicant_id => applicants).where(:applicants => {:season => calculate_season}).order(id: :desc)
+      @receipts = Receipt.includes(:applicant).where(:applicants => {:season => calculate_season}).order(id: :desc)
     end
     @total_amount = @receipts.map(&:price).reduce(:+)
     @receipts = @receipts.to_ary.group_by{|r| "#{r.created_at.day}.#{r.created_at.month}.#{r.created_at.year}"}

@@ -84,12 +84,14 @@ kongreApp.controller('registerFormController', ['$scope', '$http', '$document', 
     }
 
     $scope.attendances = {
-        attendance2013: false,
-        attendance2014: false,
         attendance2015: false,
+        attendance2014: false,
+        attendance2013: false,
         attendanceFirst: false
 
-    }
+    };
+
+
 
     $scope.setAttendance = function (attendance, add) {
         $scope.attendances[attendance] = add;
@@ -106,27 +108,20 @@ kongreApp.controller('registerFormController', ['$scope', '$http', '$document', 
     };
 
 
-    function calculatePreviousAttendance(obj) {
-        var result = 0;
-        if (obj['attendance2013'] && !obj['attendance2014'] && !obj['attendance2015']) {
-            return 1
-        } else if (obj['attendance2014'] && !obj['attendance2013'] && !obj['attendance2015']) {
-            return 2
-        } else if (obj['attendance2015'] && !obj['attendance2013'] && !obj['attendance2014']) {
-            return 3
-        } else if (obj['attendanceFirst']) {
-            return 0
-        } else if (obj['attendance2013'] && obj['attendance2014'] && !obj['attendance2015']) {
-            return 4
-        } else if (obj['attendance2013'] && obj['attendance2015'] && !obj['attendance2014']) {
-            return 5
-        } else if (obj['attendance2014'] && obj['attendance2015'] && !obj['attendance2013']) {
-            return 6
-        } else if (obj['attendance2013'] && obj['attendance2014'] && obj['attendance2015']) {
-            return 7
-        } else {
-            return null
+    function calculatePreviousAttendance(object) {
+        var attendanceBinary = "";
+
+        for (var property in object) {
+            if (object.hasOwnProperty(property)) {
+                if(object[property]){
+                    attendanceBinary += "1";
+                }else{
+                    attendanceBinary += "0";
+                }
+            }
         }
+
+        return (parseInt( attendanceBinary, 2 ));
     }
 
 
