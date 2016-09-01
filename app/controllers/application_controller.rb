@@ -46,7 +46,8 @@ class ApplicationController < ActionController::Base
               :relation_to_high_intelligence,
               :previous_attendances,
               :applicant_category,
-              :applicant_type
+              :applicant_type,
+              :season
           ))
     end
 
@@ -121,7 +122,7 @@ class ApplicationController < ActionController::Base
       if params[:coupon_code]
         @coupon = Coupon.find_by_code(params[:coupon_code])
         coupon_discount = @coupon.nil? ? 0 : @coupon.amount
-        @coupon.update(:applicant => applicant)
+        @coupon.update(:applicant => applicant) unless @coupon.nil?
       end
 
       ReceiptProduct.create(
