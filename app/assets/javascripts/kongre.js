@@ -285,7 +285,7 @@ kongreApp.controller('registerFormController', ['$scope', '$http', '$document', 
 
     $scope.refreshTotalAmount = function () {
 
-        $scope.totalAmount = $scope.form.applicant.applicant_category == 'instructor_student' ? 10000 : 18000;
+        $scope.totalAmount = $scope.form.applicant.applicant_category == 'instructor_student' ? 10000 : 12000;
 
         if ($scope.form.applicant.applicant_category == 'child')
             $scope.totalAmount = 0;
@@ -302,7 +302,7 @@ kongreApp.controller('registerFormController', ['$scope', '$http', '$document', 
         }
         $scope.totalAmount -= $scope.discount;
 
-        $scope.orderState = $scope.totalAmount == 0 ? $scope.actionState.invalid : $scope.actionState.onIdle;
+        $scope.orderState = $scope.totalAmount <= 0 ? $scope.actionState.invalid : $scope.actionState.onIdle;
     }
 
     $scope.$watch('form.applicant.applicant_category', function () {
@@ -312,7 +312,7 @@ kongreApp.controller('registerFormController', ['$scope', '$http', '$document', 
 
     $scope.couponCheck = function (code) {
 
-        $http.get('/coupon_check', {params: {code: $scope.form.couponCode}}).success(function(data){
+        $http.get('/coupon_check', {params: {code: $scope.form.couponCode, email: $scope.form.applicant.email}}).success(function(data){
             $scope.discount = data.amount * 100;
             $scope.refreshTotalAmount();
         }).error(function(error){
@@ -336,7 +336,8 @@ kongreApp.controller('registerFormController', ['$scope', '$http', '$document', 
             }
             $http.post('/order', {
                 workshops: workshops,
-                applicant_id: $scope.applicant.id
+                applicant_id: $scope.applicant.id,
+                coupon_code: $scope.form.couponCode
             })
                 .success(function (data) {
                     //console.log(data)
@@ -352,6 +353,42 @@ kongreApp.controller('registerFormController', ['$scope', '$http', '$document', 
             var text = 'Ödemeniz gereken toplam tutar olan ' + $scope.totalAmount / 100 + ' TL’yi ödemek için ödeme sayfasına yönlendirileceksiniz, ücret iadesi mümkün olmayacaktır; onaylıyor musunuz?';
 
             showOrderAlert(text);
+        }
+    }
+
+    $scope.freeOrder = function (isConfirmed) {
+        if (isConfirmed) {
+
+            $scope.orderState = $scope.actionState.onAction;
+            var workshops = [];
+            for (var i = 0; i < $scope.selectedWorkshops.length; i++) {
+                var workshop = $scope.selectedWorkshops[i];
+
+                if ($scope.form.applicant.applicant_category == 'child' && !workshop.for_children)
+                    continue;
+
+                workshops.push(workshop.id);
+            }
+            $http.post('/order', {
+                workshops: workshops,
+                applicant_id: $scope.applicant.id,
+                coupon_code: $scope.form.couponCode
+            })
+                .success(function (data) {
+                    //console.log(data)
+                    $scope.showSuccessNotification(data.text, 3000);
+                    window.location = '/';
+                })
+                .error(function (error) {
+                    $log.info('error on order: ', error);
+                    $scope.orderState = $scope.actionState.onIdle;
+                    $scope.showErrorNotification()
+                })
+        }
+        else {
+            var text = 'Ücretsiz katılım kuponu sadece bir kere kullanılabilir, girdiğiniz bilgiler ile ücretsiz katılım kuponunuzu kullanmak üzeresiniz; onaylıyor musunuz?';
+
+            showFreeOrderAlert(text);
         }
     }
 
@@ -385,6 +422,27 @@ kongreApp.controller('registerFormController', ['$scope', '$http', '$document', 
 
         //$log.error(text);
     }
+
+    var showFreeOrderAlert = function (text) {
+
+        var modalInstance = $modal.open({
+            animation: true,
+            templateUrl: 'order_alert_modal.html',
+            controller: 'OrderAlertModalController',
+            size: 'md',
+            resolve: {
+                text: function () {
+                    return text;
+                }
+            }
+        });
+
+        modalInstance.result.then(function () {
+            $scope.freeOrder(true);
+        }, function () {
+
+        });
+    };
 
     var showOrderAlert = function (text) {
 

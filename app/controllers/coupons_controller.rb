@@ -68,7 +68,7 @@ class CouponsController < ApplicationController
       raise NoCouponException if @coupon.nil?
       render :show
     rescue NoCouponException
-      show_error ErrorCodeNoCouponDefined, "Lütfen geçerli bir kupon koduna sahip olduðunuzdan emin olunuz."
+      show_error ErrorCodeNoCouponDefined, "LÃ¼tfen geÃ§erli bir kupon koduna sahip olduÄŸunuzdan emin olunuz."
     end
   end
 

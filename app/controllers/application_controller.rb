@@ -4,6 +4,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
   before_action :before_action
 
+  @@authentication_token = ""
+  @@authentication_at = Time.now
+
   def before_action
     response.headers['X-Frame-Options'] = 'ALLOWALL'
   end
@@ -11,7 +14,6 @@ class ApplicationController < ActionController::Base
   def show
     @workshops_24 = Workshop.at_day '2016-07-28'
     @workshops_25 = Workshop.at_day '2016-07-29'
-
   end
 
   def register
@@ -69,9 +71,39 @@ class ApplicationController < ActionController::Base
       @coupon = Coupon.find_by_code params[:code]
       raise NoCouponException if @coupon.nil?
       raise NoCouponException unless @coupon.season == calculate_season
+      raise NoCouponException unless @coupon.email == params[:email]
+      raise UsedCouponException unless @coupon.used_at.nil?
       render 'coupons/show.json'
     rescue NoCouponException
       show_error ErrorCodeNoCouponDefined, "Lütfen geçerli bir kupon koduna sahip olduğunuzdan emin olunuz."
+    rescue UsedCouponException
+      show_error ErrorCodeUsedCouponException, "Bu kupon kodu kullanılmış, size ait ve siz kullanmadıysanız lütfen bizimle iletişime geçiniz."
+    end
+  end
+
+  def coupon_create
+    begin
+      if params[:type] == '1'
+        code = rand(36**8).to_s(36).upcase
+        while !Coupon.where(:code => code).blank?
+          code = rand(36**8).to_s(36).upcase
+        end
+        Coupon.create(:code => code, :amount => 80, :season => calculate_season, :email => params[:email], :coupon_type => 'metu_student')
+        # KongreMailer.send_coupon_mail(params[:email]).deliver!
+        redirect_to '/admin/coupon'
+      elsif params[:type] == '2'
+        code = rand(36**8).to_s(36).upcase
+        while !Coupon.where(:code => code).blank?
+          code = rand(36**8).to_s(36).upcase
+        end
+        Coupon.create(:code => code, :amount => 100, :season => calculate_season, :email => params[:email], :coupon_type => 'free')
+        # KongreMailer.send_coupon_mail(params[:email]).deliver!
+        redirect_to '/admin/coupon'
+      else
+        puts "------"
+      end
+    rescue
+
     end
   end
 
@@ -85,10 +117,17 @@ class ApplicationController < ActionController::Base
       if Attendance.last.product.season != calculate_season
         return
       end
+      coupon_discount = 0
+      if params[:coupon_code]
+        @coupon = Coupon.find_by_code(params[:coupon_code])
+        coupon_discount = @coupon.nil? ? 0 : @coupon.amount
+        @coupon.update(:applicant => applicant)
+      end
+
       ReceiptProduct.create(
           receipt: receipt,
           product: Attendance.last.product,
-          price: applicant.applicant_category == ApplicantCategory.instructor_student ? 10000 : 18000
+          price: applicant.applicant_category == ApplicantCategory.instructor_student ? 10000 - coupon_discount * 100 : 12000 - coupon_discount * 100
       )
       if params[:workshops]
         params[:workshops].each do |workshop_id|
@@ -104,15 +143,30 @@ class ApplicationController < ActionController::Base
         end
       end
       receipt.update(price: receipt.calculate_total_amount)
-      url = PaymentManager.checkout(
-          user_id: applicant.id,
-          user_name: applicant.name,
-          order_id: receipt.id,
-          product_name: 'Kongre Katılım',
-          price: receipt.price,
-          hostname: request.protocol + request.host_with_port
-      )
-      render json: {redirect_url: url}
+      if receipt.price > 0
+        url = PaymentManager.checkout(
+            user_id: applicant.id,
+            user_name: applicant.name,
+            order_id: receipt.id,
+            product_name: 'Kongre Katılım',
+            price: receipt.price - coupon_discount*100,
+            hostname: request.protocol + request.host_with_port
+        )
+        render json: {redirect_url: url}
+      else
+        receipt.update(:is_paid => true)
+        receipt.receipt_products.each do |rp|
+          rp.product.decrement!(:stock)
+        end
+        coupon = Coupon.find_by_season_and_applicant_id(calculate_season, receipt.applicant_id)
+        coupon.update(:used_at => Time.now) unless coupon.nil?
+        begin
+          KongreMailer.create_free_order_accepted(receipt).deliver!
+        rescue
+          puts 'An error occurred during free order accepted mail sending!'
+        end
+        render json: {text: 'Başvurunuz tamamlandı. Tebrikler.'}
+      end
     end
   end
 
@@ -126,6 +180,8 @@ class ApplicationController < ActionController::Base
         receipt.receipt_products.each do |rp|
           rp.product.decrement!(:stock)
         end
+        coupon = Coupon.find_by_season_and_applicant_id(calculate_season, receipt.applicant_id)
+        coupon.update(:used_at => Time.now) unless coupon.nil?
         begin
           KongreMailer.payment_accepted(receipt).deliver!
         rescue
@@ -162,7 +218,32 @@ class ApplicationController < ActionController::Base
       return "#{Time.now.year.to_s}#{1}".to_i
     end
   end
+
+  def self.calculate_season
+    if Time.now.month > 6
+      return "#{Time.now.year.to_s}#{2}".to_i
+    else
+      return "#{Time.now.year.to_s}#{1}".to_i
+    end
+  end
+
+  def authenticate
+    unless @@authentication_token == Digest::SHA1.hexdigest(ENV['ADMIN_PASS'] + ENV['ADMIN_SALT'])
+      render 'admin/login'
+    else
+      if Time.now > @@authentication_at + 1.minute
+        @@authentication_token = ''
+        render 'admin/login'
+      end
+      @@authentication_at = Time.now
+    end
+  end
+
 end
 
 
-class NoCouponException < StandardError;end
+class NoCouponException < StandardError;
+end
+
+class UsedCouponException < StandardError;
+end

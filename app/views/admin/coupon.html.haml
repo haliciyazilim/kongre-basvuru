@@ -1,0 +1,30 @@
+= render :partial => 'partials/links'
+%h2
+  Kupon Yarat
+
+  = form_tag coupon_create_path, :method => :post do
+    = text_field_tag "email", nil, placeholder: 'email'
+    = select_tag "type", raw("<option value='1' selected>Metu Student</option><option value='2'>Free</option>")
+    = submit_tag "Yarat ve Gonder"
+
+%h2
+  Kuponlar
+%table.table
+  %tr
+    %th Email
+    %th Type
+    %th Code
+    %th Used At
+    %th Applicant Id
+  - @coupons.each do |coupon|
+    %tr
+      %td
+        = coupon.email
+      %td
+        = coupon.coupon_type
+      %td
+        = coupon.code
+      %td
+        = coupon.used_at
+      %td
+        = coupon.applicant_id

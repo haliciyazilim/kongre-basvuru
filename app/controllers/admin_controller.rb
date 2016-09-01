@@ -1,5 +1,19 @@
 class AdminController < ApplicationController
   layout 'admin'
+
+  before_action :authenticate, only: [:coupon]
+
+  def login
+    if Digest::SHA1.hexdigest(params[:password] + ENV['ADMIN_SALT']) == Digest::SHA1.hexdigest(ENV['ADMIN_PASS'] + ENV['ADMIN_SALT'])
+      @@authentication_token = Digest::SHA1.hexdigest(ENV['ADMIN_PASS'] + ENV['ADMIN_SALT'])
+      @@authentication_at = Time.now
+      redirect_to '/admin/coupon'
+    else
+      raise Exception
+    end
+
+  end
+
   def list
     if params.has_key? :applicant_type
       @applicants = Applicant.where(applicant_type: params[:applicant_type]).where(:season => calculate_season).order(id: :desc)
@@ -15,7 +29,7 @@ class AdminController < ApplicationController
       @receipts = Receipt.includes(:applicant).where(:applicants => {:season => calculate_season}).order(id: :desc)
     end
     @total_amount = @receipts.map(&:price).reduce(:+)
-    @receipts = @receipts.to_ary.group_by{|r| "#{r.created_at.day}.#{r.created_at.month}.#{r.created_at.year}"}
+    @receipts = @receipts.to_ary.group_by { |r| "#{r.created_at.day}.#{r.created_at.month}.#{r.created_at.year}" }
   end
 
   def applicant
@@ -28,18 +42,22 @@ class AdminController < ApplicationController
     @products = Product.where(:season => calculate_season)
   end
 
+  def coupon
+    @coupons = Coupon.where(:season => calculate_season).order('created_at desc')
+  end
+
   def get_presentations_as_word
 
     applicantsPresentation=ApplicantPresentation.all
 
     template = Sablon.template(File.expand_path("public/presentations_template.docx"))
-    context = {presentations:[]}
+    context = {presentations: []}
 
-    applicantsPresentation.each_with_index  do |presentation, index|
+    applicantsPresentation.each_with_index do |presentation, index|
       applicant_name="#{presentation.applicant.name} #{presentation.applicant.surname}"
       currentPresentation={
-          index:index+1,
-          applicant:{name:applicant_name,email:presentation.applicant.email, phone:presentation.applicant.phone},
+          index: index+1,
+          applicant: {name: applicant_name, email: presentation.applicant.email, phone: presentation.applicant.phone},
           purpose: presentation.purpose,
           content: presentation.content,
           audience: presentation.audience

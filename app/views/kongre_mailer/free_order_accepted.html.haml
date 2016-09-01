@@ -1,0 +1,17 @@
+%html
+  %body
+    %p
+      = "Merhaba #{@receipt.applicant.name} #{@receipt.applicant.surname}"
+    %p
+      Aşağıda detayları verilen kongre başvurunuz onaylanmıştır.
+    %table{border:1,width:'100%'}
+      - @receipt.receipt_products.each do |rp|
+        %tr
+          %td
+            = rp.product.name
+          %td
+            = "#{rp.price/100} TL"
+    %p
+      Katılım belgenizi kongre günü temin edebilirsiniz.
+    %p
+      Teşekkürler

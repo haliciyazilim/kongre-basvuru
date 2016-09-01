@@ -231,21 +231,21 @@
             <div class="form-group" ng-class="{'has-error':personalInfoForm.applicant_category.$dirty && personalInfoForm.applicant_category.$invalid}">
               <label class="btn-block text-danger">Lütfen Katılımcı Kategorisi Seçiniz</label>
 
+              <!--<div class="radio">-->
+                <!--<label>-->
+                  <!--<input name="applicant_category" ng-model="form.applicant.applicant_category" type="radio" value="instructor_student" required>-->
+                  <!--<strong>Öğretmen / Öğrenci </strong>-->
+                  <!--<span ng-show="applicant_type == attendee" class="label-default label">-->
+                    <!--100 TL-->
+                  <!--</span>-->
+                <!--</label>-->
+              <!--</div>-->
               <div class="radio">
                 <label>
-                  <input name="applicant_category" ng-model="form.applicant.applicant_category" type="radio" value="instructor_student" required>
-                  <strong>Öğretmen / Öğrenci </strong>
-                  <span ng-show="applicant_type == attendee" class="label-default label">
-                    100 TL
-                  </span>
-                </label>
-              </div>
-              <div class="radio">
-                <label>
-                  <input name="applicant_category" ng-model="form.applicant.applicant_category" type="radio" value="civillian" required>
+                  <input name="applicant_category" ng-model="form.applicant.applicant_category" ng-value="civillian" ng-checked="form.applicant.applicant_category==civillian" type="radio" value="civillian" required>
                   <strong>Katılım </strong>
                   <span ng-show="applicant_type == attendee" class="label-default label">
-                  180 TL
+                  120 TL
                 </span>
                 </label>
               </div>
@@ -282,100 +282,109 @@
     <!--panel-->
     <!--STEP 2 end -->
     <!--STEP 3 for KATILIMCI Start-->
+
+
+
+    <!--ws Start-->
+
     <script>
         var workshops24 = <%= @workshops_24.to_json.html_safe %>
         var workshops25 = <%= @workshops_25.to_json.html_safe %>
     </script>
-    <div ng-show="showWorkshops" id='workshopsPanel' class="panel panel-warning">
-      <div class="panel-heading">
-        <h3 class="panel-title">Katılmak İstediğiniz Atölyeleri Seçebilirsiniz</h3>
-      </div>
-      <div class="panel-body">
-        <div class="row">
-          <div class="col-xs-12">
-            <p class="alert alert-warning">
-              Saatler arası çakışmayı önlemek amacıyla; seçtiğiniz atölyeye göre sistem
-              sizi otomatik olarak seçebileceğiniz diğer atölyeleri filtreleyecektir.
-            </p>
-          </div>
-        </div>
-        <!-- ROW -->
-        <div class="row">
-          <div class="col-xs-12">
-            <div class="panel panel-info">
-              <div class="panel-heading">
-                <h3 class="panel-title">
-                  <div class="badge">&nbsp;1. gün&nbsp;</div>
-                  &nbsp;&nbsp;24 EKİM 2015, Cumartesi
-                </h3>
-              </div>
-              <div class="panel-body">
-                <div class="table-responsive">
-                  <table class="table table-hover">
-                    <thead>
-                    <tr>
-                      <th>#</th>
-                      <th width="120">Saat Bilgisi</th>
-                      <th width="80">Salon</th>
-                      <th>Adı</th>
-                      <th width="150">Moderatör</th>
-                      <th width="60">Kalan Başvuru</th>
-                      <th width="60">Ücreti</th>
-                    </tr>
-                    </thead>
-                    <tbody>
+    <!--<div ng-show="showWorkshops" id='workshopsPanel' class="panel panel-warning">-->
+      <!--<div class="panel-heading">-->
+        <!--<h3 class="panel-title">Katılmak İstediğiniz Atölyeleri Seçebilirsiniz</h3>-->
+      <!--</div>-->
+      <!--<div class="panel-body">-->
+        <!--<div class="row">-->
+          <!--<div class="col-xs-12">-->
+            <!--<p class="alert alert-warning">-->
+              <!--Saatler arası çakışmayı önlemek amacıyla; seçtiğiniz atölyeye göre sistem-->
+              <!--sizi otomatik olarak seçebileceğiniz diğer atölyeleri filtreleyecektir.-->
+            <!--</p>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--&lt;!&ndash; ROW &ndash;&gt;-->
+        <!--<div class="row">-->
+          <!--<div class="col-xs-12">-->
+            <!--<div class="panel panel-info">-->
+              <!--<div class="panel-heading">-->
+                <!--<h3 class="panel-title">-->
+                  <!--<div class="badge">&nbsp;1. gün&nbsp;</div>-->
+                  <!--&nbsp;&nbsp;24 EKİM 2015, Cumartesi-->
+                <!--</h3>-->
+              <!--</div>-->
+              <!--<div class="panel-body">-->
+                <!--<div class="table-responsive">-->
+                  <!--<table class="table table-hover">-->
+                    <!--<thead>-->
+                    <!--<tr>-->
+                      <!--<th>#</th>-->
+                      <!--<th width="120">Saat Bilgisi</th>-->
+                      <!--<th width="80">Salon</th>-->
+                      <!--<th>Adı</th>-->
+                      <!--<th width="150">Moderatör</th>-->
+                      <!--<th width="60">Kalan Başvuru</th>-->
+                      <!--<th width="60">Ücreti</th>-->
+                    <!--</tr>-->
+                    <!--</thead>-->
+                    <!--<tbody>-->
 
-                    <tr ng-repeat="workshop in workshops24" class="{{workshop.className}}"
-                        ng-show="form.applicant.applicant_category=='child'?workshop.for_children:true && workshop.product.stock > 0">
-                      <%= render partial: 'partials/workshop_row' %>
-                    </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-            <div class="panel panel-info">
-              <div class="panel-heading">
-                <h3 class="panel-title">
-                  <div class="badge">&nbsp;2. gün&nbsp;</div>
-                  &nbsp;&nbsp;25 EKİM 2015, Pazar
-                </h3>
-              </div>
-              <div class="panel-body">
-                <div class="table-responsive">
-                  <table class="table table-hover">
-                    <thead>
-                    <tr>
-                      <th>#</th>
-                      <th width="120">Saat Bilgisi</th>
-                      <th width="80">Salon</th>
-                      <th>Adı</th>
-                      <th width="150">Moderatör</th>
-                      <th width="60">Kalan Başvuru</th>
-                      <th width="60">Ücreti</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="workshop in workshops25" class="{{workshop.className}}">
-                      <!--ng-show="form.applicant.applicant_category=='child'?workshop.for_children:true && workshop.product.stock > 0">-->
-                      <%= render partial: 'partials/workshop_row' %>
-                    </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!--<div class="panel-footer">-->
-      <!--<div class="row">-->
-      <!--<div class="col-xs-12">-->
-      <!--<button class="btn btn-warning pull-right">KAYDET ve DEVAM ET</button>-->
+                    <!--<tr ng-repeat="workshop in workshops24" class="{{workshop.className}}"-->
+                        <!--ng-show="form.applicant.applicant_category=='child'?workshop.for_children:true && workshop.product.stock > 0">-->
+                      <!--<%= render partial: 'partials/workshop_row' %>-->
+                    <!--</tr>-->
+                    <!--</tbody>-->
+                  <!--</table>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div class="panel panel-info">-->
+              <!--<div class="panel-heading">-->
+                <!--<h3 class="panel-title">-->
+                  <!--<div class="badge">&nbsp;2. gün&nbsp;</div>-->
+                  <!--&nbsp;&nbsp;25 EKİM 2015, Pazar-->
+                <!--</h3>-->
+              <!--</div>-->
+              <!--<div class="panel-body">-->
+                <!--<div class="table-responsive">-->
+                  <!--<table class="table table-hover">-->
+                    <!--<thead>-->
+                    <!--<tr>-->
+                      <!--<th>#</th>-->
+                      <!--<th width="120">Saat Bilgisi</th>-->
+                      <!--<th width="80">Salon</th>-->
+                      <!--<th>Adı</th>-->
+                      <!--<th width="150">Moderatör</th>-->
+                      <!--<th width="60">Kalan Başvuru</th>-->
+                      <!--<th width="60">Ücreti</th>-->
+                    <!--</tr>-->
+                    <!--</thead>-->
+                    <!--<tbody>-->
+                    <!--<tr ng-repeat="workshop in workshops25" class="{{workshop.className}}">-->
+                      <!--&lt;!&ndash;ng-show="form.applicant.applicant_category=='child'?workshop.for_children:true && workshop.product.stock > 0">&ndash;&gt;-->
+                      <!--<%= render partial: 'partials/workshop_row' %>-->
+                    <!--</tr>-->
+                    <!--</tbody>-->
+                  <!--</table>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
       <!--</div>-->
-      <!--</div>-->
-      <!--</div>-->
-    </div>
+      <!--&lt;!&ndash;<div class="panel-footer">&ndash;&gt;-->
+      <!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
+      <!--&lt;!&ndash;<div class="col-xs-12">&ndash;&gt;-->
+      <!--&lt;!&ndash;<button class="btn btn-warning pull-right">KAYDET ve DEVAM ET</button>&ndash;&gt;-->
+      <!--&lt;!&ndash;</div>&ndash;&gt;-->
+      <!--&lt;!&ndash;</div>&ndash;&gt;-->
+      <!--&lt;!&ndash;</div>&ndash;&gt;-->
+    <!--</div>-->
+
+    <!--ws End-->
+
+
     <!--panel-->
     <!--STEP 3 for KATILIMCI End -->
     <div ng-if="showCheckout" class="panel panel-success" id="checkoutPanel">
@@ -405,7 +414,7 @@
                   <td class="text-right">
                     <div class="label label-default">
                       <span ng-show="form.applicant.applicant_category == 'instructor_student'">100 TL</span>
-                      <span ng-show="form.applicant.applicant_category == 'civillian'">180 TL</span>
+                      <span ng-show="form.applicant.applicant_category == 'civillian'">120 TL</span>
                     </div>
                   </td>
                 </tr>
@@ -442,8 +451,13 @@
           <div class="col-xs-12">
             <button class="btn btn-success pull-right"
                     ng-click="order()"
-                    ng-disabled="orderState==actionState.onAction || orderState==actionState.invalid">
+                    ng-hide="orderState==actionState.onAction || orderState==actionState.invalid">
               <i class="fa fa-cog fa-spin" ng-show="orderState==actionState.onAction"></i> ÖDEME SAYFASINA GEÇ
+            </button>
+            <button class="btn btn-success pull-right"
+                    ng-click="freeOrder()"
+                    ng-show="orderState==actionState.invalid">
+              <i class="fa fa-cog fa-spin" ng-show="orderState==actionState.onAction"></i> BAŞVURUYU TAMAMLA
             </button>
             <div class="col-xs-2 pull-left">
               <input class="form-control" id="coupon-text" type="text" placeholder="Kupon Kodu" ng-model="form.couponCode">

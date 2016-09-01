@@ -1,0 +1,9 @@
+
+.row.margin-top
+  .col-lg-8.col-lg-offset-2
+    = form_tag(admin_login_path) do
+      = label_tag :password, 'Password: '
+      %br
+      = password_field_tag :password
+      %br
+      = submit_tag 'Login'
