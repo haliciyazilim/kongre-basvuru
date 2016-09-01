@@ -20,8 +20,7 @@ class KongreMailer < ActionMailer::Base
 
   def send_coupon_mail(email)
     @coupon = Coupon.where(:season => ApplicationController.calculate_season, :used_at => nil, :email => email).first
-
-    mail(:to => email, :subject => 'Türkiye Zeka Vakfı - Kongre Katılım Bedeli İndirim Kuponu')
+    mail(:to => email, :subject => 'Kongre Katılım Bedeli İndirim Kuponu')
   end
 
   def free_order_accepted(receipt)
