@@ -156,7 +156,7 @@ class ApplicationController < ActionController::Base
       if receipt.price > 0
         url = PaymentManager.checkout(
             user_id: applicant.id,
-            user_name: applicant.name,
+            user_name: applicant.name + ' ' + applicant.surname,
             order_id: receipt.id,
             product_name: 'Kongre Katılım',
             price: receipt.price,
