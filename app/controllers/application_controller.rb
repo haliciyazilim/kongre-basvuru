@@ -90,7 +90,11 @@ class ApplicationController < ActionController::Base
           code = rand(36**8).to_s(36).upcase
         end
         Coupon.create(:code => code, :amount => 95, :season => calculate_season, :email => params[:email], :coupon_type => 'metu_student')
-        KongreMailer.send_coupon_mail(params[:email]).deliver!
+        begin
+          KongreMailer.send_coupon_mail(params[:email]).deliver!
+        rescue
+          puts 'Email could not be sent'
+        end
         redirect_to '/admin/coupon'
       elsif params[:type] == '2'
         code = rand(36**8).to_s(36).upcase
@@ -98,7 +102,11 @@ class ApplicationController < ActionController::Base
           code = rand(36**8).to_s(36).upcase
         end
         Coupon.create(:code => code, :amount => 120, :season => calculate_season, :email => params[:email], :coupon_type => 'free')
-        KongreMailer.send_coupon_mail(params[:email]).deliver!
+        begin
+          KongreMailer.send_coupon_mail(params[:email]).deliver!
+        rescue
+          puts 'Email could not be sent'
+        end
         redirect_to '/admin/coupon'
       else
         puts "------"
@@ -110,31 +118,25 @@ class ApplicationController < ActionController::Base
 
   def order
     applicant = Applicant.find(params[:applicant_id])
-    puts '0000000000000000000000000000000000000000-'
     if !applicant || applicant.season != calculate_season
       return
     end
-    puts '0000000000000000000000000000000000000000'
     ActiveRecord::Base.transaction do
       receipt = Receipt.create(applicant: applicant)
-      puts '00000000000000000000000000000000000000001'
       if Attendance.last.product.season != calculate_season
         return
       end
-      puts '00000000000000000000000000000000000000002'
       coupon_discount = 0
       if params[:coupon_code]
         @coupon = Coupon.find_by_code(params[:coupon_code])
         coupon_discount = @coupon.nil? ? 0 : @coupon.amount
         @coupon.update(:applicant => applicant) unless @coupon.nil?
       end
-      puts '00000000000000000000000000000000000000003'
       ReceiptProduct.create(
           receipt: receipt,
           product: Attendance.last.product,
           price: applicant.applicant_category == ApplicantCategory.instructor_student ? 10000 - coupon_discount * 100 : 12000 - coupon_discount * 100
       )
-      puts '00000000000000000000000000000000000000004'
       if params[:workshops]
         params[:workshops].each do |workshop_id|
           workshop = Workshop.find(workshop_id)
@@ -148,9 +150,7 @@ class ApplicationController < ActionController::Base
           )
         end
       end
-      puts '0000000000000000000000000000000000000005'
       receipt.update(price: receipt.calculate_total_amount)
-      puts '0000000000000000000000000000000000000006'
       if receipt.price > 0
         url = PaymentManager.checkout(
             user_id: applicant.id,
@@ -160,7 +160,6 @@ class ApplicationController < ActionController::Base
             price: receipt.price - coupon_discount*100,
             hostname: request.protocol + request.host_with_port
         )
-        puts '0000000000000000000000000000000000000007'
         render json: {redirect_url: url}
       else
         receipt.update(:is_paid => true)
@@ -174,7 +173,6 @@ class ApplicationController < ActionController::Base
         rescue
           puts 'An error occurred during free order accepted mail sending!'
         end
-        puts '00000000000000000000000000000000000000008'
         render json: {text: 'Başvurunuz tamamlandı. Tebrikler.'}
       end
     end
