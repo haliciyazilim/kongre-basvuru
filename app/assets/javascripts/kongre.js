@@ -376,8 +376,9 @@ kongreApp.controller('registerFormController', ['$scope', '$http', '$document', 
             })
                 .success(function (data) {
                     //console.log(data)
-                    $scope.showSuccessNotification(data.text, 3000);
-                    window.location = '/';
+                    $scope.showSuccessNotification(data.text, 20000);
+                    setTimeout(function(){window.location = '/';}, 20000);
+
                 })
                 .error(function (error) {
                     $log.info('error on order: ', error);
