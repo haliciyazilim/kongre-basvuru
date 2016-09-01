@@ -159,7 +159,7 @@ class ApplicationController < ActionController::Base
             user_name: applicant.name,
             order_id: receipt.id,
             product_name: 'Kongre Katılım',
-            price: receipt.price - coupon_discount*100,
+            price: receipt.price,
             hostname: request.protocol + request.host_with_port
         )
         render json: {redirect_url: url}
