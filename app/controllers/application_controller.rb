@@ -91,7 +91,7 @@ class ApplicationController < ActionController::Base
         end
         Coupon.create(:code => code, :amount => 95, :season => calculate_season, :email => params[:email], :coupon_type => 'metu_student')
         begin
-          KongreMailer.send_coupon_mail(params[:email]).deliver!
+          KongreMailer.send_coupon_mail(params[:email], code).deliver!
         rescue
           puts 'Email could not be sent'
         end
@@ -103,7 +103,7 @@ class ApplicationController < ActionController::Base
         end
         Coupon.create(:code => code, :amount => 120, :season => calculate_season, :email => params[:email], :coupon_type => 'free')
 
-        KongreMailer.send_coupon_mail(params[:email]).deliver!
+        KongreMailer.send_coupon_mail(params[:email], code).deliver!
 
         redirect_to '/admin/coupon'
       else

@@ -18,8 +18,8 @@ class KongreMailer < ActionMailer::Base
     mail(to: applicant.email, subject: 'Hep beraber soralım: BeyinSizMisiniz?')
   end
 
-  def send_coupon_mail(email)
-    @coupon = Coupon.where(:season => ApplicationController.calculate_season, :used_at => nil, :email => email).first
+  def send_coupon_mail(email, code)
+    @code = code
     mail(:to => email, :subject => 'Kongre Katılım Bedeli İndirim Kuponu')
   end
 
