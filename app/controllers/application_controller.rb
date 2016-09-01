@@ -88,7 +88,7 @@ class ApplicationController < ActionController::Base
         while !Coupon.where(:code => code).blank?
           code = rand(36**8).to_s(36).upcase
         end
-        Coupon.create(:code => code, :amount => 80, :season => calculate_season, :email => params[:email], :coupon_type => 'metu_student')
+        Coupon.create(:code => code, :amount => 95, :season => calculate_season, :email => params[:email], :coupon_type => 'metu_student')
         # KongreMailer.send_coupon_mail(params[:email]).deliver!
         redirect_to '/admin/coupon'
       elsif params[:type] == '2'
@@ -96,7 +96,7 @@ class ApplicationController < ActionController::Base
         while !Coupon.where(:code => code).blank?
           code = rand(36**8).to_s(36).upcase
         end
-        Coupon.create(:code => code, :amount => 100, :season => calculate_season, :email => params[:email], :coupon_type => 'free')
+        Coupon.create(:code => code, :amount => 120, :season => calculate_season, :email => params[:email], :coupon_type => 'free')
         # KongreMailer.send_coupon_mail(params[:email]).deliver!
         redirect_to '/admin/coupon'
       else
