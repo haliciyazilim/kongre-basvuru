@@ -90,7 +90,7 @@ class ApplicationController < ActionController::Base
           code = rand(36**8).to_s(36).upcase
         end
         Coupon.create(:code => code, :amount => 95, :season => calculate_season, :email => params[:email], :coupon_type => 'metu_student')
-        # KongreMailer.send_coupon_mail(params[:email]).deliver!
+        KongreMailer.send_coupon_mail(params[:email]).deliver!
         redirect_to '/admin/coupon'
       elsif params[:type] == '2'
         code = rand(36**8).to_s(36).upcase
@@ -98,7 +98,7 @@ class ApplicationController < ActionController::Base
           code = rand(36**8).to_s(36).upcase
         end
         Coupon.create(:code => code, :amount => 120, :season => calculate_season, :email => params[:email], :coupon_type => 'free')
-        # KongreMailer.send_coupon_mail(params[:email]).deliver!
+        KongreMailer.send_coupon_mail(params[:email]).deliver!
         redirect_to '/admin/coupon'
       else
         puts "------"
@@ -111,6 +111,7 @@ class ApplicationController < ActionController::Base
   def order
     applicant = Applicant.find(params[:applicant_id])
     if !applicant || applicant.season != calculate_season
+      puts '---------------++++++++++++++++-----------***********////////*-------------------------'
       return
     end
     ActiveRecord::Base.transaction do
