@@ -160,6 +160,7 @@ class ApplicationController < ActionController::Base
             order_id: receipt.id,
             product_name: 'Kongre Katılım',
             price: receipt.price,
+            addr: applicant.address,
             hostname: request.protocol + request.host_with_port
         )
         render json: {redirect_url: url}
