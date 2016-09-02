@@ -292,54 +292,54 @@
         var workshops24 = <%= @workshops_24.to_json.html_safe %>
         var workshops25 = <%= @workshops_25.to_json.html_safe %>
     </script>
-    <!--<div ng-show="showWorkshops" id='workshopsPanel' class="panel panel-warning">-->
-      <!--<div class="panel-heading">-->
-        <!--<h3 class="panel-title">Katılmak İstediğiniz Atölyeleri Seçebilirsiniz</h3>-->
-      <!--</div>-->
-      <!--<div class="panel-body">-->
-        <!--<div class="row">-->
-          <!--<div class="col-xs-12">-->
-            <!--<p class="alert alert-warning">-->
-              <!--Saatler arası çakışmayı önlemek amacıyla; seçtiğiniz atölyeye göre sistem-->
-              <!--sizi otomatik olarak seçebileceğiniz diğer atölyeleri filtreleyecektir.-->
-            <!--</p>-->
-          <!--</div>-->
-        <!--</div>-->
-        <!--&lt;!&ndash; ROW &ndash;&gt;-->
-        <!--<div class="row">-->
-          <!--<div class="col-xs-12">-->
-            <!--<div class="panel panel-info">-->
-              <!--<div class="panel-heading">-->
-                <!--<h3 class="panel-title">-->
-                  <!--<div class="badge">&nbsp;1. gün&nbsp;</div>-->
-                  <!--&nbsp;&nbsp;24 EKİM 2015, Cumartesi-->
-                <!--</h3>-->
-              <!--</div>-->
-              <!--<div class="panel-body">-->
-                <!--<div class="table-responsive">-->
-                  <!--<table class="table table-hover">-->
-                    <!--<thead>-->
-                    <!--<tr>-->
-                      <!--<th>#</th>-->
-                      <!--<th width="120">Saat Bilgisi</th>-->
-                      <!--<th width="80">Salon</th>-->
-                      <!--<th>Adı</th>-->
-                      <!--<th width="150">Moderatör</th>-->
-                      <!--<th width="60">Kalan Başvuru</th>-->
-                      <!--<th width="60">Ücreti</th>-->
-                    <!--</tr>-->
-                    <!--</thead>-->
-                    <!--<tbody>-->
+    <div ng-show="showWorkshops" id='workshopsPanel' class="panel panel-warning">
+      <div class="panel-heading">
+        <h3 class="panel-title">Katılmak İstediğiniz Atölyeleri Seçebilirsiniz</h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-xs-12">
+            <p class="alert alert-warning">
+              Saatler arası çakışmayı önlemek amacıyla; seçtiğiniz atölyeye göre sistem
+              sizi otomatik olarak seçebileceğiniz diğer atölyeleri filtreleyecektir.
+            </p>
+          </div>
+        </div>
+        <!-- ROW -->
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="panel panel-info">
+              <div class="panel-heading">
+                <h3 class="panel-title">
+                  <div class="badge">&nbsp;1. gün&nbsp;</div>
+                  &nbsp;&nbsp;19 KASIM 2016, Cumartesi
+                </h3>
+              </div>
+              <div class="panel-body">
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead>
+                    <tr>
+                      <th>#</th>
+                      <th width="120">Saat Bilgisi</th>
+                      <th width="80">Salon</th>
+                      <th>Adı</th>
+                      <th width="150">Moderatör</th>
+                      <th width="60">Kalan Başvuru</th>
+                      <th width="60">Ücreti</th>
+                    </tr>
+                    </thead>
+                    <tbody>
 
-                    <!--<tr ng-repeat="workshop in workshops24" class="{{workshop.className}}"-->
-                        <!--ng-show="form.applicant.applicant_category=='child'?workshop.for_children:true && workshop.product.stock > 0">-->
-                      <!--<%= render partial: 'partials/workshop_row' %>-->
-                    <!--</tr>-->
-                    <!--</tbody>-->
-                  <!--</table>-->
-                <!--</div>-->
-              <!--</div>-->
-            <!--</div>-->
+                    <tr ng-repeat="workshop in workshops24" class="{{workshop.className}}"
+                        ng-show="form.applicant.applicant_category=='child'?workshop.for_children:true && workshop.product.stock > 0">
+                      <%= render partial: 'partials/workshop_row' %>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
             <!--<div class="panel panel-info">-->
               <!--<div class="panel-heading">-->
                 <!--<h3 class="panel-title">-->
@@ -371,17 +371,17 @@
                 <!--</div>-->
               <!--</div>-->
             <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
+          </div>
+        </div>
+      </div>
+      <!--<div class="panel-footer">-->
+      <!--<div class="row">-->
+      <!--<div class="col-xs-12">-->
+      <!--<button class="btn btn-warning pull-right">KAYDET ve DEVAM ET</button>-->
       <!--</div>-->
-      <!--&lt;!&ndash;<div class="panel-footer">&ndash;&gt;-->
-      <!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
-      <!--&lt;!&ndash;<div class="col-xs-12">&ndash;&gt;-->
-      <!--&lt;!&ndash;<button class="btn btn-warning pull-right">KAYDET ve DEVAM ET</button>&ndash;&gt;-->
-      <!--&lt;!&ndash;</div>&ndash;&gt;-->
-      <!--&lt;!&ndash;</div>&ndash;&gt;-->
-      <!--&lt;!&ndash;</div>&ndash;&gt;-->
-    <!--</div>-->
+      <!--</div>-->
+      <!--</div>-->
+    </div>
 
     <!--ws End-->
 

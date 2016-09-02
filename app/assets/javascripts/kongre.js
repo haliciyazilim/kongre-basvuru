@@ -163,12 +163,16 @@ kongreApp.controller('registerFormController', ['$scope', '$http', '$document', 
                 else {
                     var selected_start_at = new Date(selectedWorkshop.start_at);
                     var selected_finish_at = new Date(selectedWorkshop.finish_at);
-                    if (selected_start_at < start_at && start_at < selected_finish_at
-                        || selected_start_at < finish_at && finish_at < selected_finish_at
-                        || start_at < selected_start_at && selected_start_at < finish_at
-                        || start_at < selected_finish_at && selected_finish_at < finish_at) {
+                    if ((start_at >= selected_start_at && start_at <= selected_finish_at)
+                    || (finish_at >= selected_start_at && finish_at <= selected_finish_at)){
                         className = 'danger';
                     }
+                    //if (selected_start_at < start_at && start_at < selected_finish_at
+                    //    || selected_start_at < finish_at && finish_at < selected_finish_at
+                    //    || start_at < selected_start_at && selected_start_at < finish_at
+                    //    || start_at < selected_finish_at && selected_finish_at < finish_at) {
+                    //    className = 'danger';
+                    //}
                 }
             }
             if (workshop.product.stock < 1) {
@@ -177,7 +181,7 @@ kongreApp.controller('registerFormController', ['$scope', '$http', '$document', 
             workshop.className = className;
         }
     }
-    $scope.checkWorkshops();
+    //$scope.checkWorkshops();
 
     $scope.hasEmptyField = function (form) {
         for (var key in form) {

@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   end
 
   def show
-    @workshops_24 = Workshop.at_day '2016-07-28'
+    @workshops_24 = Workshop.at_day '2016-11-19'
     @workshops_25 = Workshop.at_day '2016-07-29'
   end
 
