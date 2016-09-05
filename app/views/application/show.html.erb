@@ -461,13 +461,13 @@
               <i class="fa fa-cog fa-spin" ng-show="orderState==actionState.onAction"></i> BAŞVURUYU TAMAMLA
             </button>
             <div class="col-xs-2 pull-left">
-              <input class="form-control" id="coupon-text" type="text" placeholder="Kupon Kodu" ng-model="form.couponCode">
+              <input class="form-control" id="coupon-text" type="text" placeholder="ODTU öğrencileri için" ng-model="form.couponCode">
             </div>
             <div class="col-xs-2 pull-left">
               <button class="btn btn-success"
                       ng-click="couponCheck()"
                       ng-disabled="orderState==actionState.onAction || orderState==actionState.invalid">
-                <i class="fa fa-cog fa-spin" ng-show="orderState==actionState.onAction"></i> Kuponu Uygula
+                <i class="fa fa-cog fa-spin" ng-show="orderState==actionState.onAction"></i> Şifreyi Uygula
               </button>
             </div>
           </div>
