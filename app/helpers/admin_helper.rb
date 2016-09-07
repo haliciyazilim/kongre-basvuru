@@ -39,9 +39,10 @@ module AdminHelper
   def previous_attendances(applicant)
     result = ''
     previous_attendances = applicant.previous_attendances.to_i
-    result += '2013 Kongresine katılmış' if  previous_attendances & 1
-    result += (result.length>0?' – ':'') + '2014 Kongresine katılmış' if previous_attendances & 2
-    result += (result.length>0?' – ':'') + 'İlk kez katılıyor' if previous_attendances & 4
+    result += 'İlk kez katılıyor' if  previous_attendances & 1
+    result += (result.length>0?' – ':'') + '2013 Kongresine katılmış' if previous_attendances & 2
+    result += (result.length>0?' – ':'') + '2014 Kongresine katılmış' if previous_attendances & 4
+    result += (result.length>0?' – ':'') + '2015 Kongresine katılmış' if previous_attendances & 8
     result
   end
 
