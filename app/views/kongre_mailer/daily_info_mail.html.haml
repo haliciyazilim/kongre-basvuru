@@ -1,0 +1,17 @@
+%html
+  %body
+    %p
+      Merhaba
+    %p
+      Günün Kongre Katılımcıları:
+    %table{border:1,width:'100%'}
+      - @receipts.each do |r|
+        %tr
+          %td
+            = "#{r.applicant.name} #{r.applicant.surname}"
+          %td
+            = "#{r.price/100} TL"
+          %td
+            = "#{r.receipt_products.map{|rp| rp.product.name }}"
+    %p
+      Teşekkürler
