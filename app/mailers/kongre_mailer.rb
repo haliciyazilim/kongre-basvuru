@@ -29,7 +29,7 @@ class KongreMailer < ActionMailer::Base
   end
 
   def daily_info_mail(email)
-    @receipt = Receipt.where(:is_paid => true).where("created_at > ? and created_at < ?", Date.today.beginning_of_day, Date.today.end_of_day)
+    @receipts = Receipt.where(:is_paid => true).where("created_at > ? and created_at < ?", Date.today.beginning_of_day, Date.today.end_of_day)
     mail(to: email, subject: 'Kongre - Günlük Bilgilendirme')
   end
 end
