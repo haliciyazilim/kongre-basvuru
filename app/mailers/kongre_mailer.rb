@@ -30,6 +30,7 @@ class KongreMailer < ActionMailer::Base
 
   def daily_info_mail(email)
     @receipts = Receipt.where(:is_paid => true).where("created_at > ? and created_at < ?", Date.today.beginning_of_day, Date.today.end_of_day)
+    @total = @receipts.sum(:price) / 100
     mail(to: email, subject: 'Kongre - Günlük Bilgilendirme')
   end
 end
