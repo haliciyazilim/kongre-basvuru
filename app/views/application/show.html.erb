@@ -47,8 +47,8 @@
     </div>
     <!-- ROW -->
     <form ng-if="showPersonalInfoForm" class="panel panel-warning" name="personalInfoForm" ng-submit="savePersonalInfo()"><!--sunum basvurusu için class="panel panel-danger" -->
-      <div class="panel-heading" style="background-color: #b8152e">
-        <h3 class="panel-title" style="color: white">ODTÜ öğrencileri indirimden faydalanmak için kayıt olmadan önce METU mail hesabı ile kader@tzv.org.tr adresine mail atabilirler. </h3>
+      <div class="panel-heading">
+        <h3 class="panel-title">Kişisel bilgilerinizi giriniz. </h3>
       </div>
       <div class="panel-body">
         <div class="row">
@@ -461,13 +461,13 @@
               <i class="fa fa-cog fa-spin" ng-show="orderState==actionState.onAction"></i> BAŞVURUYU TAMAMLA
             </button>
             <div class="col-xs-2 pull-left">
-              <input class="form-control" id="coupon-text" type="text" placeholder="ODTU öğrencileri için" ng-model="form.couponCode">
+              <input class="form-control" id="coupon-text" type="text" placeholder="Kupon Kodu" ng-model="form.couponCode">
             </div>
             <div class="col-xs-2 pull-left">
               <button class="btn btn-success"
                       ng-click="couponCheck()"
                       ng-disabled="orderState==actionState.onAction || orderState==actionState.invalid">
-                <i class="fa fa-cog fa-spin" ng-show="orderState==actionState.onAction"></i> Şifreyi Uygula
+                <i class="fa fa-cog fa-spin" ng-show="orderState==actionState.onAction"></i> Kuponu Uygula
               </button>
             </div>
           </div>
