@@ -4,7 +4,7 @@
 
   = form_tag coupon_create_path, :method => :post do
     = text_field_tag "email", nil, placeholder: 'email'
-    = select_tag "type", raw("<option value='1' selected>Metu Student</option><option value='2'>Free</option>")
+    = select_tag "type", raw("<option value='1' selected>Metu Student</option><option value='2'>Free</option><option value='3'>Yari Fiyatina</option>")
     = submit_tag "Yarat ve Gonder"
 
 %h2

@@ -110,6 +110,20 @@ class ApplicationController < ActionController::Base
         end
 
         redirect_to '/admin/coupon'
+      elsif params[:type] == '3'
+        code = rand(36**8).to_s(36).upcase
+        while !Coupon.where(:code => code).blank?
+          code = rand(36**8).to_s(36).upcase
+        end
+        Coupon.create(:code => code, :amount => 60, :season => calculate_season, :email => params[:email].strip, :coupon_type => 'half')
+
+        begin
+          KongreMailer.send_coupon_mail(params[:email].strip, code).deliver!
+        rescue
+          puts 'Email could not be sent'
+        end
+
+        redirect_to '/admin/coupon'
       else
         puts "------"
       end
