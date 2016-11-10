@@ -1,5 +1,14 @@
 <section id="form" ng-controller="registerFormController">
-  <div class="container">
+  <div ng-if="ticketsOver" class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <p>
+            Biletlerimiz Tükenmiştir. İlginiz için teşekkür ederiz.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div ng-if="!ticketsOver" class="container">
     <!--STEP 1 Start -->
     <div class="row">
       <div class="col-xs-12">
