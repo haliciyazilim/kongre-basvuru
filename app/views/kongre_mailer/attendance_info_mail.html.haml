@@ -1,32 +1,29 @@
 %html
   %body
     %p
-      Sayın <b>#{@name}</b>,
+      Değerli Katılımcımız,
     %p
-      Kongreye sayılı saatler kaldı.
+      Aylardır heyecanla beklediğimiz IV. Zeka ve Yetenek Kongresi için gün sayıyoruz.
     %p
-      ODTÜ kapılarından III. Zeka ve Yetenek Kongresine geldiğinizi belirterek girebilirsiniz. Kültür Kongre Merkezi'nde <b>#{@card_number}</b>
-      numaralı yaka kartınızı ve çantanızı alabilirsiniz.
-    - if @workshops.count > 0
-      %p
-        Kayıtlı olduğunuz atölyeler aşağıda listelenmiştir:
-      %ul
-        %strong
-          - @workshops.each do |name|
-            %li= name
+      Kayıtları kolaylaştırmak için bazı hatırlatmalarımız olacak.
     %p
-      Kongre programına
-      = link_to 'buradan', 'http://kongre.tzv.org.tr/2015/program/2015-program.pdf'
-      ulaşabilirsiniz.
+      ODTÜ girişlerinde genel güvenlik önlemleri uygulanıyor. Kayıt saatinden en az 45 dakika önce ODTÜ giriş kapılarında olmanızı öneririz. Bu kapsamda;
+    %ul
+      %li
+        İsminiz kapılara bildirilmiştir; kimlik kontrolü yapılacaktır.
+      %li
+        İhtiyaç dahilinde ve gerekli görüldüğü durumlarda araçların bagaj kontrolü ve araç altının ayna ile kontrolü yapılabilir.
     %p
-      Yarın 09:15'ten itibaren sizi heyecanla bekliyoruz.
+      Ayrıca, kullanmak isterseniz 19 Kasım günü 08:15 ve 08:25; 20 Kasım günü 09:40 ve 09:50 saatlerinde A1 (ODTÜ Eskişehir yolu kapısı) - KKM (Kongre Salonu) arası ücretsiz ring servisi sağlanacaktır.
     %p
-      Hepimiz için verimli bir kongre olması dileği ile.
+      = "Son olarak; Kongre kimlik kartı numaranız #{@card_number} dir. Bu numara ile kongre çantanızı alabilirsiniz."
     %p
-      Sevgiler, saygılar
+      Kayıtlarımız Cumartesi günü 08:15'te başlıyor. Verimli bir Kongre olmasını diliyorum.
+    %p
+      Sevgi ve saygılarımla
     %p
       Ezgi Karaşin
       %br
-      Türkiye Zeka Vaktı
+      Türkiye Zeka Vakfı
       %br
       Etkinlik Koordinatörü
