@@ -15,7 +15,7 @@ class KongreMailer < ActionMailer::Base
     @card_number = applicant.card_number.id
     @workshops = applicant.paid_workshops.map { |w| w.product.name }
 
-    mail(to: applicant.email, subject: 'Aklını Kullan, #KorkmaBitmez')
+    mail(to: applicant.email, subject: 'Aklını Kullan #KorkmaBitmez')
   end
 
   def send_coupon_mail(email, code)
