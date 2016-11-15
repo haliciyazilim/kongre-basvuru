@@ -3,7 +3,7 @@ namespace :mail do
 
   task :send_info_mail => :environment do
 
-    CardNumber.where('id > 352').each do |card_number|
+    CardNumber.where('id > 438').each do |card_number|
       begin
         KongreMailer.attendance_info_mail(card_number.applicant).deliver!
       rescue
