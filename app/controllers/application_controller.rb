@@ -133,7 +133,6 @@ class ApplicationController < ActionController::Base
   end
 
   def order
-    return
     applicant = Applicant.find(params[:applicant_id])
     if !applicant || applicant.season != calculate_season
       return
