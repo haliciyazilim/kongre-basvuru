@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -16,7 +15,7 @@ ActiveRecord::Schema.define(version: 20160809122430) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "applicant_presentations", force: true do |t|
+  create_table "applicant_presentations", force: :cascade do |t|
     t.integer  "applicant_id"
     t.text     "purpose"
     t.text     "content"
@@ -26,7 +25,7 @@ ActiveRecord::Schema.define(version: 20160809122430) do
     t.integer  "season"
   end
 
-  create_table "applicants", force: true do |t|
+  create_table "applicants", force: :cascade do |t|
     t.string   "name"
     t.string   "surname"
     t.string   "email"
@@ -46,17 +45,16 @@ ActiveRecord::Schema.define(version: 20160809122430) do
     t.integer  "season"
   end
 
-  create_table "attendances", force: true do |t|
+  create_table "attendances", force: :cascade do |t|
     t.integer "product_id"
   end
 
-  create_table "card_numbers", force: true do |t|
+  create_table "card_numbers", force: :cascade do |t|
     t.integer "applicant_id"
+    t.index ["applicant_id"], name: "index_card_numbers_on_applicant_id", unique: true, using: :btree
   end
 
-  add_index "card_numbers", ["applicant_id"], name: "index_card_numbers_on_applicant_id", unique: true, using: :btree
-
-  create_table "coupons", force: true do |t|
+  create_table "coupons", force: :cascade do |t|
     t.string   "code"
     t.float    "amount"
     t.integer  "season"
@@ -68,7 +66,7 @@ ActiveRecord::Schema.define(version: 20160809122430) do
     t.string   "email"
   end
 
-  create_table "products", force: true do |t|
+  create_table "products", force: :cascade do |t|
     t.integer  "stock"
     t.integer  "price"
     t.string   "product_type"
@@ -79,13 +77,13 @@ ActiveRecord::Schema.define(version: 20160809122430) do
     t.integer  "season"
   end
 
-  create_table "receipt_products", force: true do |t|
+  create_table "receipt_products", force: :cascade do |t|
     t.integer "receipt_id"
     t.integer "product_id"
     t.integer "price"
   end
 
-  create_table "receipts", force: true do |t|
+  create_table "receipts", force: :cascade do |t|
     t.integer  "applicant_id"
     t.integer  "price"
     t.boolean  "is_paid",      default: false
@@ -93,15 +91,14 @@ ActiveRecord::Schema.define(version: 20160809122430) do
     t.datetime "updated_at"
   end
 
-  create_table "workshops", force: true do |t|
+  create_table "workshops", force: :cascade do |t|
     t.datetime "start_at"
     t.datetime "finish_at"
     t.string   "saloon"
     t.string   "moderator"
     t.integer  "product_id"
     t.boolean  "for_children", default: false
+    t.index ["for_children"], name: "index_workshops_on_for_children", using: :btree
   end
-
-  add_index "workshops", ["for_children"], name: "index_workshops_on_for_children", using: :btree
 
 end
