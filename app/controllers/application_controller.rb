@@ -133,26 +133,33 @@ class ApplicationController < ActionController::Base
   end
 
   def order
+
     applicant = Applicant.find(params[:applicant_id])
     if !applicant || applicant.season != calculate_season
       return
     end
+
     ActiveRecord::Base.transaction do
       receipt = Receipt.create(applicant: applicant)
+
       if Attendance.last.product.season != calculate_season
         return
       end
       coupon_discount = 0
-      @coupon = Coupon.find_by_code(params[:coupon_code])
-      unless @coupon.nil?
-        coupon_discount = @coupon.amount
-        @coupon.update(:applicant => applicant)
+      coupon = Coupon.find_by_code(params[:coupon_code])
+
+      puts coupon
+      unless coupon.nil?
+        coupon_discount = coupon.amount
+        coupon.update(:applicant => applicant)
       end
+
       ReceiptProduct.create(
           receipt: receipt,
           product: Attendance.last.product,
           price: applicant.applicant_category == ApplicantCategory.instructor_student ? 10000 - coupon_discount * 100 : 12000 - coupon_discount * 100
       )
+
       if params[:workshops]
         params[:workshops].each do |workshop_id|
           workshop = Workshop.find(workshop_id)
@@ -166,8 +173,11 @@ class ApplicationController < ActionController::Base
           )
         end
       end
+
       receipt.update(price: receipt.calculate_total_amount)
+      puts receipt.price
       if receipt.price > 0
+
         url = PaymentManager.checkout(
             user_id: applicant.id,
             user_name: applicant.name + ' ' + applicant.surname,
@@ -179,6 +189,7 @@ class ApplicationController < ActionController::Base
         )
         render json: {redirect_url: url}, status: :ok
       else
+
         receipt.update(:is_paid => true)
         receipt.receipt_products.each do |rp|
           rp.product.decrement!(:stock)
