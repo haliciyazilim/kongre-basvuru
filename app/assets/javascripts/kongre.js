@@ -406,8 +406,8 @@ kongreApp.controller('registerFormController', ['$scope', '$http', '$document', 
                 applicant_id: $scope.applicant.id,
                 coupon_code: $scope.form.couponCode
             }).then(
-              function(data){
-                $scope.showSuccessNotification(data.text, 20000);
+              function(response){
+                $scope.showSuccessNotification(response.data.text, 20000);
                 setTimeout(function(){window.location = '/';}, 20000);
               }, function(error) {
                 $scope.orderState = $scope.actionState.onIdle;
