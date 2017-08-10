@@ -143,10 +143,10 @@ class ApplicationController < ActionController::Base
         return
       end
       coupon_discount = 0
-      if params[:coupon_code]
-        @coupon = Coupon.find_by_code(params[:coupon_code])
-        coupon_discount = @coupon.nil? ? 0 : @coupon.amount
-        @coupon.update(:applicant => applicant) unless @coupon.nil?
+      @coupon = Coupon.find_by_code(params[:coupon_code])
+      unless @coupon.nil?
+        coupon_discount = @coupon.amount
+        @coupon.update(:applicant => applicant)
       end
       ReceiptProduct.create(
           receipt: receipt,
@@ -177,7 +177,7 @@ class ApplicationController < ActionController::Base
             addr: applicant.address,
             hostname: request.protocol + request.host_with_port
         )
-        render json: {redirect_url: url}
+        render json: {redirect_url: url}, status: :ok
       else
         receipt.update(:is_paid => true)
         receipt.receipt_products.each do |rp|
@@ -190,7 +190,7 @@ class ApplicationController < ActionController::Base
         rescue
           puts 'An error occurred during free order accepted mail sending!'
         end
-        render json: {text: 'Başvurunuz tamamlandı. Tebrikler.'}
+        render json: {text: 'Başvurunuz tamamlandı. Tebrikler.'}, status: :ok
       end
     end
   end
