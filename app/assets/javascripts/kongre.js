@@ -215,7 +215,7 @@ kongreApp.controller('registerFormController', ['$scope', '$http', '$document', 
       $scope.personalInfoState = $scope.actionState.onAction;
       $http.post('/register', {applicant: applicantForm})
       .then(function(data) {
-        $scope.applicant = data;
+        $scope.applicant = data.data;
         $log.info('Register: ', $scope.applicant);
         $scope.refreshTotalAmount();
 
