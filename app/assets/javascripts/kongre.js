@@ -349,7 +349,7 @@ kongreApp.controller('registerFormController', ['$scope', '$http', '$document', 
             $scope.refreshTotalAmount();
           }, function(error) {
             $log.info('error on coupon check: ', error);
-            $scope.showErrorNotification(error.error.error_description, 3000)
+            $scope.showErrorNotification(error.data.error.error_description, 3000)
           }
         );
     }
