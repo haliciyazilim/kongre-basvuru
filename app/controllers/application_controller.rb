@@ -177,9 +177,6 @@ class ApplicationController < ActionController::Base
             addr: applicant.address,
             hostname: request.protocol + request.host_with_port
         )
-        puts '**********************'
-        puts url
-        puts '----------------------'
         render json: {redirect_url: url}, status: :ok
       else
         receipt.update(:is_paid => true)

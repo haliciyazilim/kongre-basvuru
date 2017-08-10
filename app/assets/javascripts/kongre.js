@@ -47,22 +47,22 @@ kongreApp.controller('registerFormController', ['$scope', '$http', '$document', 
 
     $scope.discount = 0;
 
-    $scope.form.applicant = {
-     name:'Yunus Eren',
-     surname:'Guzel',
-     email:'yeguzel@halici.com.tr',
-     tckn:'17515095902',
-     birthday:'24.04.1989',
-     phone:'+905324648399',
-     organization:'Halici',
-     occupation:'Computer Engineer',
-     address:'75.Sok 48/3 Bahcelievler Cankaya',
-     city:'Ankara',
-     //applicant_category:'instructor_student',
-     previous_attendances:0,
-     relation_to_high_intelligence:null,
-     previous_attendances:null
-    };
+    // $scope.form.applicant = {
+    //  name:'Yunus Eren',
+    //  surname:'Guzel',
+    //  email:'yeguzel@halici.com.tr',
+    //  tckn:'17515095902',
+    //  birthday:'24.04.1989',
+    //  phone:'+905324648399',
+    //  organization:'Halici',
+    //  occupation:'Computer Engineer',
+    //  address:'75.Sok 48/3 Bahcelievler Cankaya',
+    //  city:'Ankara',
+    //  //applicant_category:'instructor_student',
+    //  previous_attendances:0,
+    //  relation_to_high_intelligence:null,
+    //  previous_attendances:null
+    // };
 
     $scope.showApplicationTypeButtons = true;
 
@@ -271,23 +271,21 @@ kongreApp.controller('registerFormController', ['$scope', '$http', '$document', 
     }
 
     $scope.submitPresentation = function () {
-        if ($scope.hasEmptyField($scope.form.presentation)) {
-            $scope.showErrorNotification('Lütfen formu eksiksiz doldurunuz.');
-            return;
-        }
-        $scope.disableSubmitPresentation = true;
-        $http.post('/register', {
-            applicant_id: $scope.applicant.id,
-            presentation: $scope.form.presentation
-        })
-            .success(function (data) {
-                $scope.applicant = data;
-                $scope.showPresenterSuccessMessage = true;
-                $scope.showPersonalInfoForm = false;
-                $scope.showPresentationInfoForm = false;
-            })
-            .error(function () {
-            })
+      if ($scope.hasEmptyField($scope.form.presentation)) {
+        $scope.showErrorNotification('Lütfen formu eksiksiz doldurunuz.');
+        return;
+      }
+      $scope.disableSubmitPresentation = true;
+      $http.post('/register', {
+        applicant_id: $scope.applicant.id,
+        presentation: $scope.form.presentation
+      }).then(function (data) {
+        $scope.applicant = data;
+        $scope.showPresenterSuccessMessage = true;
+        $scope.showPersonalInfoForm = false;
+        $scope.showPresentationInfoForm = false;
+      }, function (error) {
+      });
     }
 
     var resetForm = function () {
@@ -344,13 +342,16 @@ kongreApp.controller('registerFormController', ['$scope', '$http', '$document', 
 
     $scope.couponCheck = function (code) {
 
-        $http.get('/coupon_check', {params: {code: $scope.form.couponCode, email: $scope.form.applicant.email}}).success(function(data){
-            $scope.discount = data.amount * 100;
+        $http.get('/coupon_check', {params: {code: $scope.form.couponCode, email: $scope.form.applicant.email}})
+        .then(
+          function(response){
+            $scope.discount = response.data.amount * 100;
             $scope.refreshTotalAmount();
-        }).error(function(error){
+          }, function(error) {
             $log.info('error on coupon check: ', error);
             $scope.showErrorNotification(error.error.error_description, 3000)
-        })
+          }
+        );
     }
 
     $scope.order = function (isConfirmed) {
@@ -379,15 +380,6 @@ kongreApp.controller('registerFormController', ['$scope', '$http', '$document', 
                 $scope.showErrorNotification();
               }
             );
-                // .success(function (data) {
-                //     //console.log(data)
-                //     window.location = data.redirect_url;
-                // })
-                // .error(function (error) {
-                //     $log.info('error on order: ', error);
-                //     $scope.orderState = $scope.actionState.onIdle;
-                //     $scope.showErrorNotification()
-                // })
         }
         else {
             var text = 'Ödemeniz gereken toplam tutar olan ' + $scope.totalAmount / 100 + ' TL’yi ödemek için ödeme sayfasına yönlendirileceksiniz, ücret iadesi mümkün olmayacaktır; onaylıyor musunuz?';
@@ -422,17 +414,7 @@ kongreApp.controller('registerFormController', ['$scope', '$http', '$document', 
                 $scope.showErrorNotification();
               }
             );
-                // .success(function (data) {
-                //     //console.log(data)
-                //     $scope.showSuccessNotification(data.text, 20000);
-                //     setTimeout(function(){window.location = '/';}, 20000);
-                //
-                // })
-                // .error(function (error) {
-                //     $log.info('error on order: ', error);
-                //     $scope.orderState = $scope.actionState.onIdle;
-                //     $scope.showErrorNotification()
-                // })
+
         }
         else {
             var text = 'Ücretsiz katılım kuponu sadece bir kere kullanılabilir, girdiğiniz bilgiler ile ücretsiz katılım kuponunuzu kullanmak üzeresiniz; onaylıyor musunuz?';
