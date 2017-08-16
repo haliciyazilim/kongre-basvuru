@@ -66,6 +66,22 @@ class ApplicationController < ActionController::Base
     render :json => applicant
   end
 
+  def check_payment
+    receipt = Receipt.find(params[:receipt_id].to_i)
+    unless receipt.is_paid
+      if params[:status] == 'successful'
+        receipt.update(response: params[:status], is_paid: true)
+        receipt.receipt_products.each do |rp|
+          rp.product.decrement!(:stock)
+        end
+        render json: {}, status: :ok
+      end
+    else
+      puts params.to_yaml
+      render json: {}, status: :not_acceptable
+    end
+  end
+
   def coupon_check
     begin
       raise NoCouponException unless params[:code]

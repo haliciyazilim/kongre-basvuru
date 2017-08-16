@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   post 'register' => 'application#register'
   post 'order' => 'application#order'
+  post 'check_payment' => 'application#check_payment'
 
   get 'callback/:result' => 'application#callback'
 
