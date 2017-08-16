@@ -74,6 +74,11 @@ class ApplicationController < ActionController::Base
         receipt.receipt_products.each do |rp|
           rp.product.decrement!(:stock)
         end
+        begin
+          KongreMailer.payment_accepted(receipt).deliver!
+        rescue
+          puts 'An error occurred during mail sending!'
+        end
         render json: {}, status: :ok
       end
     else
