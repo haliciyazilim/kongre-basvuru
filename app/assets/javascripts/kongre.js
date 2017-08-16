@@ -102,6 +102,7 @@ kongreApp.controller('registerFormController', ['$scope', '$http', '$document', 
             $scope.attendances.attendance2013 = false;
             $scope.attendances.attendance2014 = false;
             $scope.attendances.attendance2015 = false;
+            $scope.attendances.attendance2016 = false;
         } else {
             $scope.attendances.attendanceFirst = false;
         }
