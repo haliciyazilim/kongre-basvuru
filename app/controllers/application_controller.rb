@@ -74,6 +74,8 @@ class ApplicationController < ActionController::Base
         receipt.receipt_products.each do |rp|
           rp.product.decrement!(:stock)
         end
+        coupon = Coupon.find_by_season_and_applicant_id(calculate_season, receipt.applicant_id)
+        coupon.update(:used_at => Time.now) unless coupon.nil?
         begin
           KongreMailer.payment_accepted(receipt).deliver!
         rescue
