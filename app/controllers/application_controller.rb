@@ -220,7 +220,7 @@ class ApplicationController < ActionController::Base
         coupon = Coupon.find_by_season_and_applicant_id(calculate_season, receipt.applicant_id)
         coupon.update(:used_at => Time.now) unless coupon.nil?
         begin
-          KongreMailer.create_free_order_accepted(receipt).deliver!
+          KongreMailer.free_order_accepted(receipt).deliver!
         rescue
           puts 'An error occurred during free order accepted mail sending!'
         end
