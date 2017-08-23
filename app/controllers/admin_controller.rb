@@ -1,7 +1,8 @@
 class AdminController < ApplicationController
   layout 'admin'
 
-  before_action :authenticate, only: [:coupon]
+  # before_action :authenticate, only: [:coupon]
+  before_action :htaccess
 
   def login
     if Digest::SHA1.hexdigest(params[:password] + ENV['ADMIN_SALT']) == Digest::SHA1.hexdigest(ENV['ADMIN_PASS'] + ENV['ADMIN_SALT'])

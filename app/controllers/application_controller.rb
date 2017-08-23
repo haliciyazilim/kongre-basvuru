@@ -286,6 +286,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def htaccess
+    authenticate_or_request_with_http_basic do |username, password|
+      username == "tzvadmin" && password == "eW8BcU6j"
+    end
+  end
+
   def authenticate
     unless @@authentication_token == Digest::SHA1.hexdigest(ENV['ADMIN_PASS'] + ENV['ADMIN_SALT'])
       render 'admin/login'
