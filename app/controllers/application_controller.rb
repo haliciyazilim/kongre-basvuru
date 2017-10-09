@@ -18,6 +18,8 @@ class ApplicationController < ActionController::Base
 
   def register
 
+    return
+
     if params[:applicant_id]
       applicant = Applicant.find(params[:applicant_id])
     end
