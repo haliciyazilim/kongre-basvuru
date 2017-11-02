@@ -18,6 +18,10 @@ class KongreMailer < ActionMailer::Base
     mail(to: applicant.email, subject: 'V. ZEKA ve YETENEK KONGRESİ #kafakafaya')
   end
 
+  def attendance_info_mail_ncn(email)
+    mail(to: email, subject: 'V. ZEKA ve YETENEK KONGRESİ #kafakafaya')
+  end
+
   def send_coupon_mail(email, code)
     @code = code
     mail(:to => email, :subject => 'Kongre Katılım Bedeli İndirim Kuponu')
