@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-xs-12">
         <p>
-            Biletlerimiz Tükenmiştir. İlginiz için teşekkür ederiz.
+            Biletlerimiz, çok yakında satışta!
         </p>
       </div>
     </div>
@@ -231,7 +231,15 @@
                   Kongresine katıldım
                 </label>
               </div>
-
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"
+                         ng-change="setAttendance('attendance2017',attendances.attendance2017)"
+                         ng-model="attendances.attendance2017">
+                  <strong>2017</strong>
+                  Kongresine katıldım
+                </label>
+              </div>
               <div class="checkbox">
                 <label>
                   <input name="attendances" type="checkbox"
