@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160809122430) do
+ActiveRecord::Schema.define(version: 20170815134737) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,28 +20,28 @@ ActiveRecord::Schema.define(version: 20160809122430) do
     t.text     "purpose"
     t.text     "content"
     t.text     "audience"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   precision: 6
+    t.datetime "updated_at",   precision: 6
     t.integer  "season"
   end
 
   create_table "applicants", force: :cascade do |t|
-    t.string   "name"
-    t.string   "surname"
-    t.string   "email"
-    t.string   "tckn"
+    t.string   "name",                          limit: 255
+    t.string   "surname",                       limit: 255
+    t.string   "email",                         limit: 255
+    t.string   "tckn",                          limit: 255
     t.date     "birthday"
-    t.string   "phone"
-    t.string   "organization"
-    t.string   "occupation"
+    t.string   "phone",                         limit: 255
+    t.string   "organization",                  limit: 255
+    t.string   "occupation",                    limit: 255
     t.text     "address"
-    t.string   "city"
-    t.string   "relation_to_high_intelligence"
-    t.string   "previous_attendances"
-    t.string   "applicant_category"
-    t.string   "applicant_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string   "city",                          limit: 255
+    t.string   "relation_to_high_intelligence", limit: 255
+    t.string   "previous_attendances",          limit: 255
+    t.string   "applicant_category",            limit: 255
+    t.string   "applicant_type",                limit: 255
+    t.datetime "created_at",                                precision: 6
+    t.datetime "updated_at",                                precision: 6
     t.integer  "season"
   end
 
@@ -55,25 +55,25 @@ ActiveRecord::Schema.define(version: 20160809122430) do
   end
 
   create_table "coupons", force: :cascade do |t|
-    t.string   "code"
+    t.string   "code",         limit: 255
     t.float    "amount"
     t.integer  "season"
-    t.string   "coupon_type"
-    t.datetime "used_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string   "coupon_type",  limit: 255
+    t.datetime "used_at",                  precision: 6
+    t.datetime "created_at",               precision: 6
+    t.datetime "updated_at",               precision: 6
     t.integer  "applicant_id"
-    t.string   "email"
+    t.string   "email",        limit: 255
   end
 
   create_table "products", force: :cascade do |t|
     t.integer  "stock"
     t.integer  "price"
-    t.string   "product_type"
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "max_stock",    default: 100
+    t.string   "product_type", limit: 255
+    t.string   "name",         limit: 255
+    t.datetime "created_at",               precision: 6
+    t.datetime "updated_at",               precision: 6
+    t.integer  "max_stock",                              default: 100
     t.integer  "season"
   end
 
@@ -86,18 +86,19 @@ ActiveRecord::Schema.define(version: 20160809122430) do
   create_table "receipts", force: :cascade do |t|
     t.integer  "applicant_id"
     t.integer  "price"
-    t.boolean  "is_paid",      default: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.boolean  "is_paid",                    default: false
+    t.datetime "created_at",   precision: 6
+    t.datetime "updated_at",   precision: 6
+    t.string   "response"
   end
 
   create_table "workshops", force: :cascade do |t|
-    t.datetime "start_at"
-    t.datetime "finish_at"
-    t.string   "saloon"
-    t.string   "moderator"
+    t.datetime "start_at",                 precision: 6
+    t.datetime "finish_at",                precision: 6
+    t.string   "saloon",       limit: 255
+    t.string   "moderator",    limit: 255
     t.integer  "product_id"
-    t.boolean  "for_children", default: false
+    t.boolean  "for_children",                           default: false
     t.index ["for_children"], name: "index_workshops_on_for_children", using: :btree
   end
 

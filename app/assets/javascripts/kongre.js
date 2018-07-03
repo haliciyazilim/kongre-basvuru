@@ -13,7 +13,7 @@ kongreApp.controller('registerFormController', ['$scope', '$http', '$document', 
         onAction: 1
     };
 
-    $scope.ticketsOver = true;
+    $scope.ticketsOver = false;
 
     $scope.currentYear = new Date().getFullYear();
     $scope.personalInfoState = $scope.actionState.onIdle;
@@ -47,22 +47,22 @@ kongreApp.controller('registerFormController', ['$scope', '$http', '$document', 
 
     $scope.discount = 0;
 
-    // $scope.form.applicant = {
-    //  name:'Yunus Eren',
-    //  surname:'Guzel',
-    //  email:'yeguzel@halici.com.tr',
-    //  tckn:'17515095902',
-    //  birthday:'24.04.1989',
-    //  phone:'+905324648399',
-    //  organization:'Halici',
-    //  occupation:'Computer Engineer',
-    //  address:'75.Sok 48/3 Bahcelievler Cankaya',
-    //  city:'Ankara',
-    //  //applicant_category:'instructor_student',
-    //  previous_attendances:0,
-    //  relation_to_high_intelligence:null,
-    //  previous_attendances:null
-    // };
+    $scope.form.applicant = {
+     name:'Yunus Eren',
+     surname:'Guzel',
+     email:'yeguzel@halici.com.tr',
+     tckn:'17515095902',
+     birthday:'24.04.1989',
+     phone:'+905324648399',
+     organization:'Halici',
+     occupation:'Computer Engineer',
+     address:'75.Sok 48/3 Bahcelievler Cankaya',
+     city:'Ankara',
+     //applicant_category:'instructor_student',
+     previous_attendances:0,
+     relation_to_high_intelligence:null,
+     previous_attendances:null
+    };
 
     $scope.showApplicationTypeButtons = true;
 
@@ -86,6 +86,7 @@ kongreApp.controller('registerFormController', ['$scope', '$http', '$document', 
     }
 
     $scope.attendances = {
+      attendance2017: false,
       attendance2016: false,
       attendance2015: false,
       attendance2014: false,
@@ -103,6 +104,7 @@ kongreApp.controller('registerFormController', ['$scope', '$http', '$document', 
             $scope.attendances.attendance2014 = false;
             $scope.attendances.attendance2015 = false;
             $scope.attendances.attendance2016 = false;
+            $scope.attendances.attendance2017 = false;
         } else {
             $scope.attendances.attendanceFirst = false;
         }

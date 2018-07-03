@@ -5,7 +5,7 @@ class Workshop < ActiveRecord::Base
   def self.create_product(params)
     transaction do
       params[:product_type] = 'workshop'
-      params[:product] = Product.create(params.retrieve(:name,:price,:product_type,:stock))
+      params[:product] = Product.create(params.retrieve(:name,:price,:product_type,:stock,:max_stock, :season))
       return create(params.retrieve(:start_at,:finish_at,:saloon, :moderator, :product))
     end
   end

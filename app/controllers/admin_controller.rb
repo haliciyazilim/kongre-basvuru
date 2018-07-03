@@ -44,6 +44,8 @@ class AdminController < ApplicationController
   end
 
   def coupon
+    @count_used = Coupon.where(:season => calculate_season).where('used_at is not null').count
+    @count_created = Coupon.where(:season => calculate_season).count
     @coupons = Coupon.where(:season => calculate_season).order('created_at desc')
   end
 

@@ -12,8 +12,8 @@ class ApplicationController < ActionController::Base
   end
 
   def show
-    @workshops_24 = Workshop.at_day '2017-11-04'
-    @workshops_25 = Workshop.at_day '2017-11-05'
+    @workshops_24 = Workshop.at_day '2018-9-29'
+    @workshops_25 = Workshop.at_day '2018-9-30'
   end
 
   def register
@@ -114,7 +114,7 @@ class ApplicationController < ActionController::Base
         while !Coupon.where(:code => code).blank?
           code = rand(36**8).to_s(36).upcase
         end
-        Coupon.create(:code => code, :amount => 85, :season => calculate_season, :email => params[:email].strip, :coupon_type => 'metu_student')
+        Coupon.create(:code => code, :amount => 90, :season => calculate_season, :email => params[:email].strip, :coupon_type => 'metu_student')
         begin
           KongreMailer.send_coupon_mail(params[:email].strip, code).deliver!
         rescue
@@ -126,7 +126,7 @@ class ApplicationController < ActionController::Base
         while !Coupon.where(:code => code).blank?
           code = rand(36**8).to_s(36).upcase
         end
-        Coupon.create(:code => code, :amount => 120, :season => calculate_season, :email => params[:email].strip, :coupon_type => 'free')
+        Coupon.create(:code => code, :amount => 130, :season => calculate_season, :email => params[:email].strip, :coupon_type => 'free')
 
         begin
           KongreMailer.send_coupon_mail(params[:email].strip, code).deliver!
@@ -140,7 +140,7 @@ class ApplicationController < ActionController::Base
         while !Coupon.where(:code => code).blank?
           code = rand(36**8).to_s(36).upcase
         end
-        Coupon.create(:code => code, :amount => 60, :season => calculate_season, :email => params[:email].strip, :coupon_type => 'half')
+        Coupon.create(:code => code, :amount => 65, :season => calculate_season, :email => params[:email].strip, :coupon_type => 'half')
 
         begin
           KongreMailer.send_coupon_mail(params[:email].strip, code).deliver!

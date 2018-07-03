@@ -1,7 +1,11 @@
 class PaymentManager
-  def self.token; ENV['PAYMENT_TOKEN'] end
+  #def self.token; ENV['PAYMENT_TOKEN'] end
+  def self.token; 'mEuMUnGeqGSAYzuMBUw3SQ'; end
 
-  def self.host; ENV['PAYMENT_HOST'] end
+
+  #def self.host; ENV['PAYMENT_HOST'] end
+  def self.host; 'localhost:3000'; end
+
 
   def self.payment_connector
     payment_connector = HaliciPaymentConnector.new
