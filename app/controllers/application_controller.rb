@@ -179,7 +179,7 @@ class ApplicationController < ActionController::Base
       ReceiptProduct.create(
           receipt: receipt,
           product: Attendance.last.product,
-          price: applicant.applicant_category == ApplicantCategory.instructor_student ? 10000 - coupon_discount * 100 : 12000 - coupon_discount * 100
+          price: applicant.applicant_category == ApplicantCategory.instructor_student ? 10000 - coupon_discount * 100 : 13000 - coupon_discount * 100
       )
 
       if params[:workshops]
