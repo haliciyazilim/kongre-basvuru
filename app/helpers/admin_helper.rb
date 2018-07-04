@@ -9,6 +9,8 @@ module AdminHelper
       'Eğitimci / Araştırmacı'
     elsif text == 'psychologist'
       'Psikolog / Psikiyatrist'
+    elsif text == 'none'
+      'Yok'
     else
       text
     end
