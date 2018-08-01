@@ -172,12 +172,6 @@ kongreApp.controller('registerFormController', ['$scope', '$http', '$document', 
                     || (finish_at >= selected_start_at && finish_at <= selected_finish_at)){
                         className = 'danger';
                     }
-                    //if (selected_start_at < start_at && start_at < selected_finish_at
-                    //    || selected_start_at < finish_at && finish_at < selected_finish_at
-                    //    || start_at < selected_start_at && selected_start_at < finish_at
-                    //    || start_at < selected_finish_at && selected_finish_at < finish_at) {
-                    //    className = 'danger';
-                    //}
                 }
             }
             if (workshop.product.stock < 1) {
