@@ -13,7 +13,7 @@ kongreApp.controller('registerFormController', ['$scope', '$http', '$document', 
         onAction: 1
     };
 
-    $scope.ticketsOver = false;
+    $scope.ticketsOver = true;
 
     $scope.currentYear = new Date().getFullYear();
     $scope.personalInfoState = $scope.actionState.onIdle;
