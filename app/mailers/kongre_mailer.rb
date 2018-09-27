@@ -10,12 +10,12 @@ class KongreMailer < ActionMailer::Base
     mail(to: address, subject: 'Deneme Maili')
   end
 
-  def attendance_info_mail(applicant)
-    @name = "#{applicant.name} #{applicant.surname}"
-    @card_number = applicant.card_number.id
-    @workshops = applicant.paid_workshops.map { |w| w.product.name }
+  def attendance_info_mail(email, card_number, workshops)
 
-    mail(to: applicant.email, subject: 'V. ZEKA ve YETENEK KONGRESİ #kafakafaya')
+    @card_number = card_number
+    @workshops = workshops
+
+    mail(to: email, subject: 'VI. ZEKA ve YETENEK KONGRESİ #BenBilmemBeyinBilir')
   end
 
   def attendance_info_mail_ncn(email)
