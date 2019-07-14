@@ -249,6 +249,15 @@
               </div>
               <div class="checkbox">
                 <label>
+                  <input type="checkbox"
+                         ng-change="setAttendance('attendance2018',attendances.attendance2018)"
+                         ng-model="attendances.attendance2018">
+                  <strong>2018</strong>
+                  Kongresine katıldım
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
                   <input name="attendances" type="checkbox"
                          ng-change="setAttendance('attendanceFirst',attendances.attendanceFirst)"
                          ng-model="attendances.attendanceFirst">
