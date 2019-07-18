@@ -15,7 +15,7 @@ class KongreMailer < ActionMailer::Base
     @card_number = card_number
     @workshops = workshops
 
-    mail(to: email, subject: 'VI. ZEKA ve YETENEK KONGRESİ #BenBilmemBeyinBilir')
+    mail(to: email, subject: 'VII. ZEKA ve YETENEK KONGRESİ #BenBilmemBeyinBilir')
   end
 
   def attendance_info_mail_ncn(email)
