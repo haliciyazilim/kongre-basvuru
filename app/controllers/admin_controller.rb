@@ -40,7 +40,7 @@ class AdminController < ApplicationController
   end
 
   def stocks
-    @products = Product.where(:season => calculate_season)
+    @products = Product.where(:season => calculate_season).order(stock: :desc)
   end
 
   def coupon
