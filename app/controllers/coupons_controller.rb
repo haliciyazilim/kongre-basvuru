@@ -64,7 +64,7 @@ class CouponsController < ApplicationController
   def check
     begin
       raise NoCouponException unless params[:code]
-      @coupon = Coupon.find_by_code params[:code]
+      @coupon = Coupon.find_by(code: params[:code], season: calculate_season) 
       raise NoCouponException if @coupon.nil?
       render :show
     rescue NoCouponException
