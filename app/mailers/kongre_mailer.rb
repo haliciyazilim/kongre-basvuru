@@ -34,8 +34,8 @@ class KongreMailer < ActionMailer::Base
 
   def daily_info_mail(email)
     @receipts = Receipt.where(:is_paid => true).where("created_at > ? and created_at < ?", Date.today.beginning_of_day, Date.today.end_of_day)
-    start_of_this_season = Date.new(2018,7,3)
-    start_of_previous_season = Date.new(2017,8,16)
+    start_of_this_season = Date.new(2019,7,17)
+    start_of_previous_season = Date.new(2018,7,3)
     @diff = (Date.today - start_of_this_season).to_i
     @receipts_this_year_sum = Receipt.where(:is_paid => true).where("created_at > ? and created_at < ?", start_of_this_season.beginning_of_day, Date.today.end_of_day).count
     @receipts_previous_year_today = Receipt.where(:is_paid => true).where("created_at > ? and created_at < ?", (start_of_previous_season + @diff.days).beginning_of_day, (start_of_previous_season + @diff.days).end_of_day).count

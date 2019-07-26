@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-
   get '/' => 'application#show'
 
   post 'register' => 'application#register'
