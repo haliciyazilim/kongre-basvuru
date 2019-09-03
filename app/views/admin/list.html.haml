@@ -4,12 +4,9 @@
   %p
     %a{href:"/admin/get_presentations_as_word"}
       Konuşmacı Başvurularını indir
-%p
-  %a.btn.btn-link{href:"/admin/applicants/download/"}
-    Katılımcıları indir
-
-
-
+= form_tag receiptsxlsx_path, :method => :get do
+  = submit_tag "Katılımcıları indir"
+  
 %h2
   Kongre Basvuruları
 %table.table

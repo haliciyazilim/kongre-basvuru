@@ -33,6 +33,25 @@ class AdminController < ApplicationController
     @receipts = @receipts.to_ary.group_by { |r| "#{r.created_at.day}.#{r.created_at.month}.#{r.created_at.year}" }
   end
 
+  def receipts_xlsx
+    require 'spreadsheet'
+    @receipts = Receipt.includes(:applicant).where(is_paid: true).where(:applicants => {:season => calculate_season}).where("price is not null").order(id: :desc)
+    Spreadsheet.client_encoding = 'UTF-8'
+    book = Spreadsheet::Workbook.new
+    sheet1 = book.create_worksheet
+    row = ['İsim', 'e-Posta', 'Telefon', 'Ürünler', 'Ücret']
+    sheet1.insert_row(0, row)
+    
+    @receipts.each_with_index do |t, index|
+      row = ["#{t.applicant.name} #{t.applicant.surname}", t.applicant.email, t.applicant.phone, t.receipt_products.map{|p| p.product.name}.join(','), t.price / 100]  
+      sheet1.insert_row(index + 1, row)
+    end 
+
+    spreadsheet = StringIO.new
+    book.write spreadsheet
+    send_data spreadsheet.string, :filename => "Kongre Katılımcılar.xls", :type => "application/vnd.ms-excel"
+  end
+
   def applicant
     @applicant = Applicant.find(params[:id])
     @workshops = @applicant.paid_workshops

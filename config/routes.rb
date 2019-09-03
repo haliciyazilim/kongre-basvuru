@@ -25,6 +25,7 @@ Rails.application.routes.draw do
 
   get 'admin/receipts'
   get 'admin/receipts/:is_paid' => 'admin#receipts'
+  get 'receiptsxlsx' => 'admin#receipts_xlsx'
 
   get 'admin/stocks'
 

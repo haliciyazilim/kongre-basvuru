@@ -323,6 +323,11 @@ kongreApp.controller("registerFormController", [
       $scope.checkWorkshops();
     };
 
+    $scope.downloadParticipants = function() {
+      $log.info("****** Download -***** ");
+      $http.get("/admin/receiptsxlsx", {})
+    }
+
     $scope.refreshTotalAmount = function() {
       $scope.totalAmount =
         $scope.form.applicant.applicant_category == "instructor_student"

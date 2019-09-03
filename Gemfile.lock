@@ -160,6 +160,7 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
+    ruby-ole (1.2.12.1)
     ruby_parser (3.10.1)
       sexp_processor (~> 4.9)
     rubyzip (1.2.1)
@@ -181,6 +182,8 @@ GEM
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
     sexp_processor (4.10.0)
+    spreadsheet (1.1.4)
+      ruby-ole (>= 1.0)
     spring (2.0.2)
       activesupport (>= 4.2)
     sprockets (3.7.1)
@@ -231,6 +234,7 @@ DEPENDENCIES
   sablon
   sass-rails
   sdoc (~> 0.4.0)
+  spreadsheet
   spring
   turbolinks
   tzinfo-data
