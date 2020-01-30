@@ -12,12 +12,12 @@ class ApplicationController < ActionController::Base
   end
 
   def show
-    @workshops_24 = Workshop.at_day('2019-10-4').order(start_at: :asc)
-    @workshops_25 = Workshop.at_day('2019-10-5').order(start_at: :asc)
+    @workshops_24 = Workshop.at_day('2018-9-30').order(start_at: :asc)
+    @workshops_25 = Workshop.at_day('2018-9-30').order(start_at: :asc)
   end
 
   def register
-    if Product.where(season: calculate_season, product_type: 'attendance').take.stock === 0
+    if Product.where(season: calculate_season, product_type: 'attendance').take.stock == 0
       raise 'error'
     end
     if params[:applicant_id]
@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
       params[:applicant][:name]= params[:applicant][:name].titleize
       params[:applicant][:surname] = params[:applicant][:surname].titleize
       params[:applicant][:occupation] = params[:applicant][:occupation].titleize
-      params[:applicant][:organization] = params[:applicant][:organization].titleize
+      # params[:applicant][:organization] = params[:applicant][:organization].titleize
       params[:applicant][:address] = params[:applicant][:address].titleize
       params[:applicant][:email] = params[:applicant][:email].downcase.strip
       session[:applicant_type] = applicant.update(

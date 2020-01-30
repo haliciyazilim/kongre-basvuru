@@ -42,8 +42,10 @@ kongreApp.controller("registerFormController", [
     }
     $scope.selectedWorkshops = [];
     $scope.form = {
+      relation_to_high_intelligence_other: "",
       applicant: {
-        gender: null,
+        relation_to_high_intelligence: null,
+        previous_attendances: null
       },
       presentation: {},
       couponCode: ""
@@ -58,13 +60,14 @@ kongreApp.controller("registerFormController", [
      tckn:'17515095902',
      birthday:'24.04.1989',
      phone:'+905324648399',
-     gender : "erkek",
-     haberdar_olunan_yer : "sosyal medya",
-     // organization:'Halici',
+     organization:'Halici',
      occupation:'Computer Engineer',
      address:'75.Sok 48/3 Bahcelievler Cankaya',
      city:'Ankara',
      //applicant_category:'instructor_student',
+     previous_attendances:0,
+     relation_to_high_intelligence:null,
+     previous_attendances:null
     };
 
     $scope.showApplicationTypeButtons = true;
@@ -89,8 +92,7 @@ kongreApp.controller("registerFormController", [
     };
 
     $scope.attendances = {
-      attendance2019: false,
-      attendance2018: false,
+      attendance2017: false,
       attendance2017: false,
       attendance2016: false,
       attendance2015: false,
@@ -109,7 +111,6 @@ kongreApp.controller("registerFormController", [
         $scope.attendances.attendance2016 = false;
         $scope.attendances.attendance2017 = false;
         $scope.attendances.attendance2018 = false;
-        $scope.attendances.attendance2019 = false;
       } else {
         $scope.attendances.attendanceFirst = false;
       }
@@ -183,8 +184,6 @@ kongreApp.controller("registerFormController", [
         if (workshop.product.stock < 1) {
           className = "danger";
         }
-        var className = "info";
-
         workshop.className = className;
       }
     };
@@ -329,14 +328,26 @@ kongreApp.controller("registerFormController", [
       $http.get("/admin/receiptsxlsx", {})
     }
 
-    $scope.refreshTotalAmount = function() {      
-      $scope.totalAmount = $scope.form.applicant.is_attending === true 
-        ? 18500
-        : 0
+    $scope.refreshTotalAmount = function() {
+      $scope.totalAmount =
+        $scope.form.applicant.applicant_category == "instructor_student"
+          ? 7500
+          : 19500;
+
+      if ($scope.form.applicant.applicant_category == "child")
+        $scope.totalAmount = 0;
 
       for (var i = 0; i < $scope.selectedWorkshops.length; i++) {
         var workshop = $scope.selectedWorkshops[i];
         $log.info("workShop: ", workshop);
+
+        if (
+          $scope.form.applicant.applicant_category == "child" &&
+          !workshop.for_children
+        ) {
+          continue;
+        }
+
         $scope.totalAmount += workshop.product.price;
       }
       $scope.totalAmount -= $scope.discount;
@@ -348,7 +359,7 @@ kongreApp.controller("registerFormController", [
     };
 
     $scope.$watch("form.applicant.applicant_category", function() {
-      // resetForm();
+      resetForm();
       $scope.refreshTotalAmount();
     });
 

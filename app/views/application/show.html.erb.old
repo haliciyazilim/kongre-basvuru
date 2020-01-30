@@ -109,6 +109,14 @@
           </div>
           <!-- COL 6-->
           <div class="col-xs-12 col-sm-6">
+            <div class="form-group" ng-class="{'has-error':personalInfoForm.organization.$dirty && personalInfoForm.organization.$invalid}">
+              <label for="company">Çalıştığı Kurum / Kuruluş</label>
+              <input name="organization" type="text" class="form-control" id="company" placeholder="Çalıştığı Kurum / Kuruluş"
+                     ng-model="form.applicant.organization" required>
+            </div>
+          </div>
+          <!-- COL 6-->
+          <div class="col-xs-12 col-sm-6">
             <div class="form-group" ng-class="{'has-error':personalInfoForm.occupation.$dirty && personalInfoForm.occupation.$invalid}">
               <label for="brans">Mesleğiniz / Branşınız</label>
               <input name="occupation" type="text" class="form-control" id="brans" placeholder="Mesleğiniz / Branşınız"
@@ -136,35 +144,46 @@
             </div>
           </div>
           <!-- COL 6-->
-          <div class="col-xs-12 col-sm-6">
-            <div class="form-group" ng-class="{'has-error':personalInfoForm.occupation.$dirty && personalInfoForm.occupation.$invalid}">
-              <label for="haberdar_olunan_yer">Nereden haberdar oldunuz?</label>
-              <input  type="text" class="form-control" placeholder="Sosyal medya, televizyon gibi"
-                     ng-model="form.applicant.haberdar_olunan_yer" required>
-            </div>
-          </div>
-          <!-- COL 6-->
         </div>
         <!-- ROW-->
 
         <div class="row">
           <!-- COL 6-->
           <div class="col-xs-12 col-sm-6">
-            <div class="form-group" ng-class="{'has-error':personalInfoForm.gender.$dirty && personalInfoForm.gender.$invalid}">
-              <label class="btn-block">Cinsiyetiniz</label>
+            <div class="form-group" ng-class="{'has-error':personalInfoForm.relation_to_high_intelligence.$dirty && personalInfoForm.relation_to_high_intelligence.$invalid}">
+              <label class="btn-block">Üstün zekalı ya da üstün yeteneklilerle olan bağınız varsa belirtiniz.</label>
+
               <div class="radio">
                 <label>
-                  <input name="gender" ng-model="form.applicant.gender" type="radio" name="relations" value="kadin" required>
-                  Kadın
+                  <input name="relation_to_high_intelligence" ng-model="form.applicant.relation_to_high_intelligence" type="radio" name="relations" value="high_intelligent" required>
+                  Üstün zekâlıyım / yetenekliyim
                 </label>
               </div>
               <div class="radio">
                 <label>
-                  <input name="gender" ng-model="form.applicant.gender" type="radio" name="relations" value="erkek" required>
-                  Erkek
+                  <input name="relation_to_high_intelligence" ng-model="form.applicant.relation_to_high_intelligence" type="radio" name="relations" value="high_intelligent_relative" required>
+                  Ailemde üstün zekâlı var
                 </label>
               </div>
-              <%# <div class="radio">
+              <div class="radio">
+                <label>
+                  <input name="relation_to_high_intelligence" ng-model="form.applicant.relation_to_high_intelligence" type="radio" name="relations" value="educator" required>
+                  Eğitimci / Araştırmacı
+                </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input name="relation_to_high_intelligence" ng-model="form.applicant.relation_to_high_intelligence" type="radio" name="relations" value="psychologist" required>
+                  Psikolog / Psikiyatrist
+                </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input name="relation_to_high_intelligence" ng-model="form.applicant.relation_to_high_intelligence" type="radio" name="relations" value="none" required>
+                  Yok
+                </label>
+              </div>
+              <div class="radio">
                 <label>
                   <input name="relation_to_high_intelligence" ng-model="form.applicant.relation_to_high_intelligence" type="radio" name="relations" value="other" required>
                   Diğer:
@@ -172,7 +191,7 @@
                          class="form-inline" placeholder="Diğer" type="text"
                          ng-focus="form.applicant.relation_to_high_intelligence = 'other'">
                 </label>
-              </div> %>
+              </div>
             </div>
           </div>
           <div class="col-xs-12 col-sm-6 ">
@@ -239,15 +258,6 @@
               </div>
               <div class="checkbox">
                 <label>
-                  <input type="checkbox"
-                         ng-change="setAttendance('attendance2019',attendances.attendance2019)"
-                         ng-model="attendances.attendance2019">
-                  <strong>2019</strong>
-                  Kongresine katıldım
-                </label>
-              </div>
-              <div class="checkbox">
-                <label>
                   <input name="attendances" type="checkbox"
                          ng-change="setAttendance('attendanceFirst',attendances.attendanceFirst)"
                          ng-model="attendances.attendanceFirst">
@@ -258,7 +268,42 @@
 
             </div>
           </div>
-          
+          <!-- COL 6-->
+          <div class="col-xs-12 col-sm-6 margin-top">
+            <div class="form-group" ng-class="{'has-error':personalInfoForm.applicant_category.$dirty && personalInfoForm.applicant_category.$invalid}">
+              <label class="btn-block text-danger">Lütfen Katılımcı Kategorisi Seçiniz</label>
+
+              <!--<div class="radio">-->
+                <!--<label>-->
+                  <!--<input name="applicant_category" ng-model="form.applicant.applicant_category" type="radio" value="instructor_student" required>-->
+                  <!--<strong>Öğretmen / Öğrenci </strong>-->
+                  <!--<span ng-show="applicant_type == attendee" class="label-default label">-->
+                    <!--100 TL-->
+                  <!--</span>-->
+                <!--</label>-->
+              <!--</div>-->
+
+              <div class="radio">
+                <label>
+                  <input name="applicant_category" ng-model="form.applicant.applicant_category" type="radio" value="civillian" required>
+                  <strong>Katılım </strong>
+                  <span ng-show="applicant_type == attendee" class="label-default label">
+                  195 TL
+                </span>
+                </label>
+              </div>
+              <!--<div class="radio">-->
+              <!--<label>-->
+              <!--<input name="applicant_category" ng-model="form.applicant.applicant_category" type="radio" value="child" required>-->
+              <!--<strong>Çocuk </strong>-->
+              <!--<span ng-show="applicant_type == attendee" class="label-default label">-->
+              <!--Çocuk katılımcılar sadece atölyelere kayıt yaptırabilirler-->
+              <!--</span>-->
+              <!--</label>-->
+              <!--</div>-->
+
+            </div>
+          </div>
         </div>
 
       </div>
@@ -289,29 +334,10 @@
         var workshops24 = <%= @workshops_24.to_json.html_safe %>
         var workshops25 = <%= @workshops_25.to_json.html_safe %>
     </script>
-    <!-- COL 6-->
-    
     <div ng-show="showWorkshops" id='workshopsPanel' class="panel panel-warning">
       <div class="panel-heading">
         <h3 class="panel-title">Katılmak İstediğiniz Atölyeleri Seçebilirsiniz</h3>
       </div>
-      <div class="col-xs-12 col-sm-6 margin-top">
-        <div class="form-group" ng-class="{'has-error':personalInfoForm.is_attending.$dirty && personalInfoForm.is_attending.$invalid}">
-          <label class="btn-block text-danger">Kongreye katılım durumunuz</label>
-          <div class="radio">
-          <label>
-            <input type="radio" name="relations" value="true"
-                    ng-model="form.applicant.is_attending">
-            <strong>Evet, katılacağım</strong>
-          </label>
-          <label>
-            <input type="radio" name="relations" value="false"
-                    ng-model="form.applicant.is_attending">
-            <strong>Hayır, katılmayacağım </strong>
-          </label>
-        </div>
-      </div>
-    </div>
       <div class="panel-body">
         <div class="row">
           <div class="col-xs-12">
@@ -348,7 +374,7 @@
                     <tbody>
 
                     <tr ng-repeat="workshop in workshops24" class="{{workshop.className}}"
-                        ng-show="workshop.product.stock > 0"> 
+                        ng-show="form.applicant.applicant_category=='child'?workshop.for_children:true && workshop.product.stock > 0">
                       <%= render partial: 'partials/workshop_row' %>
                     </tr>
                     </tbody>
@@ -441,14 +467,6 @@
                   </td>
                   <td class="text-right">
                     <div class="label label-default"> {{workshop.product.price/100}} TL</div>
-                  </td>
-                </tr>
-                <tr ng-show="form.applicant.is_attending">
-                  <td>
-                    Kongre Katılım
-                  </td>
-                  <td class="text-right">
-                    <div class="label label-default"> 185 TL</div>
                   </td>
                 </tr>
                 <tr class="danger" ng-show="discount!=0">
