@@ -330,9 +330,12 @@ kongreApp.controller("registerFormController", [
     }
 
     $scope.refreshTotalAmount = function() {      
-      $scope.totalAmount = $scope.form.applicant.is_attending === true 
+      $scope.totalAmount = $scope.form.applicant.is_attending == "true" 
         ? 18500
         : 0
+      
+      console.log("total amount: ", $scope.totalAmount);
+      
 
       for (var i = 0; i < $scope.selectedWorkshops.length; i++) {
         var workshop = $scope.selectedWorkshops[i];
@@ -348,6 +351,11 @@ kongreApp.controller("registerFormController", [
     };
 
     $scope.$watch("form.applicant.applicant_category", function() {
+      // resetForm();
+      $scope.refreshTotalAmount();
+    });
+
+    $scope.$watch("form.applicant.is_attending", function() {
       // resetForm();
       $scope.refreshTotalAmount();
     });
@@ -394,7 +402,8 @@ kongreApp.controller("registerFormController", [
           .post("/order", {
             workshops: workshops,
             applicant_id: $scope.applicant.id,
-            coupon_code: $scope.form.couponCode
+            coupon_code: $scope.form.couponCode,
+            is_attending: $scope.form.applicant.is_attending
           })
           .then(
             function(data) {
@@ -435,7 +444,8 @@ kongreApp.controller("registerFormController", [
           .post("/order", {
             workshops: workshops,
             applicant_id: $scope.applicant.id,
-            coupon_code: $scope.form.couponCode
+            coupon_code: $scope.form.couponCode,
+            is_attending: $scope.form.applicant.is_attending
           })
           .then(
             function(response) {

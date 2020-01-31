@@ -297,7 +297,7 @@
       </div>
       <div class="col-xs-12 col-sm-6 margin-top">
         <div class="form-group" ng-class="{'has-error':personalInfoForm.is_attending.$dirty && personalInfoForm.is_attending.$invalid}">
-          <label class="btn-block text-danger">Kongreye katılım durumunuz</label>
+          <label class="btn-block text-danger">Kongreye katılacak mısınız ?</label>
           <div class="radio">
           <label>
             <input type="radio" name="relations" value="true"
@@ -426,7 +426,7 @@
                 <!--<div class="label label-default"> 80 TL</div>-->
                 <!--</td>-->
                 <!--</tr>-->
-                <tr ng-show="form.applicant.applicant_category != 'child'">
+                <%# <tr ng-show="form.applicant.applicant_category != 'child'">
                   <td>Katılımcı</td>
                   <td class="text-right">
                     <div class="label label-default">
@@ -434,7 +434,7 @@
                       <span ng-show="form.applicant.applicant_category == 'civillian'">195 TL</span>
                     </div>
                   </td>
-                </tr>
+                </tr> %>
                 <tr ng-repeat="workshop in selectedWorkshops" ng-show="form.applicant.applicant_category=='child'?workshop.for_children:true">
                   <td>
                     {{workshop.product.name}}
@@ -443,7 +443,7 @@
                     <div class="label label-default"> {{workshop.product.price/100}} TL</div>
                   </td>
                 </tr>
-                <tr ng-show="form.applicant.is_attending">
+                <tr ng-show="form.applicant.is_attending=='true'">
                   <td>
                     Kongre Katılım
                   </td>

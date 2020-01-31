@@ -15,9 +15,11 @@ class PaymentManager
   end
 
   def self.checkout(params)
+    p params
     params[:token] = token
     params[:success_callback] = "#{params[:hostname]}/callback/success"
     params[:error_callback] = "#{params[:hostname]}/callback/error"
+    p params
     payment_connector.checkout(params)
   end
 

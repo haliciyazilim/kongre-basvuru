@@ -49,7 +49,9 @@ class ApplicationController < ActionController::Base
               :previous_attendances,
               :applicant_category,
               :applicant_type,
-              :season
+              :season,
+              :gender, 
+              :haberdar_olunan_yer
           ))
     end
 
@@ -158,7 +160,6 @@ class ApplicationController < ActionController::Base
   end
 
   def order
-
     applicant = Applicant.find(params[:applicant_id])
     if !applicant || applicant.season != calculate_season
       return
@@ -179,11 +180,15 @@ class ApplicationController < ActionController::Base
         coupon.update(:applicant => applicant)
       end
 
-      ReceiptProduct.create(
-          receipt: receipt,
-          product: Attendance.last.product,
-          price: applicant.applicant_category == ApplicantCategory.instructor_student ? 19500 - coupon_discount * 100 : 19500 - coupon_discount * 100
-      )
+      if params[:is_attending]
+        ReceiptProduct.create(
+            receipt: receipt,
+            product: Attendance.last.product,
+            price: applicant.applicant_category == ApplicantCategory.instructor_student 
+              ? Attendance.last.product.price - coupon_discount * 100 
+              : Attendance.last.product.price - coupon_discount * 100
+        )
+      end
 
       if params[:workshops]
         params[:workshops].each do |workshop_id|
