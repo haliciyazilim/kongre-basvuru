@@ -183,8 +183,7 @@ kongreApp.controller("registerFormController", [
         if (workshop.product.stock < 1) {
           className = "danger";
         }
-        var className = "info";
-
+        console.log(">>>>> ", workshop, className);
         workshop.className = className;
       }
     };
@@ -203,16 +202,16 @@ kongreApp.controller("registerFormController", [
 
     $scope.savePersonalInfo = function(form) {
       var applicantForm = angular.copy($scope.form.applicant);
-      if (applicantForm.relation_to_high_intelligence == "other") {
-        if (!$scope.form.relation_to_high_intelligence_other) {
-          $scope.showErrorNotification(
-            "Diğer seçeneğini seçtiniz, Lütfen açıklamasını giriniz."
-          );
-          return;
-        }
-        applicantForm.relation_to_high_intelligence =
-          $scope.form.relation_to_high_intelligence_other;
-      }
+      // if (applicantForm.relation_to_high_intelligence == "other") {
+      //   if (!$scope.form.relation_to_high_intelligence_other) {
+      //     $scope.showErrorNotification(
+      //       "Diğer seçeneğini seçtiniz, Lütfen açıklamasını giriniz."
+      //     );
+      //     return;
+      //   }
+      //   applicantForm.relation_to_high_intelligence =
+      //     $scope.form.relation_to_high_intelligence_other;
+      // }
       if ($scope.hasEmptyField(applicantForm)) {
         if ($scope.form.applicant.previous_attendances == null) {
           $scope.showErrorNotification("Lütfen formu eksiksiz doldurunuz.");

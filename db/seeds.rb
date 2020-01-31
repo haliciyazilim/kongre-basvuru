@@ -17,17 +17,17 @@
 #   start_at: '2018-9-30 10:00:00 +0300',
 #   finish_at: '2018-9-30 11:30:00 +0300'
 # )
-Workshop.create_product(
-  name:'Uzmanından Teknikler ve Tavsiyeler',
-  saloon: 'SALON G',
-  moderator: 'Aziz Ateş',
-  price: 12000,
-  stock:25,
-  max_stock:25,
-  season: 20182,
-  start_at: '2018-9-30 14:00:00 +0300',
-  finish_at: '2018-9-30 15:30:00 +0300'
-)
+# Workshop.create_product(
+#   name:'Uzmanından Teknikler ve Tavsiyeler',
+#   saloon: 'SALON G',
+#   moderator: 'Aziz Ateş',
+#   price: 12000,
+#   stock:25,
+#   max_stock:25,
+#   season: 20182,
+#   start_at: '2018-9-30 14:00:00 +0300',
+#   finish_at: '2018-9-30 15:30:00 +0300'
+# )
 # Workshop.create_product(
 #   name:'Çocuk Aile ve Medya: Algısal Geleceğimiz',
 #   saloon: 'SALON F',
@@ -50,17 +50,17 @@ Workshop.create_product(
 #   start_at: '2018-9-30 14:00:00 +0300',
 #   finish_at: '2018-9-30 15:30:00 +0300'
 # )
-Workshop.create_product(
-  name:'Çocuklarda Sayı Merakı ve Duyusunun Gelişimi',
-  saloon: 'SALON G',
-  moderator: 'Dr. Burak Karabey',
-  price: 12000,
-  stock:25,
-  max_stock:25,
-  season: 20182,
-  start_at: '2018-9-30 10:00:00 +0300',
-  finish_at: '2018-9-30 11:30:00 +0300'
-)
+# Workshop.create_product(
+#   name:'Çocuklarda Sayı Merakı ve Duyusunun Gelişimi',
+#   saloon: 'SALON G',
+#   moderator: 'Dr. Burak Karabey',
+#   price: 12000,
+#   stock:25,
+#   max_stock:25,
+#   season: 20182,
+#   start_at: '2018-9-30 10:00:00 +0300',
+#   finish_at: '2018-9-30 11:30:00 +0300'
+# )
 
 # Workshop.create_product(
 #   name:'Bilim ve Sanatın Renkleri',
@@ -73,17 +73,17 @@ Workshop.create_product(
 #   start_at: '2018-9-30 10:00:00 +0300',
 #   finish_at: '2018-9-30 11:30:00 +0300'
 # )
-Workshop.create_product(
-  name:'Bilim ve Sanatın Renkleri',
-  saloon: 'SALON G',
-  moderator: 'Prof. Dr. Kemal Yürümezoğlu & Turan Enginoğlu',
-  price: 12000,
-  stock:20,
-  max_stock:20,
-  season: 20182,
-  start_at: '2018-9-30 12:00:00 +0300',
-  finish_at: '2018-9-30 13:30:00 +0300'
-)
+# Workshop.create_product(
+#   name:'Bilim ve Sanatın Renkleri',
+#   saloon: 'SALON G',
+#   moderator: 'Prof. Dr. Kemal Yürümezoğlu & Turan Enginoğlu',
+#   price: 12000,
+#   stock:20,
+#   max_stock:20,
+#   season: 20182,
+#   start_at: '2018-9-30 12:00:00 +0300',
+#   finish_at: '2018-9-30 13:30:00 +0300'
+# )
 
 # Workshop.create_product(
 #   name:'Sürdürülebilir Yaşam Alanları için STEM Temelli Tasarımlar',
@@ -115,3 +115,59 @@ Workshop.create_product(
 #   max_stock:900,
 #   season: 20182
 # )
+
+Workshop.create_product(
+  name:'Atolye 1',
+  saloon: 'SALON X',
+  moderator: 'PERSON A',
+  price: 15000,
+  stock:20,
+  max_stock:20,
+  season: 20201,
+  start_at: '2020-4-01 12:00:00 +0300',
+  finish_at: '2020-4-01 13:30:00 +0300'
+)
+
+Workshop.create_product(
+  name:'Atolye 2',
+  saloon: 'SALON Y',
+  moderator: 'PERSON B',
+  price: 15000,
+  stock:20,
+  max_stock:20,
+  season: 20201,
+  start_at: '2020-4-01 12:00:00 +0300',
+  finish_at: '2020-4-01 13:30:00 +0300'
+)
+
+Workshop.create_product(
+  name:'Atolye 3',
+  saloon: 'SALON X2',
+  moderator: 'PERSON C',
+  price: 15000,
+  stock:20,
+  max_stock:20,
+  season: 20201,
+  start_at: '2020-4-01 12:00:00 +0300',
+  finish_at: '2020-4-01 13:30:00 +0300'
+)
+
+Workshop.create_product(
+  name:'Atolye 4',
+  saloon: 'SALON Y2',
+  moderator: 'PERSON D',
+  price: 15000,
+  stock:20,
+  max_stock:20,
+  season: 20201,
+  start_at: '2020-4-01 12:00:00 +0300',
+  finish_at: '2020-4-01 13:30:00 +0300'
+)
+
+Attendance.create_product(
+  price: 18500,
+  name:"VI. Zeka ve Yetenek Kongresi Katılım",
+  stock:900,
+  max_stock:900,
+  season: 20201
+)

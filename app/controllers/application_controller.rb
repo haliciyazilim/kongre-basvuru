@@ -184,9 +184,7 @@ class ApplicationController < ActionController::Base
         ReceiptProduct.create(
             receipt: receipt,
             product: Attendance.last.product,
-            price: applicant.applicant_category == ApplicantCategory.instructor_student 
-              ? Attendance.last.product.price - coupon_discount * 100 
-              : Attendance.last.product.price - coupon_discount * 100
+            price: applicant.applicant_category == ApplicantCategory.instructor_student ? Attendance.last.product.price - coupon_discount * 100 : Attendance.last.product.price - coupon_discount * 100
         )
       end
 
