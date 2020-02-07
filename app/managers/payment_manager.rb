@@ -1,10 +1,10 @@
 class PaymentManager
-  def self.token; ENV['PAYMENT_TOKEN'] end
-  # def self.token; 'mEuMUnGeqGSAYzuMBUw3SQ'; end
+  #def self.token; ENV['PAYMENT_TOKEN'] end
+  def self.token; 'Yii9ef8DNPPtkpwWBBUeKw'; end
 
 
-  def self.host; ENV['PAYMENT_HOST'] end
-  # def self.host; 'localhost:3000'; end
+  #def self.host; ENV['PAYMENT_HOST'] end
+  def self.host; 'http://halici-payment.herokuapp.com'; end
 
 
   def self.payment_connector
@@ -15,11 +15,9 @@ class PaymentManager
   end
 
   def self.checkout(params)
-    p params
     params[:token] = token
     params[:success_callback] = "#{params[:hostname]}/callback/success"
     params[:error_callback] = "#{params[:hostname]}/callback/error"
-    p params
     payment_connector.checkout(params)
   end
 

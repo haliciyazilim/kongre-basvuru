@@ -476,14 +476,19 @@
           <div class="col-xs-12">
             <button class="btn btn-success pull-right"
                     ng-click="order()"
-                    ng-hide="orderState==actionState.onAction || orderState==actionState.invalid">
+                    ng-disabled="orderState==actionState.onAction || orderState==actionState.invalid">
               <i class="fa fa-cog fa-spin" ng-show="orderState==actionState.onAction"></i> ÖDEME SAYFASINA GEÇ
             </button>
-            <button class="btn btn-success pull-right"
+            <%# <button class="btn btn-success pull-right"
+                    ng-click="order()"
+                    ng-hide="orderState==actionState.onAction || orderState==actionState.invalid">
+              <i class="fa fa-cog fa-spin" ng-show="orderState==actionState.onAction"></i> ÖDEME SAYFASINA GEÇ
+            </button> %>
+            <%# <button class="btn btn-success pull-right"
                     ng-click="freeOrder()"
                     ng-show="orderState==actionState.invalid">
               <i class="fa fa-cog fa-spin" ng-show="orderState==actionState.onAction"></i> BAŞVURUYU TAMAMLA
-            </button>
+            </button> %>
             <div class="col-xs-2 pull-left">
               <input class="form-control" id="coupon-text" type="text" placeholder="Kupon Kodu" ng-model="form.couponCode">
             </div>

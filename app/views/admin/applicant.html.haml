@@ -5,10 +5,7 @@
 .row
   .col-lg-6
     %table.table
-      %tr
-        %th Başvuran Tipi
-        %td
-          = applicant_type @applicant
+      
       %tr
         %th E-mail
         %td
@@ -25,10 +22,7 @@
         %th Telefon
         %td
           = @applicant.phone
-      %tr
-        %th Çalıştığı Kurum / Kuruluş
-        %td
-          = @applicant.organization
+
       %tr
         %th Meslek
         %td
@@ -42,20 +36,12 @@
         %td
           = @applicant.city
       %tr
-        %th Üstün zeka ile bağı
-        %td
-          = relation_to_high_intelligence @applicant
-      %tr
         %th Geçmiş Katılım
         %td
           = previous_attendances @applicant
+      
       %tr
-        %th Katılımcı Kategorisi
-        %td
-          = applicant_category @applicant
-
-      %tr
-        %th Atelyeler
+        %th Atölyeler
         %td
           - (@workshops).each do |w|
             %div #{w.product.name}

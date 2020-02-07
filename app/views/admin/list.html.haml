@@ -12,7 +12,6 @@
 %table.table
   %tr
     %th Id
-    %th Type
     %th İsim
     %th Meslek
     %th Adres
@@ -22,8 +21,6 @@
     %tr
       %td
         = applicant.id
-      %td
-        = applicant_type applicant
       %td
         = "#{applicant.name} #{applicant.surname}"
       %td
