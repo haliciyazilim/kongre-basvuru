@@ -45,6 +45,12 @@
         %td
           - (@workshops).each do |w|
             %div #{w.product.name}
+      %tr
+        %th Kongre
+        %td
+          - (@applicant.receipts.take.receipt_products).each do |p|
+            - if p.product.product_type == 'attendance'
+              = 'Katılıyor'
 - if @presentation
   .row
     .col-lg-8
@@ -62,5 +68,3 @@
           %th Çalışmanın Hedef Kitlesi
           %td
             = @presentation.audience
-
-
