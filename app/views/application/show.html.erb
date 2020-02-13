@@ -13,11 +13,11 @@
     <!--STEP 1 Start -->
     <div class="row">
       <div class="col-xs-12">
-        <h1 ng-show="applicant_type == null">KONGRE {{currentYear}} BAŞVURU FORMU</h1>
+        <h1 ng-show="applicant_type == null">Zeka ve Eğitim Zirvesi Başvuru Formu</h1>
 
-        <h1 ng-show="applicant_type == attendee">KONGRE {{currentYear}} KATILIMCI BAŞVURU FORMU</h1>
+        <h1 ng-show="applicant_type == attendee">Zeka ve Eğitim Zirvesi Katılımcı Başvuru Formu</h1>
 
-        <h1 ng-show="applicant_type == presenter">KONGRE {{currentYear}} SUNUM BAŞVURU FORMU</h1>
+        <h1 ng-show="applicant_type == presenter">Zeka ve Eğitim Zirvesi Sunum Başvuru Formu</h1>
       </div>
     </div>
     <div ng-if="showApplicationTypeButtons" class="row margin-bottom">
@@ -176,86 +176,25 @@
             </div>
           </div>
           <div class="col-xs-12 col-sm-6 ">
-            <div class="form-group" ng-class="{'has-error':form.applicant.previous_attendances==0}">
+            <div class="form-group" ng-class="{'has-error':form.applicant.previous_attendances==-1}">
 
               <label class="btn-block">
-                Önceki Zeka ve Yetenek Kongrelerine katıldınız mı?
+                Türkiye Zeka Vakfının Önceki Etkinliklerine Katıldınız mı?
               </label>
 
-              <div class="checkbox">
+              <div class="radio">
                 <label>
-                  <input type="checkbox"
-                         ng-change="setAttendance('attendance2013', attendances.attendance2013)"
-                         ng-model="attendances.attendance2013">
-                  <strong>2013</strong>
-                  Kongresine katıldım
+                  <input type="radio" name="relations" value="1"
+                          ng-model="form.applicant.previous_attendances">
+                  <strong>Evet, katıldım</strong>
+                </label>
+                <label>
+                  <input type="radio" name="relations" value="0"
+                          ng-model="form.applicant.previous_attendances">
+                  <strong>Hayır, katılmadım </strong>
                 </label>
               </div>
-
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox"
-                         ng-change="setAttendance('attendance2014',attendances.attendance2014)"
-                         ng-model="attendances.attendance2014">
-                  <strong>2014</strong>
-                  Kongresine katıldım
-                </label>
-              </div>
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox"
-                         ng-change="setAttendance('attendance2015',attendances.attendance2015)"
-                         ng-model="attendances.attendance2015">
-                  <strong>2015</strong>
-                  Kongresine katıldım
-                </label>
-              </div>
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox"
-                         ng-change="setAttendance('attendance2016',attendances.attendance2016)"
-                         ng-model="attendances.attendance2016">
-                  <strong>2016</strong>
-                  Kongresine katıldım
-                </label>
-              </div>
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox"
-                         ng-change="setAttendance('attendance2017',attendances.attendance2017)"
-                         ng-model="attendances.attendance2017">
-                  <strong>2017</strong>
-                  Kongresine katıldım
-                </label>
-              </div>
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox"
-                         ng-change="setAttendance('attendance2018',attendances.attendance2018)"
-                         ng-model="attendances.attendance2018">
-                  <strong>2018</strong>
-                  Kongresine katıldım
-                </label>
-              </div>
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox"
-                         ng-change="setAttendance('attendance2019',attendances.attendance2019)"
-                         ng-model="attendances.attendance2019">
-                  <strong>2019</strong>
-                  Kongresine katıldım
-                </label>
-              </div>
-              <div class="checkbox">
-                <label>
-                  <input name="attendances" type="checkbox"
-                         ng-change="setAttendance('attendanceFirst',attendances.attendanceFirst)"
-                         ng-model="attendances.attendanceFirst">
-                  <strong>İLK</strong>
-                  katılım
-                </label>
-              </div>
-
+              
             </div>
           </div>
           
@@ -327,8 +266,8 @@
             <div class="panel panel-info">
               <div class="panel-heading">
                 <h3 class="panel-title">
-                  <div class="badge">&nbsp;1. gün&nbsp;</div>
-                  &nbsp;&nbsp;4 EKİM 2019, Cuma
+                  <%# <div class="badge">&nbsp;1. gün&nbsp;</div> %>
+                  &nbsp;&nbsp;12 NİSAN 2020, Pazar
                 </h3>
               </div>
               <div class="panel-body">
@@ -356,7 +295,7 @@
                 </div>
               </div>
             </div> 
-            <div class="panel panel-info">
+            <div class="panel panel-info" ng-show="false">
               <div class="panel-heading">
                 <h3 class="panel-title">
                   <div class="badge">&nbsp;2. gün&nbsp;</div>

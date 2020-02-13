@@ -48,9 +48,10 @@
       %tr
         %th Kongre
         %td
-          - (@applicant.receipts.take.receipt_products).each do |p|
-            - if p.product.product_type == 'attendance'
-              = 'Katılıyor'
+          - if @applicant.receipts.take 
+            = (@applicant.receipts.take.receipt_products).each do |rp|
+              - if rp.product.product_type == 'attendance'
+                = 'Katılıyor'
 - if @presentation
   .row
     .col-lg-8

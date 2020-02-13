@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   end
 
   def show
-    @workshops_24 = Workshop.at_day('2018-9-30').order(start_at: :asc)
+    @workshops_24 = Workshop.at_day('2020-4-12').order(start_at: :asc)
     @workshops_25 = Workshop.at_day('2018-9-30').order(start_at: :asc)
   end
 

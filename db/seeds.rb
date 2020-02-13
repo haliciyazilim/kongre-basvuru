@@ -117,57 +117,57 @@
 # )
 
 Workshop.create_product(
-  name:'Atolye 1',
-  saloon: 'SALON X',
-  moderator: 'PERSON A',
+  name:'Erken Çocuklukta Müzik ve Hareketin Kullanımına Dair Alternatif Bir Yaklaşım: Orff-Schulwerk',
+  saloon: 'Seminer 1',
+  moderator: 'Işık Sabırlı Öztürk ',
   price: 15000,
   stock:20,
   max_stock:20,
   season: 20201,
-  start_at: '2020-4-01 12:00:00 +0300',
-  finish_at: '2020-4-01 13:30:00 +0300'
+  start_at: '2020-4-12 12:00:00 +0300',
+  finish_at: '2020-4-12 13:30:00 +0300'
 )
 
 Workshop.create_product(
-  name:'Atolye 2',
-  saloon: 'SALON Y',
-  moderator: 'PERSON B',
+  name:'Oyun, Drama ve Ti̇yatro İle Deneyi̇msel Öğrenme ve Çoklu Zekâ',
+  saloon: 'Parke Salon',
+  moderator: 'Dr. Öğretim Üyesi Bülent Sezgin',
   price: 15000,
   stock:20,
   max_stock:20,
   season: 20201,
-  start_at: '2020-4-01 12:00:00 +0300',
-  finish_at: '2020-4-01 13:30:00 +0300'
+  start_at: '2020-4-12 12:00:00 +0300',
+  finish_at: '2020-4-12 13:30:00 +0300'
 )
 
 Workshop.create_product(
-  name:'Atolye 3',
-  saloon: 'SALON X2',
-  moderator: 'PERSON C',
+  name:'Atölye 3',
+  saloon: 'Seminer 2',
+  moderator: 'Dr. Özge Özdemir',
   price: 15000,
   stock:20,
   max_stock:20,
   season: 20201,
-  start_at: '2020-4-01 12:00:00 +0300',
-  finish_at: '2020-4-01 13:30:00 +0300'
+  start_at: '2020-4-12 12:00:00 +0300',
+  finish_at: '2020-4-12 13:30:00 +0300'
 )
 
 Workshop.create_product(
-  name:'Atolye 4',
-  saloon: 'SALON Y2',
-  moderator: 'PERSON D',
+  name:'Uzmanından Teknikler ve Tavsiyeler',
+  saloon: 'Seminer 3',
+  moderator: 'Aziz Ateş',
   price: 15000,
   stock:20,
   max_stock:20,
   season: 20201,
-  start_at: '2020-4-01 12:00:00 +0300',
-  finish_at: '2020-4-01 13:30:00 +0300'
+  start_at: '2020-4-12 12:00:00 +0300',
+  finish_at: '2020-4-12 13:30:00 +0300'
 )
 
 Attendance.create_product(
   price: 18500,
-  name:"VI. Zeka ve Yetenek Kongresi Katılım",
-  stock:900,
-  max_stock:900,
+  name:"Zeka ve Eğitim Zirvesi Katılım",
+  stock:400,
+  max_stock:400,
   season: 20201
 )
