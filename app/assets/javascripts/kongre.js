@@ -51,21 +51,21 @@ kongreApp.controller("registerFormController", [
 
     $scope.discount = 0;
 
-    $scope.form.applicant = {
-     name:'Yunus Eren',
-     surname:'Guzel',
-     email:'yeguzel@halici.com.tr',
-     tckn:'17515095902',
-     birthday:'24.04.1989',
-     phone:'+905324648399',
-     gender : "erkek",
-     haberdar_olunan_yer : "sosyal medya",
-     // organization:'Halici',
-     occupation:'Computer Engineer',
-     address:'75.Sok 48/3 Bahcelievler Cankaya',
-     city:'Ankara',
-     //applicant_category:'instructor_student',
-    };
+    // $scope.form.applicant = {
+    //  name:'Yunus Eren',
+    //  surname:'Guzel',
+    //  email:'yeguzel@halici.com.tr',
+    //  tckn:'17515095902',
+    //  birthday:'24.04.1989',
+    //  phone:'+905324648399',
+    //  gender : "erkek",
+    //  haberdar_olunan_yer : "sosyal medya",
+    //  // organization:'Halici',
+    //  occupation:'Computer Engineer',
+    //  address:'75.Sok 48/3 Bahcelievler Cankaya',
+    //  city:'Ankara',
+    //  //applicant_category:'instructor_student',
+    // };
 
     $scope.showApplicationTypeButtons = true;
 
@@ -212,11 +212,11 @@ kongreApp.controller("registerFormController", [
       //   applicantForm.relation_to_high_intelligence =
       //     $scope.form.relation_to_high_intelligence_other;
       // }
+      if ($scope.form.applicant.previous_attendances == null) {
+        $scope.showErrorNotification("Lütfen formu eksiksiz doldurunuz.");
+        return;
+      }
       if ($scope.hasEmptyField(applicantForm)) {
-        if ($scope.form.applicant.previous_attendances == null) {
-          $scope.showErrorNotification("Lütfen formu eksiksiz doldurunuz.");
-          return;
-        }
         $scope.showErrorNotification("Lütfen formu eksiksiz doldurunuz.");
         return;
       }

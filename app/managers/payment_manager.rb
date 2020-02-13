@@ -1,10 +1,10 @@
 class PaymentManager
-  #def self.token; ENV['PAYMENT_TOKEN'] end
-  def self.token; 'Yii9ef8DNPPtkpwWBBUeKw'; end
+  def self.token; ENV['PAYMENT_TOKEN'] end
+  #def self.token; 'Yii9ef8DNPPtkpwWBBUeKw'; end
 
 
-  #def self.host; ENV['PAYMENT_HOST'] end
-  def self.host; 'http://halici-payment.herokuapp.com'; end
+  def self.host; ENV['PAYMENT_HOST'] end
+  #def self.host; 'http://halici-payment.herokuapp.com'; end
 
 
   def self.payment_connector
