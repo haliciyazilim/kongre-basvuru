@@ -216,6 +216,14 @@ kongreApp.controller("registerFormController", [
         $scope.showErrorNotification("Lütfen formu eksiksiz doldurunuz.");
         return;
       }
+      if ($scope.form.applicant.phone == null) {
+        $scope.showErrorNotification("Lütfen formu eksiksiz doldurunuz.");
+        return;
+      }
+      if ($scope.form.applicant.phone.length != 10) {
+        $scope.showErrorNotification("Lütfen formu eksiksiz doldurunuz.");
+        return;
+      }
       if ($scope.hasEmptyField(applicantForm)) {
         $scope.showErrorNotification("Lütfen formu eksiksiz doldurunuz.");
         return;
