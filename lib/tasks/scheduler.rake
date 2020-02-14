@@ -4,7 +4,7 @@ namespace :schedule do
   task :daily_info_mail => :environment do
     puts 'Started sending daily info mail'
     #admins = ['emre@halici.com.tr', 'ezgi@tzv.org.tr', 'emrehan@halici.com.tr', 'eren@halici.com.tr', 'utku@halici.com.tr']
-    admins = ['utku@halici.com.tr', 'utku@halici.com.tr']
+    admins = "emre@halici.com.tr, ezgi@tzv.org.tr, emrehan@halici.com.tr, eren@halici.com.tr, utku@halici.com.tr"
     begin
       KongreMailer.daily_info_mail(admins).deliver!
       # admins.each do |email|
