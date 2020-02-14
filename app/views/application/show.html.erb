@@ -103,8 +103,8 @@
           <div class="col-xs-12 col-sm-6">
             <div class="form-group" ng-class="{'has-error':personalInfoForm.phone.$dirty && personalInfoForm.phone.$invalid}">
               <label for="telephone">Telefon Numarası</label>
-              <input name="phone" type="text" class="form-control" id="telephone" placeholder="+90 5xx xxx xx xx"
-                     ng-model="form.applicant.phone" phone-number country-code="tr">
+              <input name="phone" type="text" class="form-control" id="telephone" placeholder="5xx xxx xx xx"
+                     ng-model="form.applicant.phone" phone-number country-code="tr" maxlength="14" required>
             </div>
           </div>
           <!-- COL 6-->
