@@ -23,6 +23,7 @@
       %th Applicant
       %th Price
       %th
+      %th Phone
       %th
     - receipt_group.each do |receipt|
       - daily_total += receipt.price
@@ -42,6 +43,8 @@
           - receipt.receipt_products.each do |rp|
             %p
               = rp.product.name
+        %td
+          = receipt.applicant.phone
         %td
           %a{href:"/admin/applicants/#{receipt.applicant.id}"}
             Detaylar
