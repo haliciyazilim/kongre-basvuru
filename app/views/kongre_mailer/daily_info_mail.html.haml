@@ -20,6 +20,16 @@
           = @receipts.count
       %tr
         %td
+          = "Bugün Alınan Kongre Katılım Sayısı"
+        %td
+          = @kongre_today_count
+      %tr
+        %td
+          = "Bugün Alınan Atölye Sayısı"
+        %td
+          = @atolye_today_count
+      %tr
+        %td
           = "2019 Katılımcı #{@diff}. Günü Katılımcı Sayısı"
         %td
           = @receipts_previous_year_today

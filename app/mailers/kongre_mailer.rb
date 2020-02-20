@@ -39,6 +39,16 @@ class KongreMailer < ActionMailer::Base
     start_of_this_season = Date.new(2020,2,13)
     start_of_previous_season = Date.new(2019,7,17)
     @diff = (Date.today - start_of_this_season).to_i
+    # 38 is the id of 2020 bou zirve kongre katılım id
+    # TODO: it should be change next year or refaktor now
+    @kongre_today_count = 0
+    @receipts.each do |receipt|
+      @kongre_today_count += receipt.receipt_products.where(:product_id=>38).count
+    end
+    @atolye_today_count = 0
+    @receipts.each do |receipt|
+      @atolye_today_count += receipt.receipt_products.where.not(:product_id=>38).count
+    end
     @receipts_this_year_sum = Receipt.where(:is_paid => true).where("created_at > ? and created_at < ?", start_of_this_season.beginning_of_day, Date.today.end_of_day).count
     @receipts_previous_year_today = Receipt.where(:is_paid => true).where("created_at > ? and created_at < ?", (start_of_previous_season + @diff.days).beginning_of_day, (start_of_previous_season + @diff.days).end_of_day).count
     @receipts_previous_year_sum = Receipt.where(:is_paid => true).where("created_at > ? and created_at < ?", start_of_previous_season.beginning_of_day, (start_of_previous_season + @diff.days).end_of_day).count
