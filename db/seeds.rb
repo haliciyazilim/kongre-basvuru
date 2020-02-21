@@ -116,58 +116,77 @@
 #   season: 20182
 # )
 
-Workshop.create_product(
-  name:'Erken Çocuklukta Müzik ve Hareketin Kullanımına Dair Alternatif Bir Yaklaşım: Orff-Schulwerk',
-  saloon: 'Seminer 1',
-  moderator: 'Işık Sabırlı Öztürk ',
-  price: 15000,
-  stock:20,
-  max_stock:20,
-  season: 20201,
-  start_at: '2020-4-12 12:00:00 +0300',
-  finish_at: '2020-4-12 13:30:00 +0300'
-)
+
+############### bou zirve start ################################
+
+# Workshop.create_product(
+#   name:'Erken Çocuklukta Müzik ve Hareketin Kullanımına Dair Alternatif Bir Yaklaşım: Orff-Schulwerk',
+#   saloon: 'Seminer 1',
+#   moderator: 'Işık Sabırlı Öztürk ',
+#   price: 15000,
+#   stock:20,
+#   max_stock:20,
+#   season: 20201,
+#   start_at: '2020-4-12 12:00:00 +0300',
+#   finish_at: '2020-4-12 13:30:00 +0300'
+# )
+
+# Workshop.create_product(
+#   name:'Oyun, Drama ve Ti̇yatro İle Deneyi̇msel Öğrenme ve Çoklu Zekâ',
+#   saloon: 'Parke Salon',
+#   moderator: 'Dr. Öğretim Üyesi Bülent Sezgin',
+#   price: 15000,
+#   stock:20,
+#   max_stock:20,
+#   season: 20201,
+#   start_at: '2020-4-12 12:00:00 +0300',
+#   finish_at: '2020-4-12 13:30:00 +0300'
+# )
+
+# Workshop.create_product(
+#   name:'Atölye 3',
+#   saloon: 'Seminer 2',
+#   moderator: 'Dr. Özge Özdemir',
+#   price: 15000,
+#   stock:20,
+#   max_stock:20,
+#   season: 20201,
+#   start_at: '2020-4-12 12:00:00 +0300',
+#   finish_at: '2020-4-12 13:30:00 +0300'
+# )
+
+# Workshop.create_product(
+#   name:'Uzmanından Teknikler ve Tavsiyeler',
+#   saloon: 'Seminer 3',
+#   moderator: 'Aziz Ateş',
+#   price: 15000,
+#   stock:20,
+#   max_stock:20,
+#   season: 20201,
+#   start_at: '2020-4-12 12:00:00 +0300',
+#   finish_at: '2020-4-12 13:30:00 +0300'
+# )
+
 
 Workshop.create_product(
-  name:'Oyun, Drama ve Ti̇yatro İle Deneyi̇msel Öğrenme ve Çoklu Zekâ',
-  saloon: 'Parke Salon',
-  moderator: 'Dr. Öğretim Üyesi Bülent Sezgin',
-  price: 15000,
-  stock:20,
-  max_stock:20,
-  season: 20201,
-  start_at: '2020-4-12 12:00:00 +0300',
-  finish_at: '2020-4-12 13:30:00 +0300'
-)
-
-Workshop.create_product(
-  name:'Atölye 3',
-  saloon: 'Seminer 2',
-  moderator: 'Dr. Özge Özdemir',
-  price: 15000,
-  stock:20,
-  max_stock:20,
-  season: 20201,
-  start_at: '2020-4-12 12:00:00 +0300',
-  finish_at: '2020-4-12 13:30:00 +0300'
-)
-
-Workshop.create_product(
-  name:'Uzmanından Teknikler ve Tavsiyeler',
+  name:'Yaratıcı Okuma Sürecinde Görsel Okuma Yöntem ve Teknikleri',
   saloon: 'Seminer 3',
-  moderator: 'Aziz Ateş',
+  moderator: 'Dr. Nilay Yılmaz',
   price: 15000,
-  stock:20,
-  max_stock:20,
+  stock:30,
+  max_stock:30,
   season: 20201,
-  start_at: '2020-4-12 12:00:00 +0300',
-  finish_at: '2020-4-12 13:30:00 +0300'
+  start_at: '2020-4-12 14:00:00 +0300',
+  finish_at: '2020-4-12 15:30:00 +0300'
 )
 
-Attendance.create_product(
-  price: 18500,
-  name:"Zeka ve Eğitim Zirvesi Katılım",
-  stock:400,
-  max_stock:400,
-  season: 20201
-)
+# Attendance.create_product(
+#   price: 18500,
+#   name:"Zeka ve Eğitim Zirvesi Katılım",
+#   stock:400,
+#   max_stock:400,
+#   season: 20201
+# )
+
+
+############### bou zirve end ################################
