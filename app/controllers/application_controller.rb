@@ -179,8 +179,7 @@ class ApplicationController < ActionController::Base
         coupon_discount = coupon.amount
         coupon.update(:applicant => applicant)
       end
-
-      if params[:is_attending]
+      if params[:is_attending] == 'true'
         ReceiptProduct.create(
             receipt: receipt,
             product: Attendance.last.product,
