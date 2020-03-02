@@ -44,7 +44,7 @@ gem 'tzinfo-data', platforms: [:x64_mingw,:mingw, :mswin]
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'bootstrap-sass', '~> 3.3.6'
+gem 'bootstrap-sass', '~> 3.4.1'
 
 gem 'autoprefixer-rails'
 
