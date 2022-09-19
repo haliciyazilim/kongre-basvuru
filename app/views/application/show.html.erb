@@ -1,5 +1,7 @@
 <section id="form" ng-controller="registerFormController">
-  <div ng-show="ticketsOver" class="container">
+  
+  
+  <%# <div ng-show="ticketsOver" class="container">
     <div class="row">
       <div class="col-xs-12">
         <p>
@@ -7,17 +9,17 @@
         </p>
       </div>
     </div>
-  </div>
+  </div> %>
 
-  <div ng-hide="ticketsOver" class="container">
+  <div  class="container">
     <!--STEP 1 Start -->
     <div class="row">
       <div class="col-xs-12">
-        <h1 ng-show="applicant_type == null">Zeka ve Eğitim Zirvesi Başvuru Formu</h1>
+        <h1 ng-show="applicant_type == null">VIII. Zeka ve Yetenek Kongresi Başvuru Formu</h1>
 
-        <h1 ng-show="applicant_type == attendee">Zeka ve Eğitim Zirvesi Katılımcı Başvuru Formu</h1>
+        <h1 ng-show="applicant_type == attendee">VIII. Zeka ve Yetenek Kongresi Katılımcı Başvuru Formu</h1>
 
-        <h1 ng-show="applicant_type == presenter">Zeka ve Eğitim Zirvesi Sunum Başvuru Formu</h1>
+        <h1 ng-show="applicant_type == presenter">VIII. Zeka ve Yetenek Kongresi Sunum Başvuru Formu</h1>
       </div>
     </div>
     <div ng-if="showApplicationTypeButtons" class="row margin-bottom">
@@ -31,14 +33,15 @@
     <!-- ROW -->
     <!--STEP 1 End -->
     <!--STEP 2 Start -->
-    <div ng-if="showAttendeeWarning" class="row">
+
+    <%# <div ng-if="showAttendeeWarning" class="row">
       <div class="col-xs-12">
         <p class="alert alert-info text-center">
           Kongre KATILIM başvuruları <strong>Temmuz ayının son haftası</strong> açılacaktır.<br/>
           İlginiz için teşekkür ederiz.<br/>
         </p>
       </div>
-    </div>
+    </div> %>
 
     <div ng-show="showPresenterSuccessMessage" class="row">
       <div class="col-xs-12">
@@ -236,7 +239,7 @@
       </div>
       <div class="col-xs-12 col-sm-6 margin-top">
         <div class="form-group" ng-class="{'has-error':personalInfoForm.is_attending.$dirty && personalInfoForm.is_attending.$invalid}">
-          <label class="btn-block text-danger">Kongreye katılacak mısınız ?</label>
+          <label class="btn-block text-danger">Kongreye katılacak mısınız? (26 Kasım Cumartesi)</label>
           <div class="radio">
           <label>
             <input type="radio" name="relations" value="true"
@@ -267,7 +270,7 @@
               <div class="panel-heading">
                 <h3 class="panel-title">
                   <%# <div class="badge">&nbsp;1. gün&nbsp;</div> %>
-                  &nbsp;&nbsp;12 NİSAN 2020, Pazar
+                  &nbsp;&nbsp;25 KASIM 2022, Cuma
                 </h3>
               </div>
               <div class="panel-body">
@@ -295,11 +298,14 @@
                 </div>
               </div>
             </div> 
-            <div class="panel panel-info" ng-show="false">
+
+
+
+            <div class="panel panel-info" ng-hide="true">
               <div class="panel-heading">
                 <h3 class="panel-title">
                   <div class="badge">&nbsp;2. gün&nbsp;</div>
-                  &nbsp;&nbsp;5 EKİM 2019, Cumartesi
+                  &nbsp;&nbsp;26 KASIM 2022, Cumartesi
                 </h3>
               </div>
               <div class="panel-body">
@@ -318,7 +324,8 @@
                     </thead>
                     <tbody>
                     <tr ng-repeat="workshop in workshops25" class="{{workshop.className}}"
-                      ng-show="form.applicant.applicant_category=='child'?workshop.for_children:true && workshop.product.stock > 0">
+                      ng-show="form.applicant.applicant_category=='child'?workshop.for_children:true && workshop.product.stock > 0"
+                      >
                       <%= render partial: 'partials/workshop_row' %>
                     </tr>
                     </tbody>
@@ -387,7 +394,7 @@
                     Kongre Katılım
                   </td>
                   <td class="text-right">
-                    <div class="label label-default"> 185 TL</div>
+                    <div class="label label-default"> 295 TL</div>
                   </td>
                 </tr>
                 <tr class="danger" ng-show="discount!=0">

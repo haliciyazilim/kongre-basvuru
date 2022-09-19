@@ -1,28 +1,15 @@
-== README
+rake assets:precompile  bunu yapınca css kodları vs. aktif hale geldi.
+Sonra rails s -e production çalıştırdım.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+ActiveRecord::StatementInvalid (PG::InsufficientPrivilege: ERROR:  permission denied for table.... hatası için:
 
-Things you may want to cover:
+GRANT ALL PRIVILEGES ON DATABASE mydatabase TO myusername;
 
-* Ruby version
+GRANT ALL PRIVILEGES ON DATABASE d5s5nagef4egs8 TO rqdfxjvbxoikyq;
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO rqdfxjvbxoikyq;
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+"postgres://YourUserName:YourPassword@YourHostname:5432/YourDatabaseName";
+
+"postgres://postgres:localhost:5432/kongre_dev";

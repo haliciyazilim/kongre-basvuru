@@ -20,7 +20,7 @@ kongreApp.controller("registerFormController", [
       onAction: 1
     };
 
-    $scope.ticketsOver = true;
+    $scope.ticketsOver = false;
 
     $scope.currentYear = new Date().getFullYear();
     $scope.personalInfoState = $scope.actionState.onIdle;
@@ -240,7 +240,9 @@ kongreApp.controller("registerFormController", [
             $scope.showCheckout = true;
           }
         },
-        function(error) {}
+        function(error) {
+          console.log("error: ", error);
+        }
       );
 
       $timeout(function() {
@@ -335,7 +337,7 @@ kongreApp.controller("registerFormController", [
 
     $scope.refreshTotalAmount = function() {      
       $scope.totalAmount = $scope.form.applicant.is_attending == "true" 
-        ? 18500
+        ? 29500
         : 0
       
       console.log("total amount: ", $scope.totalAmount);
