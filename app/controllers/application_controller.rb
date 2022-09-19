@@ -212,7 +212,8 @@ class ApplicationController < ActionController::Base
             product_name: 'Kongre Katılım',
             price: receipt.price,
             addr: applicant.address,
-            hostname: request.protocol + request.host_with_port
+            hostname: request.protocol + request.host_with_port,
+            email: applicant.email
         )
         render json: {redirect_url: url}, status: :ok
       else
