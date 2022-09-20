@@ -202,7 +202,7 @@ kongreApp.controller("registerFormController", [
 
     $scope.savePersonalInfo = function (form) {
       $scope.form.applicant.is_attending = "true";
-      let applicantData = angular.copy($scope.form.applicant);
+      var applicantData = angular.copy($scope.form.applicant);
       var applicantForm = applicantData;
       // if (applicantForm.relation_to_high_intelligence == "other") {
       //   if (!$scope.form.relation_to_high_intelligence_other) {
