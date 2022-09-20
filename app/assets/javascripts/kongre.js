@@ -3,7 +3,7 @@ var kongreApp = angular.module("kongreApp", [
   "ui-notification",
   "ui.bootstrap",
   "cwill747.phonenumber",
-  "templates"
+  "templates",
 ]);
 kongreApp.controller("registerFormController", [
   "$scope",
@@ -13,11 +13,11 @@ kongreApp.controller("registerFormController", [
   "$log",
   "$modal",
   "Notification",
-  function($scope, $http, $document, $timeout, $log, $modal, Notification) {
+  function ($scope, $http, $document, $timeout, $log, $modal, Notification) {
     $scope.actionState = {
       invalid: -1,
       onIdle: 0,
-      onAction: 1
+      onAction: 1,
     };
 
     $scope.ticketsOver = false;
@@ -31,7 +31,7 @@ kongreApp.controller("registerFormController", [
     $scope.showWorkshops = false;
     $scope.showCheckout = false;
     $scope.applicant_type = null;
-    $scope.totalAmount = 0;
+    $scope.totalAmount = 29500;
     $scope.workshops24 = workshops24;
     for (var i = 0; i < $scope.workshops24.length; i++) {
       $scope.workshops24[i].class = "info";
@@ -46,7 +46,7 @@ kongreApp.controller("registerFormController", [
         gender: null,
       },
       presentation: {},
-      couponCode: ""
+      couponCode: "",
     };
 
     $scope.discount = 0;
@@ -69,14 +69,14 @@ kongreApp.controller("registerFormController", [
 
     $scope.showApplicationTypeButtons = true;
 
-    var scrollTo = function(id) {
+    var scrollTo = function (id) {
       var offset = 10;
       var duration = 750;
       var someElement = angular.element(document.getElementById(id));
       $document.scrollToElement(someElement, offset, duration);
     };
 
-    $scope.applyAs = function(applicant) {
+    $scope.applyAs = function (applicant) {
       $scope.applicant_type = applicant;
       if ($scope.applicant_type == $scope.presenter) {
         $scope.showPersonalInfoForm = true;
@@ -96,10 +96,10 @@ kongreApp.controller("registerFormController", [
       attendance2015: false,
       attendance2014: false,
       attendance2013: false,
-      attendanceFirst: false
+      attendanceFirst: false,
     };
 
-    $scope.setAttendance = function(attendance, add) {
+    $scope.setAttendance = function (attendance, add) {
       $scope.attendances[attendance] = add;
 
       if (attendance == "attendanceFirst") {
@@ -134,7 +134,7 @@ kongreApp.controller("registerFormController", [
       return parseInt(attendanceBinary, 2);
     }
 
-    $scope.toggleSelectedWorkshops = function(id) {
+    $scope.toggleSelectedWorkshops = function (id) {
       var workshop = $scope.getSelectedWorkshopWithId(id);
       var index = $scope.selectedWorkshops.indexOf(workshop);
       if (index < 0) {
@@ -147,7 +147,7 @@ kongreApp.controller("registerFormController", [
       $scope.$apply();
     };
 
-    $scope.getSelectedWorkshopWithId = function(id) {
+    $scope.getSelectedWorkshopWithId = function (id) {
       var workshops = $scope.workshops24.concat($scope.workshops25);
       for (var i = 0; i < workshops.length; i++) {
         if (workshops[i].id == id) {
@@ -155,7 +155,7 @@ kongreApp.controller("registerFormController", [
         }
       }
     };
-    $scope.checkWorkshops = function() {
+    $scope.checkWorkshops = function () {
       var workshops = $scope.workshops24.concat($scope.workshops25);
       for (var i = 0; i < workshops.length; i++) {
         var workshop = workshops[i];
@@ -189,7 +189,7 @@ kongreApp.controller("registerFormController", [
     };
     //$scope.checkWorkshops();
 
-    $scope.hasEmptyField = function(form) {
+    $scope.hasEmptyField = function (form) {
       for (var key in form) {
         var value = form[key];
         //console.log(key, value);
@@ -200,8 +200,10 @@ kongreApp.controller("registerFormController", [
       return false;
     };
 
-    $scope.savePersonalInfo = function(form) {
-      var applicantForm = angular.copy($scope.form.applicant);
+    $scope.savePersonalInfo = function (form) {
+      $scope.form.applicant.is_attending = "true";
+      let applicantData = angular.copy($scope.form.applicant);
+      var applicantForm = applicantData;
       // if (applicantForm.relation_to_high_intelligence == "other") {
       //   if (!$scope.form.relation_to_high_intelligence_other) {
       //     $scope.showErrorNotification(
@@ -212,9 +214,11 @@ kongreApp.controller("registerFormController", [
       //   applicantForm.relation_to_high_intelligence =
       //     $scope.form.relation_to_high_intelligence_other;
       // }
-      
+
       if ($scope.form.applicant.phone.length != 10) {
-        $scope.showErrorNotification("Lütfen telefon numaranızı başında 0 olmadan 10 hane olarak giriniz.");
+        $scope.showErrorNotification(
+          "Lütfen telefon numaranızı başında 0 olmadan 10 hane olarak giriniz."
+        );
         return;
       }
       if ($scope.form.applicant.previous_attendances == null) {
@@ -228,24 +232,36 @@ kongreApp.controller("registerFormController", [
 
       $scope.personalInfoState = $scope.actionState.onAction;
       $http.post("/register", { applicant: applicantForm }).then(
-        function(data) {
-          $scope.applicant = data.data;
-          $log.info("Register: ", $scope.applicant);
-          $scope.refreshTotalAmount();
+        function (data) {
+          
+          if (data.error_message) {
+            alert(data.error_message);
+          } else {
+            $scope.applicant = data.data;
+            $scope.applicant.is_attending = "true";
+            console.log("applicant: ", $scope.applicant);
+            $log.info("Register: ", $scope.applicant);
+            $scope.refreshTotalAmount();
 
-          if ($scope.applicant_type == $scope.presenter) {
-            $scope.showPresentationInfoForm = true;
-          } else if ($scope.applicant_type == $scope.attendee) {
-            $scope.showWorkshops = true;
-            $scope.showCheckout = true;
+            if ($scope.applicant_type == $scope.presenter) {
+              $scope.showPresentationInfoForm = true;
+            } else if ($scope.applicant_type == $scope.attendee) {
+              $scope.showWorkshops = true;
+              $scope.showCheckout = true;
+            }
           }
         },
-        function(error) {
+        function (error) {
           console.log("error: ", error);
+          $scope.showErrorNotification(
+            error.data.error.error_description,
+            3000
+          );
+          
         }
       );
 
-      $timeout(function() {
+      $timeout(function () {
         if ($scope.showPresentationInfoForm) {
           scrollTo("presentationInfoForm");
         }
@@ -284,7 +300,7 @@ kongreApp.controller("registerFormController", [
       // });
     };
 
-    $scope.submitPresentation = function() {
+    $scope.submitPresentation = function () {
       if ($scope.hasEmptyField($scope.form.presentation)) {
         $scope.showErrorNotification("Lütfen formu eksiksiz doldurunuz.");
         return;
@@ -293,20 +309,20 @@ kongreApp.controller("registerFormController", [
       $http
         .post("/register", {
           applicant_id: $scope.applicant.id,
-          presentation: $scope.form.presentation
+          presentation: $scope.form.presentation,
         })
         .then(
-          function(data) {
+          function (data) {
             $scope.applicant = data;
             $scope.showPresenterSuccessMessage = true;
             $scope.showPersonalInfoForm = false;
             $scope.showPresentationInfoForm = false;
           },
-          function(error) {}
+          function (error) {}
         );
     };
 
-    var resetForm = function() {
+    var resetForm = function () {
       //$scope.selectedWorkshops = [];
       //
       for (var i = 0; i < $scope.selectedWorkshops.length; i++) {
@@ -330,18 +346,16 @@ kongreApp.controller("registerFormController", [
       $scope.checkWorkshops();
     };
 
-    $scope.downloadParticipants = function() {
+    $scope.downloadParticipants = function () {
       $log.info("****** Download -***** ");
-      $http.get("/admin/receiptsxlsx", {})
-    }
+      $http.get("/admin/receiptsxlsx", {});
+    };
 
-    $scope.refreshTotalAmount = function() {      
-      $scope.totalAmount = $scope.form.applicant.is_attending == "true" 
-        ? 29500
-        : 0
-      
+    $scope.refreshTotalAmount = function () {
+      $scope.totalAmount =
+        $scope.form.applicant.is_attending == "true" ? 29500 : 0;
+
       console.log("total amount: ", $scope.totalAmount);
-      
 
       for (var i = 0; i < $scope.selectedWorkshops.length; i++) {
         var workshop = $scope.selectedWorkshops[i];
@@ -356,30 +370,30 @@ kongreApp.controller("registerFormController", [
           : $scope.actionState.onIdle;
     };
 
-    $scope.$watch("form.applicant.applicant_category", function() {
+    $scope.$watch("form.applicant.applicant_category", function () {
       // resetForm();
       $scope.refreshTotalAmount();
     });
 
-    $scope.$watch("form.applicant.is_attending", function() {
+    $scope.$watch("form.applicant.is_attending", function () {
       // resetForm();
       $scope.refreshTotalAmount();
     });
 
-    $scope.couponCheck = function(code) {
+    $scope.couponCheck = function (code) {
       $http
         .get("/coupon_check", {
           params: {
             code: $scope.form.couponCode,
-            email: $scope.form.applicant.email
-          }
+            email: $scope.form.applicant.email,
+          },
         })
         .then(
-          function(response) {
+          function (response) {
             $scope.discount = response.data.amount * 100;
             $scope.refreshTotalAmount();
           },
-          function(error) {
+          function (error) {
             $log.info("error on coupon check: ", error);
             $scope.showErrorNotification(
               error.data.error.error_description,
@@ -389,7 +403,7 @@ kongreApp.controller("registerFormController", [
         );
     };
 
-    $scope.order = function(isConfirmed) {
+    $scope.order = function (isConfirmed) {
       if (isConfirmed) {
         $scope.orderState = $scope.actionState.onAction;
         var workshops = [];
@@ -409,14 +423,14 @@ kongreApp.controller("registerFormController", [
             workshops: workshops,
             applicant_id: $scope.applicant.id,
             coupon_code: $scope.form.couponCode,
-            is_attending: $scope.form.applicant.is_attending
+            is_attending: $scope.form.applicant.is_attending,
           })
           .then(
-            function(data) {
+            function (data) {
               console.log(data);
               window.location = data.data.redirect_url;
             },
-            function(error) {
+            function (error) {
               $scope.orderState = $scope.actionState.onIdle;
               $scope.showErrorNotification();
             }
@@ -431,7 +445,7 @@ kongreApp.controller("registerFormController", [
       }
     };
 
-    $scope.freeOrder = function(isConfirmed) {
+    $scope.freeOrder = function (isConfirmed) {
       if (isConfirmed) {
         $scope.orderState = $scope.actionState.onAction;
         var workshops = [];
@@ -451,16 +465,16 @@ kongreApp.controller("registerFormController", [
             workshops: workshops,
             applicant_id: $scope.applicant.id,
             coupon_code: $scope.form.couponCode,
-            is_attending: $scope.form.applicant.is_attending
+            is_attending: $scope.form.applicant.is_attending,
           })
           .then(
-            function(response) {
+            function (response) {
               $scope.showSuccessNotification(response.data.text, 20000);
-              setTimeout(function() {
+              setTimeout(function () {
                 window.location = "/";
               }, 20000);
             },
-            function(error) {
+            function (error) {
               $scope.orderState = $scope.actionState.onIdle;
               $scope.showErrorNotification();
             }
@@ -473,7 +487,7 @@ kongreApp.controller("registerFormController", [
       }
     };
 
-    $scope.showSuccessNotification = function(text, duration) {
+    $scope.showSuccessNotification = function (text, duration) {
       if (text) {
         //text='İşleminiz başarıyla gerçekleştrildi.'
 
@@ -485,7 +499,7 @@ kongreApp.controller("registerFormController", [
       }
     };
 
-    $scope.showErrorNotification = function(text, duration) {
+    $scope.showErrorNotification = function (text, duration) {
       if (!text) {
         text = "Bilinmeyen bir hata oluştu; lütfen tekrar deneyiniz.";
       }
@@ -499,45 +513,45 @@ kongreApp.controller("registerFormController", [
       //$log.error(text);
     };
 
-    var showFreeOrderAlert = function(text) {
+    var showFreeOrderAlert = function (text) {
       var modalInstance = $modal.open({
         animation: true,
         templateUrl: "order_alert_modal.html",
         controller: "OrderAlertModalController",
         size: "md",
         resolve: {
-          text: function() {
+          text: function () {
             return text;
-          }
-        }
+          },
+        },
       });
 
       modalInstance.result.then(
-        function() {
+        function () {
           $scope.freeOrder(true);
         },
-        function() {}
+        function () {}
       );
     };
 
-    var showOrderAlert = function(text) {
+    var showOrderAlert = function (text) {
       var modalInstance = $modal.open({
         animation: true,
         templateUrl: "order_alert_modal.html",
         controller: "OrderAlertModalController",
         size: "md",
         resolve: {
-          text: function() {
+          text: function () {
             return text;
-          }
-        }
+          },
+        },
       });
 
       modalInstance.result.then(
-        function() {
+        function () {
           $scope.order(true);
         },
-        function() {}
+        function () {}
       );
     };
 
@@ -623,24 +637,23 @@ kongreApp.controller("registerFormController", [
       { value: "Kilis", name: "Kilis" },
       { value: "Osmaniye", name: "Osmaniye" },
       { value: "Düzce", name: "Düzce" },
-      { value: "Diğer", name: "Diğer" }
+      { value: "Diğer", name: "Diğer" },
     ];
     $scope.applyAs($scope.attendee);
-  }
+  },
 ]);
 
-kongreApp.controller("OrderAlertModalController", function(
-  $scope,
-  $modalInstance,
-  text
-) {
-  $scope.text = text;
+kongreApp.controller(
+  "OrderAlertModalController",
+  function ($scope, $modalInstance, text) {
+    $scope.text = text;
 
-  $scope.confirm = function() {
-    $modalInstance.close();
-  };
+    $scope.confirm = function () {
+      $modalInstance.close();
+    };
 
-  $scope.cancel = function() {
-    $modalInstance.dismiss("cancel");
-  };
-});
+    $scope.cancel = function () {
+      $modalInstance.dismiss("cancel");
+    };
+  }
+);

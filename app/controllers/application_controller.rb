@@ -17,8 +17,13 @@ class ApplicationController < ActionController::Base
   end
 
   def register
+    begin
     if Product.where(season: calculate_season, product_type: 'attendance').take.stock == 0
-      raise 'error'
+    puts "------------- KONTENJAN DOLU-------------"
+    # render :json => {error_message: "Kontenjan dolmuştur. İlginiz için teşekkür ederiz."}, status: :not_acceptable
+    # raise 'error', "Kontejan Dolu"
+    raise ExceededQuotaException
+    # show_error ErrorCodeExceededQuota
     end
     if params[:applicant_id]
       applicant = Applicant.find(params[:applicant_id])
@@ -68,6 +73,11 @@ class ApplicationController < ActionController::Base
     end
 
     render :json => applicant
+
+  rescue ExceededQuotaException
+    show_error ErrorCodeExceededQuota, "Kontenjan dolmuştur. İlginiz için teşekkür ederiz."
+  end
+
   end
 
   def check_payment
@@ -316,4 +326,7 @@ class NoCouponException < StandardError;
 end
 
 class UsedCouponException < StandardError;
+end
+
+class ExceededQuotaException < StandardError;
 end

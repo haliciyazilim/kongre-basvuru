@@ -233,27 +233,17 @@
     </script>
     <!-- COL 6-->
     
-    <div ng-show="showWorkshops" id='workshopsPanel' class="panel panel-warning">
+    <div 
+    ng-show="showWorkshops" 
+    id='workshopsPanel' class="panel panel-warning">
       <div class="panel-heading">
         <h3 class="panel-title">Katılmak İstediğiniz Atölyeleri Seçebilirsiniz</h3>
       </div>
-      <div class="col-xs-12 col-sm-6 margin-top">
-        <div class="form-group" ng-class="{'has-error':personalInfoForm.is_attending.$dirty && personalInfoForm.is_attending.$invalid}">
-          <label class="btn-block text-danger">Kongreye katılacak mısınız? (26 Kasım Cumartesi)</label>
-          <div class="radio">
-          <label>
-            <input type="radio" name="relations" value="true"
-                    ng-model="form.applicant.is_attending">
-            <strong>Evet, katılacağım</strong>
-          </label>
-          <label>
-            <input type="radio" name="relations" value="false"
-                    ng-model="form.applicant.is_attending">
-            <strong>Hayır, katılmayacağım </strong>
-          </label>
-        </div>
-      </div>
-    </div>
+
+
+
+
+
       <div class="panel-body">
         <div class="row">
           <div class="col-xs-12">
@@ -270,7 +260,7 @@
               <div class="panel-heading">
                 <h3 class="panel-title">
                   <%# <div class="badge">&nbsp;1. gün&nbsp;</div> %>
-                  &nbsp;&nbsp;25 KASIM 2022, Cuma
+                  &nbsp;&nbsp;ATÖLYELER (25 Kasım 2022 Cuma)
                 </h3>
               </div>
               <div class="panel-body">
@@ -335,6 +325,30 @@
             </div>
           </div>
         </div>
+
+
+
+  <div class="col-xs-12 col-sm-6 margin-top">
+        <div class="form-group" ng-class="{'has-error':personalInfoForm.is_attending.$dirty && personalInfoForm.is_attending.$invalid}">
+          <%# <label class="btn-block text-danger">Kongre Katılımı (26 Kasım Cumartesi)</label> %>
+          <div class="radio">
+          <label>
+            <input type="radio" name="relations" value="true"
+                    ng-model="form.applicant.is_attending">
+            <%# <strong>Evet, katılacağım</strong> %>
+            <label class="btn-block text-danger"><strong>Kongre Katılımı (26 Kasım Cumartesi)</strong></label>
+          </label>
+          <label ng-hide="true">
+            <input type="radio" name="relations" value="false"
+                    ng-model="form.applicant.is_attending">
+            <strong>Hayır, katılmayacağım </strong>
+          </label>
+        </div>
+      </div>
+    </div>
+
+
+
       </div>
       <!--<div class="panel-footer">-->
       <!--<div class="row">-->
@@ -343,6 +357,13 @@
       <!--</div>-->
       <!--</div>-->
       <!--</div>-->
+
+     
+
+
+
+
+
     </div>
 
     <!--ws End-->
