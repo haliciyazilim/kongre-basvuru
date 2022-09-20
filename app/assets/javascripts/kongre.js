@@ -233,7 +233,6 @@ kongreApp.controller("registerFormController", [
       $scope.personalInfoState = $scope.actionState.onAction;
       $http.post("/register", { applicant: applicantForm }).then(
         function (data) {
-          
           if (data.error_message) {
             alert(data.error_message);
           } else {
@@ -257,16 +256,14 @@ kongreApp.controller("registerFormController", [
             error.data.error.error_description,
             3000
           );
-          
         }
       );
 
       $timeout(function () {
         if ($scope.showPresentationInfoForm) {
           scrollTo("presentationInfoForm");
-        }
-        //scrollTo('workshopsPanel');
-        else scrollTo("checkoutPanel");
+        } else scrollTo("workshopsPanel");
+        // else scrollTo("checkoutPanel");
       }, 500);
 
       $scope.personalInfoState = $scope.actionState.onIdle;
