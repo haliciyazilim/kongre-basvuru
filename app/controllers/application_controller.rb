@@ -12,8 +12,8 @@ class ApplicationController < ActionController::Base
   end
 
   def show
-    @workshops_24 = Workshop.at_day('2022-11-25').order(start_at: :asc)
-    @workshops_25 = Workshop.at_day('2018-9-30').order(start_at: :asc)
+    @workshops_25 = Workshop.at_day('2022-11-25').order(start_at: :asc)
+    @workshops_26 = Workshop.at_day('2022-11-26').order(start_at: :asc)
   end
 
   def register

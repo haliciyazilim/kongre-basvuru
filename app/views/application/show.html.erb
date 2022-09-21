@@ -228,24 +228,37 @@
     <!--ws Start-->
 
     <script>
-        var workshops24 = <%= @workshops_24.to_json.html_safe %>
         var workshops25 = <%= @workshops_25.to_json.html_safe %>
+        var workshops26 = <%= @workshops_26.to_json.html_safe %>
     </script>
     <!-- COL 6-->
     
-    <div 
-    ng-show="showWorkshops" 
-    id='workshopsPanel' class="panel panel-warning">
-      <div class="panel-heading">
-        <h3 class="panel-title">Katılmak İstediğiniz Atölyeleri Seçebilirsiniz</h3>
-      </div>
-
-
-
-
 
       <div class="panel-body">
         <div class="row">
+          <div class="col-xs-12">
+            <p class="alert alert-success">
+              Kongre katılım bedeli <strong>295TL</strong>'dir.  Konuşma ve paneller 26 Kasım Cumartesi günü gerçekleştirilecektir. 25 Kasım Cuma günü yapılacak olan atölyelere katılmak isterseniz aşağıdaki listeden seçim yaparak ilerleyebilirsiniz.
+            </p>
+          </div>
+        </div>
+
+
+    <div 
+    ng-show="showWorkshops" 
+    id='workshopsPanel' class="panel panel-warning">
+      <%# <div class="panel-heading">
+        <h3 class="panel-title">Katılmak İstediğiniz Atölyeleri Seçebilirsiniz</h3>
+      </div> %>
+
+
+
+
+
+    
+
+
+<div class="row">
           <div class="col-xs-12">
             <p class="alert alert-warning">
               Saatler arası çakışmayı önlemek amacıyla; seçtiğiniz atölyeye göre sistem
@@ -253,6 +266,7 @@
             </p>
           </div>
         </div>
+
         <!-- ROW -->
         <div class="row">
           <div class="col-xs-12">
@@ -260,7 +274,7 @@
               <div class="panel-heading">
                 <h3 class="panel-title">
                   <%# <div class="badge">&nbsp;1. gün&nbsp;</div> %>
-                  &nbsp;&nbsp;ATÖLYELER (25 Kasım 2022 Cuma)
+                  &nbsp;&nbsp;ATÖLYELER (25 Kasım 2022 Cuma - İsteğe Bağlı)
                 </h3>
               </div>
               <div class="panel-body">
@@ -279,7 +293,7 @@
                     </thead>
                     <tbody>
 
-                    <tr ng-repeat="workshop in workshops24" class="{{workshop.className}}"
+                    <tr ng-repeat="workshop in workshops25" class="{{workshop.className}}"
                         ng-show="workshop.product.stock > 0"> 
                       <%= render partial: 'partials/workshop_row' %>
                     </tr>
@@ -291,11 +305,11 @@
 
 
 
-            <div class="panel panel-info" ng-hide="true">
+            <div class="panel panel-info">
               <div class="panel-heading">
                 <h3 class="panel-title">
-                  <div class="badge">&nbsp;2. gün&nbsp;</div>
-                  &nbsp;&nbsp;26 KASIM 2022, Cumartesi
+                  <%# <div class="badge">&nbsp;2. gün&nbsp;</div> %>
+                  &nbsp;&nbsp;İKRAM (26 KASIM 2022 Cumartesi - İsteğe Bağlı)
                 </h3>
               </div>
               <div class="panel-body">
@@ -304,16 +318,16 @@
                     <thead>
                     <tr>
                       <th>#</th>
-                      <th width="120">Saat Bilgisi</th>
-                      <th width="80">Salon</th>
-                      <th>Adı</th>
-                      <th width="150">Moderatör</th>
+                      <th width="120">Saat</th>
+                      <th width="1"></th>
+                      <th>Çeşit</th>
+                      <th width="150"></th>
                       <th width="60">Kalan Başvuru</th>
                       <th width="60">Ücreti</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="workshop in workshops25" class="{{workshop.className}}"
+                    <tr ng-repeat="workshop in workshops26" class="{{workshop.className}}"
                       ng-show="form.applicant.applicant_category=='child'?workshop.for_children:true && workshop.product.stock > 0"
                       >
                       <%= render partial: 'partials/workshop_row' %>
@@ -328,7 +342,7 @@
 
 
 
-  <div class="col-xs-12 col-sm-6 margin-top">
+  <div class="col-xs-12 col-sm-6 margin-top" ng-hide="true">
         <div class="form-group" ng-class="{'has-error':personalInfoForm.is_attending.$dirty && personalInfoForm.is_attending.$invalid}">
           <%# <label class="btn-block text-danger">Kongre Katılımı (26 Kasım Cumartesi)</label> %>
           <div class="radio">

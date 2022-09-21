@@ -32,13 +32,13 @@ kongreApp.controller("registerFormController", [
     $scope.showCheckout = false;
     $scope.applicant_type = null;
     $scope.totalAmount = 29500;
-    $scope.workshops24 = workshops24;
-    for (var i = 0; i < $scope.workshops24.length; i++) {
-      $scope.workshops24[i].class = "info";
-    }
     $scope.workshops25 = workshops25;
     for (var i = 0; i < $scope.workshops25.length; i++) {
       $scope.workshops25[i].class = "info";
+    }
+    $scope.workshops26 = workshops26;
+    for (var i = 0; i < $scope.workshops26.length; i++) {
+      $scope.workshops26[i].class = "info";
     }
     $scope.selectedWorkshops = [];
     $scope.form = {
@@ -148,7 +148,7 @@ kongreApp.controller("registerFormController", [
     };
 
     $scope.getSelectedWorkshopWithId = function (id) {
-      var workshops = $scope.workshops24.concat($scope.workshops25);
+      var workshops = $scope.workshops25.concat($scope.workshops26);
       for (var i = 0; i < workshops.length; i++) {
         if (workshops[i].id == id) {
           return workshops[i];
@@ -156,7 +156,7 @@ kongreApp.controller("registerFormController", [
       }
     };
     $scope.checkWorkshops = function () {
-      var workshops = $scope.workshops24.concat($scope.workshops25);
+      var workshops = $scope.workshops25.concat($scope.workshops26);
       for (var i = 0; i < workshops.length; i++) {
         var workshop = workshops[i];
         var start_at = new Date(workshop.start_at);
@@ -327,11 +327,11 @@ kongreApp.controller("registerFormController", [
       }
       $scope.selectedWorkshops = [];
 
-      for (var i = 0; i < $scope.workshops24.length; i++)
-        $scope.workshops24[i].is_selected = false;
-
       for (var i = 0; i < $scope.workshops25.length; i++)
         $scope.workshops25[i].is_selected = false;
+
+      for (var i = 0; i < $scope.workshops26.length; i++)
+        $scope.workshops26[i].is_selected = false;
       //$scope.selectedWorkshops[i].is_selected=false;
 
       if ($scope.applicant_type == $scope.presenter) {
