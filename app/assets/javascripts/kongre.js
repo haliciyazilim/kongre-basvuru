@@ -262,7 +262,7 @@ kongreApp.controller("registerFormController", [
       $timeout(function () {
         if ($scope.showPresentationInfoForm) {
           scrollTo("presentationInfoForm");
-        } else scrollTo("workshopsPanel");
+        } else scrollTo("workshopsExplanation");
         // else scrollTo("checkoutPanel");
       }, 500);
 
