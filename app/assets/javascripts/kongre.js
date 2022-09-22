@@ -350,7 +350,7 @@ kongreApp.controller("registerFormController", [
 
     $scope.refreshTotalAmount = function () {
       $scope.totalAmount =
-        $scope.form.applicant.is_attending == "true" ? 29500 : 0;
+        $scope.form.applicant.is_attending == "true" ? 1000 : 0;//TODO TEST
 
       console.log("total amount: ", $scope.totalAmount);
 
