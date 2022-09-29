@@ -35,11 +35,11 @@ class KongreMailer < ActionMailer::Base
   end
 
   def daily_info_mail(email)
-    @receipts = Receipt.where(:is_paid => true).where("created_at > ? and created_at < ?", Date.today.beginning_of_day, Date.today.end_of_day)
-    start_of_this_season = Date.new(2022,9,13)
-    start_of_previous_season = Date.new(2020,2,13)
+    @receipts = Receipt.where(:is_paid => true).where("created_at > ? and created_at < ?", (Date.today.beginning_of_day - 7.hours), Date.today.end_of_day)
+    start_of_this_season = Date.new(2022,9,22)
+    start_of_previous_season = Date.new(2019,7,17)
     @diff = (Date.today - start_of_this_season).to_i
-    # 38 is the id of 2020 bou zirve kongre katılım id
+    # 42 is the id of 2022 zirve kongre katılım id
     # TODO: it should be change next year or refaktor now
     @kongre_today_count = 0
     @receipts.each do |receipt|

@@ -1,15 +1,2 @@
 rake assets:precompile  bunu yapınca css kodları vs. aktif hale geldi.
 Sonra rails s -e production çalıştırdım.
-
-ActiveRecord::StatementInvalid (PG::InsufficientPrivilege: ERROR:  permission denied for table.... hatası için:
-
-GRANT ALL PRIVILEGES ON DATABASE mydatabase TO myusername;
-
-GRANT ALL PRIVILEGES ON DATABASE d5s5nagef4egs8 TO rqdfxjvbxoikyq;
-
-GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO rqdfxjvbxoikyq;
-
-
-"postgres://YourUserName:YourPassword@YourHostname:5432/YourDatabaseName";
-
-"postgres://postgres:localhost:5432/kongre_dev";
