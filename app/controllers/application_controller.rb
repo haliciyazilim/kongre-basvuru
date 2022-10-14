@@ -108,13 +108,15 @@ class ApplicationController < ActionController::Base
       raise NoCouponException unless params[:code]
       @coupon = Coupon.find_by_code params[:code]
       raise NoCouponException if @coupon.nil?
+      raise UsedCouponException unless @coupon.used_at.nil?
       raise NoCouponException unless @coupon.season == calculate_season
       raise NoCouponException unless @coupon.email == params[:email]
-      raise UsedCouponException unless @coupon.used_at.nil?
+      
       render 'coupons/show.json'
     rescue NoCouponException
-      show_error ErrorCodeNoCouponDefined, "Lütfen geçerli bir kupon koduna sahip olduğunuzdan emin olunuz."
+      show_error ErrorCodeNoCouponDefined, "Lütfen geçerli bir kupon koduna sahip olduğunuzdan emin olunuz. (in coupon_check)"
     rescue UsedCouponException
+      @coupon = nil
       show_error ErrorCodeUsedCouponException, "Bu kupon kodu kullanılmış, size ait ve siz kullanmadıysanız lütfen bizimle iletişime geçiniz."
     end
   end
@@ -182,7 +184,9 @@ class ApplicationController < ActionController::Base
         return
       end
       coupon_discount = 0
-      coupon = Coupon.find_by_code(params[:coupon_code])
+      # coupon = Coupon.find_by_code(params[:coupon_code])
+      coupon = Coupon.where("code = '" + params[:coupon_code] + "' and used_at is null" ).last
+      
 
       puts coupon
       unless coupon.nil?
