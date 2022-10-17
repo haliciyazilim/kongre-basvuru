@@ -19,10 +19,10 @@
 <td>
   {{workshop.moderator}}
 </td>
-<td class="text-center">
+<%# <td class="text-center">
   <strong ng-if="workshop.product.stock > 0">{{workshop.product.stock}}</strong>
   <strong style="color:red;" ng-if="workshop.product.stock < 1">Doldu!</strong>
-</td>
+</td> %>
 <th scope="row">
   <div class="label label-default">
     {{workshop.product.price/100}}
