@@ -39,6 +39,11 @@
         %th Geçmiş Katılım
         %td
           = previous_attendances @applicant
+
+      %tr
+        %th Nereden Duydu
+        %td
+          =  @applicant.haberdar_olunan_yer
       
       %tr
         %th Atölyeler
